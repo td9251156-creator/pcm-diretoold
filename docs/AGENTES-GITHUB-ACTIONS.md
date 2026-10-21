@@ -1,5 +1,9 @@
 # Desenvolvimento com o Plus e GitHub Actions
 
+> Atualização de 21/10/2026: autorizado o fluxo manual limitado de créditos até 30/10.
+> Veja [orçamento, limites e operação](CREDITOS-OUTUBRO.md). O executor antigo permanece pausado.
+
+
 ## Modo escolhido: Codex com login do ChatGPT Plus
 
 O mantenedor escolheu desenvolver nas tarefas do Codex vinculadas ao ChatGPT Plus,

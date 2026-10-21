@@ -94,3 +94,10 @@ O mantenedor escolheu desenvolver em tarefas do Codex com login do ChatGPT Plus 
 as chamadas de IA pela API do Actions. Não reative a API nem sua agenda sem novo pedido.
 O fluxo de API preservado no repositório gera PRs em rascunho e não integra ou publica sozinho.
 O Actions continua executando testes e publicação. Não prometa execução permanente com a cota do Plus.
+
+## Exceção autorizada em 21/10/2026: créditos com validade
+
+O mantenedor autorizou consultas manuais limitadas pelo novo `creditos-outubro.yml`, conforme
+`docs/CREDITOS-OUTUBRO.md`. Codex/Plus continua implementando e revisando. Não reativar o executor
+antigo nem acrescentar agenda. Respeitar data, reservas e limites; não apagar ou devolver reservas.
+Não executar texto gerado nem tratar o parecer como correção validada.
