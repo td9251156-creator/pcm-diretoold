@@ -14,6 +14,13 @@ Uma implementação por vez. Um item só termina com evidência e revisão indep
 | F-006 | Média | Definir janelas e paradas programadas, item 15 do diagnóstico. | Mantenedor aprova exemplos e limites; nenhuma tarefa de segurança pode ser adiada fora da regra definida. | Aguardando definição técnica. |
 | F-007 | Média | Preservar o foco de teclado ao ajustar a capacidade por especialidade na Revisão. O redesenho do quadro remove o campo focado após a primeira seta. | Setas consecutivas continuam ajustando o mesmo campo; Tab segue a ordem normal sem recuperar foco indevidamente; capacidade, carga e salvamento permanecem corretos; regressão coberta por teste. | Implementado e revisado; 150 testes e Chromium aprovados. |
 
+## Créditos com validade — 21/10/2026
+
+Implementar consultas manuais delimitadas, com reservas persistentes de até US$ 6 para melhorias
+e US$ 3 para revisão final, encerradas em 30/10. Próximo diagnóstico: backup e restauração;
+registrar apenas achados reproduzidos antes de abrir uma tarefa de correção.
+Veja [CREDITOS-OUTUBRO.md](CREDITOS-OUTUBRO.md). O executor antigo permanece pausado.
+
 ## F-007 — primeira tarefa da execução por agentes
 
 - **Evidência:** em 20/10/2026, no Chromium, abrir Revisão com o exemplo fictício e focar

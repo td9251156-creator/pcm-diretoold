@@ -1,0 +1,124 @@
+name: Créditos de outubro — consulta limitada
+
+on:
+  workflow_dispatch:
+    inputs:
+      diagnostico:
+        description: Validar pacote sem reservar orçamento nem chamar a API
+        type: boolean
+        default: true
+      tarefa:
+        description: Pergunta técnica delimitada, somente código e dados fictícios
+        type: string
+        required: true
+        default: Examine o backup e a restauração. Indique até três falhas concretas com cenário de reprodução e teste, sem inventar regras de manutenção.
+      arquivos:
+        description: Caminhos de arquivos versionados, um por linha
+        type: string
+        required: true
+        default: src/logica/backup.js
+
+permissions:
+  contents: read
+
+concurrency:
+  group: creditos-outubro-2026
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    if: github.ref == 'refs/heads/main' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Preparar e validar uma consulta
+        env:
+          PCM_TAREFA: ${{ inputs.tarefa }}
+          PCM_ARQUIVOS: ${{ inputs.arquivos }}
+          PCM_PACOTE: ${{ runner.temp }}/consulta.json
+        run: node scripts/creditos-ia.mjs preparar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: consulta
+          path: ${{ runner.temp }}/consulta.json
+          retention-days: 14
+          if-no-files-found: error
+      - name: Registrar diagnóstico
+        if: inputs.diagnostico
+        run: echo 'Pacote validado. Diagnóstico sem chamada de API e sem reserva financeira.' >> "$GITHUB_STEP_SUMMARY"
+
+  reservar:
+    needs: preparar
+    if: inputs.diagnostico == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v5
+        with:
+          ref: controles/creditos-outubro-2026
+          path: controle
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Reservar orçamento antes de qualquer chamada
+        env:
+          PCM_LEDGER: controle/orcamento.json
+        run: node scripts/creditos-ia.mjs reservar
+      - name: Persistir reserva sem sobrescrever histórico
+        working-directory: controle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add orcamento.json
+          git commit -m 'Reservar dez centavos para uma consulta limitada'
+          gh auth setup-git
+          git push origin HEAD:refs/heads/controles/creditos-outubro-2026
+          echo 'Reserva de US$ 0,10 persistida. Falhas também mantêm a reserva consumida.' >> "$GITHUB_STEP_SUMMARY"
+
+  consultar:
+    needs: [preparar, reservar]
+    # Reexecutar somente este job reutilizaria uma reserva: bloquear reruns.
+    if: github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          name: consulta
+          path: ${{ runner.temp }}/consulta
+      - name: Consultar uma vez, sem ferramentas e sem repetição automática
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PCM_PACOTE: ${{ runner.temp }}/consulta/consulta.json
+          PCM_RESULTADOS: ${{ runner.temp }}/resultado
+        run: node scripts/creditos-ia.mjs consultar
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: parecer-e-consumo
+          path: ${{ runner.temp }}/resultado
+          retention-days: 30
+          if-no-files-found: warn

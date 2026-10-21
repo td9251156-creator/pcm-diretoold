@@ -1,5 +1,9 @@
 # Evolução contínua do PCM Direto
 
+> Atualização de 21/10/2026: autorizado o fluxo manual limitado de créditos até 30/10.
+> Veja [orçamento, limites e operação](CREDITOS-OUTUBRO.md). O executor antigo permanece pausado.
+
+
 O objetivo é melhorar o sistema em rodadas pequenas, com resultado verificável e sem perder os dados
 de quem já usa. Agentes ajudam a entender, implementar e revisar; o mantenedor continua decidindo
 as regras de manutenção e o que será publicado.
