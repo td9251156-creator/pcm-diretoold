@@ -7,3 +7,6 @@ Thumbs.db
 *.xlsx
 *.docx
 .claude/
+
+# Artefatos fictícios dos templates, disponíveis nos resultados do Actions
+artifacts/

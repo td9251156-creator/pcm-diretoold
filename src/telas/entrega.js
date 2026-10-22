@@ -4,6 +4,7 @@ import { validarLista } from '../logica/validacao.js';
 import { nomeArquivo } from '../logica/pacote.js';
 import { gerarXlsx } from '../saida/xlsx.js';
 import { montarDocx } from '../saida/docx.js';
+import { gerarPcmdXlsx } from '../saida/pcmd/xlsx.js';
 import { esc, num, baixar, avisar } from '../ui.js';
 import { paraCsv } from '../logica/entrada.js';
 
@@ -54,8 +55,19 @@ export function telaEntrega(main) {
       </div>
     </section>
 
+    <section class="cartao" aria-labelledby="titulo-pcmd">
+      <h3 id="titulo-pcmd">Pacote PCMD</h3>
+      <p>Primeira etapa: protótipo PCMD-02, com os ativos cadastrados e a matriz de criticidade.
+        Preencha as cinco notas no Excel; campos vazios ou inválidos ficam Pendente.</p>
+      <p>Os limites sugeridos A≥12 e B≥9 são editáveis. Segurança com nota 3 determina classe A.
+        Confirme os critérios com o responsável antes de aplicar as orientações.</p>
+      <p>O plano completo e os manuais PCMD virão nas próximas etapas. Esta planilha ainda não pode
+        ser reimportada no app. Guarde o arquivo preenchido: gerar outro não recupera suas edições.</p>
+      <button type="button" id="baixar-pcmd" ${bloqueado ? 'disabled' : ''}>Pacote PCMD — Ativos e criticidade (.xlsx)</button>
+    </section>
+
     <section class="cartao">
-      <h3>O que vem na planilha</h3>
+      <h3>O que vem na planilha atual</h3>
       <ol>
         <li><strong>Leia-me:</strong> aviso, origem das tarefas e explicação de cada aba.</li>
         <li><strong>Resumo:</strong> números do plano, horas por especialidade e equipamentos por tipo.</li>
@@ -93,6 +105,13 @@ export function telaEntrega(main) {
   main.querySelector('#baixar-docx').addEventListener('click', (e) => gerando(e.target, async () => {
     await resumo();
     avisar('Resumo gerado.');
+  }));
+
+  main.querySelector('#baixar-pcmd').addEventListener('click', (e) => gerando(e.target, async () => {
+    const ExcelJS = (await import('exceljs')).default;
+    const buffer = await gerarPcmdXlsx(dadosAtuais(), ExcelJS);
+    baixar(new Blob([buffer], { type: XLSX_MIME }), nomeArquivo('xlsx').replace('pcm-direto-', 'pcmd-02-'));
+    avisar('Protótipo PCMD-02 gerado. Preencha as notas e guarde o arquivo; a reimportação ainda não está disponível.');
   }));
 
   main.querySelector('#baixar-csv').addEventListener('click', () => {

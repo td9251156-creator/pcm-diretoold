@@ -14,6 +14,32 @@ Uma implementação por vez. Um item só termina com evidência e revisão indep
 | F-006 | Média | Definir janelas e paradas programadas, item 15 do diagnóstico. | Mantenedor aprova exemplos e limites; nenhuma tarefa de segurança pode ser adiada fora da regra definida. | Aguardando definição técnica. |
 | F-007 | Média | Preservar o foco de teclado ao ajustar a capacidade por especialidade na Revisão. O redesenho do quadro remove o campo focado após a primeira seta. | Setas consecutivas continuam ajustando o mesmo campo; Tab segue a ordem normal sem recuperar foco indevidamente; capacidade, carga e salvamento permanecem corretos; regressão coberta por teste. | Implementado e revisado; 150 testes e Chromium aprovados. |
 
+
+## Templates PCMD — uma etapa por tarefa e PR
+
+O plano em [PLANO-TEMPLATES.md](PLANO-TEMPLATES.md) registra decisões e verificações.
+Não integrar nem publicar automaticamente. Exportações atuais continuam disponíveis.
+
+| ID | Etapa | Resultado e critério de conclusão | Situação |
+|---|---|---|---|
+| T-01 | 1 | PCMD-02: ativos, criticidade, quatro abas, fórmulas/cache testados e download offline. | Implementado e revisado; 176 testes, Chromium offline e 81 comparações externas aprovados. Aguardando revisão do PR pelo mantenedor. |
+| T-02 | 2 | PCMD-03: Plano Mestre único, frequências, segurança e próximas execuções verificadas. | Aguarda T-01 e nova tarefa. |
+| T-02A | 2A | Histórico completo e aba Execuções; marcas antigas preservadas, backups compatíveis. | Aguarda T-02. |
+| T-03 | 3 | PCMD-04: janeiro–dezembro, carga derivada das semanas e realizado por ocorrência. | Aguarda T-02A. |
+| T-04 | 4 | PCMD-05: registro mínimo de falhas vinculado aos ativos. | Aguarda T-03. |
+| T-05 | 5 | PCMD-01: lista dos documentos disponíveis e revisões. | Aguarda T-04. |
+| T-06 | 6 | Completar abas de apoio, M1–M6, Revisões e guias. | Aguarda T-05. |
+| T-06A | 6A | Importar planilha com prévia, confirmação, recálculo e recuperação em falhas. | Aguarda T-06. |
+| T-07 | 7 | W1: manual original com referências e dados importados, sem promessa de conformidade. | Aguarda T-06A. |
+| T-08 | 8 | W2: estratégia e revisão; metas e prazos indefinidos continuam a definir. | Aguarda T-07. |
+| T-09 | 9 | Biblioteca com campos compatíveis e checklist atualizado, sem afrouxar segurança. | Aguarda T-08. |
+| T-10 | 10 | Fórmulas, arquivos, termos proibidos e roteiro final conferidos. | Aguarda T-09. |
+
+Excel 2010 e impressão física: validação manual pendente. Em 22/10, a conversão padrão
+preservou um cache incorreto. Com perfil isolado e OOXMLRecalcMode=0, a prova pequena corrigiu
+−1 para 12 e as 81 comparações das fórmulas reais passaram, após alterar entradas e limites.
+O comando `npm run verificar:recalculo-pcmd` reproduz essa prova quando há LibreOffice.
+
 ## F-007 — primeira tarefa da execução por agentes
 
 - **Evidência:** em 20/10/2026, no Chromium, abrir Revisão com o exemplo fictício e focar

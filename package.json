@@ -13,7 +13,9 @@
     "test": "vitest run",
     "lint": "eslint .",
     "verificar": "npm run lint && npm test && npm run build",
-    "test:navegador": "node scripts/verificar-navegador.mjs"
+    "test:navegador": "node scripts/verificar-navegador.mjs",
+    "gerar:prototipo-pcmd": "node scripts/gerar-prototipo-pcmd.mjs",
+    "verificar:recalculo-pcmd": "node scripts/verificar-recalculo-pcmd.mjs"
   },
   "dependencies": {
     "docx": "^9.12.0",
