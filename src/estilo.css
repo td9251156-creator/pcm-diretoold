@@ -209,3 +209,18 @@ a.botao[aria-disabled="true"] { opacity: .5; pointer-events: none; }
 
 /* Botão de tema no rodapé */
 .tema { min-height: 36px; padding: .2rem .7rem; font-size: .85rem; margin-top: .5rem; }
+
+/* Gestão: atalhos e módulos locais, mantendo a marca e a navegação por teclado. */
+.atalhos { display: flex; flex-wrap: wrap; gap: .25rem .5rem; margin-top: .6rem; }
+.atalhos a { color: #fff; padding: .4rem .55rem; border-radius: 4px; text-decoration: none; }
+.atalhos a:hover, .atalhos a[aria-current="page"] { background: var(--primaria-texto); color: var(--primaria); }
+.painel-modulos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .75rem; }
+.modulo { display: flex; flex-direction: column; gap: .35rem; padding: .85rem; border: 1px solid var(--borda); border-radius: 6px; text-decoration: none; }
+.modulo:hover { border-color: var(--acento); }
+.modulo span { color: var(--suave); font-size: .9rem; }
+.grade > div { min-width: 0; }
+.cartao { overflow-wrap: anywhere; }
+@media (max-width: 599px) {
+  .atalhos { gap: .1rem; }
+  .atalhos a { font-size: .85rem; padding: .4rem; }
+}

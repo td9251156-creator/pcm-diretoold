@@ -94,3 +94,10 @@ O mantenedor escolheu desenvolver em tarefas do Codex com login do ChatGPT Plus 
 as chamadas de IA pela API do Actions. Não reative a API nem sua agenda sem novo pedido.
 O fluxo de API preservado no repositório gera PRs em rascunho e não integra ou publica sozinho.
 O Actions continua executando testes e publicação. Não prometa execução permanente com a cota do Plus.
+
+## Direção atual: interface antes dos modelos
+
+O mantenedor pediu a interface funcional completa e criará os modelos Excel e Word para enviar
+depois. Não criar templates ou novos geradores PCMD neste escopo. O PR #31 fica separado.
+O contrato e as instruções de conteúdo estão em docs/INTERFACE-E-MODELOS.md; integrar os modelos
+somente depois de recebê-los e conferir seu formato. Preservar as exportações antigas e backups v1.

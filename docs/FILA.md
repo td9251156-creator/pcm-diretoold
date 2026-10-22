@@ -14,6 +14,21 @@ Uma implementação por vez. Um item só termina com evidência e revisão indep
 | F-006 | Média | Definir janelas e paradas programadas, item 15 do diagnóstico. | Mantenedor aprova exemplos e limites; nenhuma tarefa de segurança pode ser adiada fora da regra definida. | Aguardando definição técnica. |
 | F-007 | Média | Preservar o foco de teclado ao ajustar a capacidade por especialidade na Revisão. O redesenho do quadro remove o campo focado após a primeira seta. | Setas consecutivas continuam ajustando o mesmo campo; Tab segue a ordem normal sem recuperar foco indevidamente; capacidade, carga e salvamento permanecem corretos; regressão coberta por teste. | Implementado e revisado; 150 testes e Chromium aprovados. |
 
+
+## Interface funcional — direção atual do mantenedor
+
+O mantenedor criará os modelos Excel e Word e os enviará depois. Não continuar os geradores
+PCMD nem integrar o PR #31 como dependência desta interface. Consulte o
+[guia dos modelos e da interface](INTERFACE-E-MODELOS.md).
+
+| ID | Resultado | Situação |
+|---|---|---|
+| I-01 | Cadastros M1–M6, criticidade, Plano Mestre, mensal, histórico completo e falhas, com backup compatível. | Implementado e revisado: 168 testes, build e roteiro completo no Chromium aprovados. PR aguardará revisão do mantenedor. |
+| I-02 | Receber modelos originais do mantenedor e mapear seus campos aos dados existentes. | Aguardando os arquivos; não há importação ou preenchimento automático de templates nesta entrega. |
+
+Os modelos futuros precisam preservar segurança, identificação dos registros, origem dos dados e
+aviso. O guia descreve o conteúdo; não determina um formato de integração antes de receber os arquivos.
+
 ## F-007 — primeira tarefa da execução por agentes
 
 - **Evidência:** em 20/10/2026, no Chromium, abrir Revisão com o exemplo fictício e focar

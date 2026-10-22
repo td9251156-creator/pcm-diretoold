@@ -4,6 +4,7 @@ import { criarBackup } from '../logica/backup.js';
 import { verificarBackup } from '../logica/backup.js';
 import { BIBLIOTECA_PADRAO } from '../estado.js';
 import { esc, avisar, baixar } from '../ui.js';
+import { criticidadeAtivo } from '../logica/gestao.js';
 
 let pedidoInstalacao = null; // evento do navegador para instalar o app
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -34,6 +35,20 @@ export function telaInicio(main, ir) {
       </div>
     </section>
 
+    <section class="cartao" aria-labelledby="titulo-gestao">
+      <h3 id="titulo-gestao">Seu PCM em um só lugar</h3>
+      <p>${esc(estado.gestao.organizacao.nome || 'Organização ainda não informada')} · ${estado.gestao.pessoas.filter(p => p.ativo).length} pessoas ativas ·
+        ${estado.equipamentos.filter(e => criticidadeAtivo(estado.gestao.criticidade.notas[e.id], estado.gestao.criticidade.limites).classe !== 'Pendente').length} ativos avaliados.</p>
+      <div class="painel-modulos">
+        <a class="modulo" href="#cadastros"><strong>Cadastros mestre</strong><span>Organização, pessoas, metas e requisitos.</span></a>
+        <a class="modulo" href="#criticidade"><strong>Criticidade</strong><span>Avaliação por ativo, sem alterar segurança.</span></a>
+        <a class="modulo" href="#plano"><strong>Plano Mestre</strong><span>Atividades, responsáveis e próximas ocorrências.</span></a>
+        <a class="modulo" href="#mensal"><strong>Planejamento mensal</strong><span>Carga e realização por ocorrência vinculada.</span></a>
+        <a class="modulo" href="#execucao"><strong>Histórico de execuções</strong><span>${estado.gestao.historico.filter(h => !h.cancelada).length} registros ativos, preservados neste aparelho.</span></a>
+        <a class="modulo" href="#falhas"><strong>Registro de falhas</strong><span>${estado.gestao.falhas.length} registros. Sintoma, ação e parada.</span></a>
+      </div>
+    </section>
+
     <section class="cartao">
       <h3>Equipamentos atendidos pela biblioteca</h3>
       <ul>${estado.biblioteca.tipos.map((t) => `<li>${esc(t.nome)} (${esc(t.sigla)}) — ${t.tarefas.length} tarefas</li>`).join('')}</ul>
@@ -46,7 +61,7 @@ export function telaInicio(main, ir) {
       <h3>Seus dados</h3>
       <p>Tudo é feito neste navegador. Nenhum dado é enviado para servidor. O rascunho fica salvo aqui mesmo,
       então limpar os dados do navegador apaga a lista: ao terminar, baixe a planilha.</p>
-      <p>O backup completo guarda equipamentos, biblioteca, ajustes, capacidade, data do plano e marcações de execução.</p>
+      <p>O backup completo guarda equipamentos, biblioteca, ajustes, capacidade, data do plano, cadastros, criticidade, histórico e falhas.</p>
       <button type="button" id="baixar-backup">Baixar backup completo (.json)</button>
       <div class="acoes"><div><label for="restaurar-backup">Restaurar backup completo (.json)</label>
         <input type="file" id="restaurar-backup" accept=".json,application/json"></div></div>
@@ -66,7 +81,7 @@ export function telaInicio(main, ir) {
     try { dados = JSON.parse(await arquivo.text()); } catch { avisar('O arquivo não é um JSON válido. A lista atual foi mantida.'); return; }
     const valido = verificarBackup(dados, BIBLIOTECA_PADRAO);
     if (!valido.ok) { avisar(valido.motivo); return; }
-    if (!confirm(`Restaurar ${valido.rascunho.equipamentos.length} equipamento(s) e a biblioteca deste backup? Isso substitui a lista atual. Baixe o backup atual antes, se quiser guardá-lo.`)) return;
+    if (!confirm(`Restaurar ${valido.rascunho.equipamentos.length} equipamento(s) deste backup? Isso substitui a lista, a biblioteca, os cadastros e os registros atuais. Backups antigos não contêm os cadastros novos. Baixe o backup atual antes de continuar.`)) return;
     const r = restaurarBackup(dados);
     if (!r.ok) { avisar(r.motivo); return; }
     telaInicio(main, ir);

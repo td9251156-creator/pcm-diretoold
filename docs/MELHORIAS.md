@@ -78,3 +78,18 @@ por profissional habilitado. Não ampliar tarefas técnicas ou periodicidades se
   e restauração, desfazer remoção, filtros, aviso de gravação, recuperação e geração offline de XLSX/DOCX.
 - Os 16 PRs foram integrados à main por solicitação do mantenedor. A publicação é executada pelo fluxo do GitHub Pages.
 - Leitor de tela, aparelhos reais e Excel antigo ainda precisam de conferência manual.
+
+## Interface sem criação de templates — 21/10/2026
+
+A nova direção do mantenedor prioriza telas funcionais e reserva a criação dos modelos para ele.
+Cadastros M1–M6, criticidade, responsáveis por tarefa, mensal, histórico completo e falhas foram
+acrescentados sem alterar os geradores atuais nem acrescentar dependências. O guia
+[INTERFACE-E-MODELOS.md](INTERFACE-E-MODELOS.md) descreve os documentos a fornecer depois.
+
+Backup versão 2 inclui a gestão; versão 1 e rascunhos antigos continuam aceitos. Migração preserva
+marcações antigas sem vínculo presumido. Registros cancelados não ressuscitam ao remover/desfazer
+ou reabrir; descrições antigas extensas continuam válidas. Cadastros preservam os rascunhos dos
+outros formulários ao salvar um deles. A revisão encontrou esses cenários e foram acrescentadas
+regressões relevantes. Lint, 168 testes, build e Chromium aprovados, inclusive backup/restauração,
+fluxos novos, celular/teclado e downloads antigos offline. Revisão independente sem bloqueadores.
+Sem merge, publicação ou consumo de API. Nenhum novo template Excel/Word criado nesta entrega.

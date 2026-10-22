@@ -7,3 +7,6 @@ Thumbs.db
 *.xlsx
 *.docx
 .claude/
+
+# Artefatos locais de verificações e propostas anteriores
+artifacts/

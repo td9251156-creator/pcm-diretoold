@@ -11,6 +11,9 @@ import { verificarBibliotecaEditada } from './logica/edicao.js';
 import { validarExecucoes } from './logica/execucao.js';
 import { verificarBackup } from './logica/backup.js';
 import { recuperarTransacao, lerDadoLocal, guardarBackupLocal } from './armazenamento.js';
+import { criarGestao, validarGestao, migrarExecucoesAntigas, ocorrenciasPlanejadas } from './logica/gestao.js';
+import { marcarExecucao } from './logica/execucao.js';
+import { chaveAjuste } from './logica/plano.js';
 
 const CHAVE = 'pcm-direto:rascunho:v1';
 const CHAVE_BIBLIOTECA = 'pcm-direto:biblioteca:v1';
@@ -58,6 +61,7 @@ export const estado = {
   capacidade: {}, // horas disponíveis por semana em cada especialidade: { Mecânica: 8 }
   biblioteca: copia(padrao), // biblioteca em uso (pode ter sido editada no app)
   bibliotecaEditada: false,
+  gestao: criarGestao(),
 };
 
 /** Siglas por tipo da biblioteca em uso: { motor_eletrico: 'MOT', ... } */
@@ -101,6 +105,7 @@ export function carregar() {
   const lido = local && lerRascunho(local.valor);
   const salvo = lido && validarExecucoes(lido.execucoes ?? {}) ? lido : null;
   estado.execucoes = salvo?.execucoes ?? {};
+  estado.gestao = salvo?.gestao ?? criarGestao();
   if (salvo) {
     estado.equipamentos = salvo.equipamentos.map((e) => ({ ...e }));
     for (const e of estado.equipamentos) atualizarTag(e);
@@ -114,6 +119,8 @@ export function carregar() {
     estado.ajustes = {};
     estado.exemplo = !local;
   }
+  estado.gestao = migrarExecucoesAntigas(estado.gestao, estado.execucoes, estado.equipamentos, dadosAtuais().plano);
+  atualizarUltimasExecucoes();
 }
 
 /** Valida tudo antes de restaurar; mantém os originais se a gravação não terminar. */
@@ -139,6 +146,7 @@ export function salvar() {
       exemplo: estado.exemplo,
       inicio: estado.inicio,
       capacidade: estado.capacidade,
+      gestao: estado.gestao,
       salvoEm: new Date().toISOString(),
     }));
     armazenamento.rascunho = true;
@@ -190,6 +198,7 @@ export function adicionar(novos) {
 export function remover(id) {
   const indice = estado.equipamentos.findIndex((e) => e.id === id);
   if (indice < 0) return;
+  estado.gestao = migrarExecucoesAntigas(estado.gestao, estado.execucoes, estado.equipamentos, dadosAtuais().plano);
   const selecionar = (dados) => Object.fromEntries(Object.entries(dados).filter(([k]) => k.startsWith(id + '|')));
   ultimaRemocao = {
     equipamento: { ...estado.equipamentos[indice] }, indice,
@@ -214,6 +223,7 @@ export function desfazerRemocao() {
   estado.equipamentos.splice(indice, 0, eq);
   Object.assign(estado.ajustes, ajustes);
   Object.assign(estado.execucoes, execucoes);
+  atualizarUltimasExecucoes();
   ultimaRemocao = null;
   salvar();
   return { ok: true };
@@ -225,6 +235,8 @@ export function limpar() {
   estado.equipamentos = [];
   estado.ajustes = {};
   estado.execucoes = {};
+  estado.gestao.criticidade.notas = {};
+  estado.gestao.responsaveis = {};
   estado.exemplo = false;
   salvar();
 }
@@ -235,6 +247,54 @@ export function carregarExemplo() {
   estado.equipamentos = listaExemplo();
   estado.ajustes = {};
   estado.execucoes = {};
+  estado.gestao.criticidade.notas = {};
+  estado.gestao.responsaveis = {};
   estado.exemplo = true;
   salvar();
+}
+
+/** Atualiza somente dados de gestão válidos. Falha de armazenamento é informada pela interface. */
+export function atualizarGestao(nova) {
+  if (!validarGestao(nova)) return { ok: false, motivo: 'Confira os campos: há dados de gestão inválidos.' };
+  estado.gestao = nova;
+  return { ok: true, guardado: salvar() };
+}
+
+/** Registra cada execução sem alterar frequência ou planejamento. */
+export function registrarExecucao(linha, alteracao) {
+  const r = marcarExecucao(estado.execucoes, linha, { ...alteracao, concluida: true });
+  if (!r.ok) return r;
+  const dataPrevista = alteracao.dataPrevista || '';
+  if (dataPrevista && !ocorrenciasPlanejadas(dadosAtuais()).some(o => o.equipamentoId === linha.equipamentoId && o.tarefaId === linha.tarefaId && o.dataPrevista === dataPrevista)) {
+    return { ok: false, motivo: 'Escolha uma ocorrência prevista do plano atual ou deixe sem vínculo.' };
+  }
+  if (dataPrevista && estado.gestao.historico.some(h => !h.cancelada && h.equipamentoId === linha.equipamentoId && h.tarefaId === linha.tarefaId && h.dataPrevista === dataPrevista)) {
+    return { ok: false, motivo: 'Essa ocorrência já tem execução registrada. Cancele o registro anterior para corrigir.' };
+  }
+  const registro = { id: novoId(), equipamentoId: linha.equipamentoId, tarefaId: linha.tarefaId,
+    tag: linha.tag, descricao: linha.descricao, data: alteracao.data, dataPrevista,
+    observacao: alteracao.observacao.trim(), responsavelId: alteracao.responsavelId || '', origem: 'app', cancelada: false };
+  const nova = { ...estado.gestao, historico: [...estado.gestao.historico, registro] };
+  if (!validarGestao(nova)) return { ok: false, motivo: 'Não foi possível registrar a execução: confira os campos.' };
+  estado.gestao = nova;
+  atualizarUltimasExecucoes();
+  return { ok: true, guardado: salvar() };
+}
+
+function atualizarUltimasExecucoes() {
+  const ultimas = {};
+  const ativos = new Set(estado.equipamentos.map(e => e.id));
+  for (const h of estado.gestao.historico) {
+    if (h.cancelada || !ativos.has(h.equipamentoId)) continue;
+    const chave = chaveAjuste(h.equipamentoId, h.tarefaId);
+    if (!ultimas[chave] || h.data >= ultimas[chave].data) ultimas[chave] = { data: h.data, observacao: h.observacao };
+  }
+  estado.execucoes = ultimas;
+}
+
+export function cancelarExecucao(id) {
+  if (!estado.gestao.historico.some(h => h.id === id && !h.cancelada)) return { ok: false, motivo: 'Registro não encontrado ou já cancelado.' };
+  estado.gestao = { ...estado.gestao, historico: estado.gestao.historico.map(h => h.id === id ? { ...h, cancelada: true } : h) };
+  atualizarUltimasExecucoes();
+  return { ok: true, guardado: salvar() };
 }
