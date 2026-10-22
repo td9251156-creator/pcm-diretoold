@@ -55,7 +55,23 @@ export function telaEntrega(main) {
     </section>
 
     <section class="cartao">
-      <h3>O que vem na planilha</h3>
+      <h3>Seus modelos PCMD</h3>
+      <p>Os novos documentos serão conectados aos modelos Excel e Word que você fornecer.
+        A interface já guarda os cadastros e registros; os downloads acima continuam no formato anterior.</p>
+      <ul>
+        <li>PCMD-01 · Lista Mestra de Documentos — aguardando modelo.</li>
+        <li>PCMD-02 · Ativos e Criticidade — aguardando modelo.</li>
+        <li>PCMD-03 · Plano Mestre — aguardando modelo.</li>
+        <li>PCMD-04 · Cronograma Anual — aguardando modelo.</li>
+        <li>PCMD-05 · Ficha de Falha — aguardando modelo.</li>
+        <li>PCMD-W1 e PCMD-W2 · Manuais — aguardando modelos.</li>
+      </ul>
+      <p>Guarde os cadastros e o histórico no <a href="#inicio">backup completo</a>.
+        As exportações antigas ainda não incluem esses registros novos.</p>
+    </section>
+
+    <section class="cartao">
+      <h3>O que vem na planilha atual</h3>
       <ol>
         <li><strong>Leia-me:</strong> aviso, origem das tarefas e explicação de cada aba.</li>
         <li><strong>Resumo:</strong> números do plano, horas por especialidade e equipamentos por tipo.</li>

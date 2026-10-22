@@ -1,6 +1,7 @@
 // Confere dados locais sem alterar a cópia recebida nem descartar a lista silenciosamente.
 import { PERIODICIDADES } from './plano.js';
 import { lerData, textoData } from './cronograma.js';
+import { validarGestao } from './gestao.js';
 
 export const objeto = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 
@@ -30,5 +31,6 @@ export function lerRascunho(salvo) {
     if (a.periodicidade !== undefined && !PERIODICIDADES.some((p) => p.nome === a.periodicidade)) return null;
   }
   if (Object.values(capacidade).some((v) => !Number.isFinite(v) || v < 0)) return null;
+  if (salvo.gestao !== undefined && !validarGestao(salvo.gestao)) return null;
   return { ...salvo, ajustes, capacidade };
 }

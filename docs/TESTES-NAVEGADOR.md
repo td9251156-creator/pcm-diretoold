@@ -44,3 +44,8 @@ danificado. Leitor de tela, aparelhos reais e Excel antigo ainda exigem conferê
 
 O roteiro também confere checklist após recarregar, download e restauração do backup, recuperação
 da última máquina removida, filtros de impressão e aviso visível após falha simulada de gravação.
+
+O roteiro também cobre cadastros e edição de pessoas, metas e referências, rascunhos de
+formulários independentes, notas de criticidade, responsável por tarefa, registro/correção de
+falhas, vínculo de execução ao mensal, cancelamento preservado e backup completo versão 2.
+A Entrega lista modelos pendentes sem criar download de template novo.

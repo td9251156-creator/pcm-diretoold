@@ -9,6 +9,10 @@ import { telaEntrega } from './telas/entrega.js';
 import { telaBiblioteca } from './telas/biblioteca.js';
 import { telaImpressao } from './telas/impressao.js';
 import { telaExecucao } from './telas/execucao.js';
+import { telaCadastros } from './telas/cadastros.js';
+import { telaCriticidade } from './telas/criticidade.js';
+import { telaPlano, telaMensal } from './telas/planejamento.js';
+import { telaFalhas } from './telas/falhas.js';
 
 const TELAS = {
   inicio: { titulo: 'Início', desenhar: telaInicio },
@@ -18,6 +22,11 @@ const TELAS = {
   biblioteca: { titulo: 'Biblioteca técnica', desenhar: telaBiblioteca }, // fora das 4 etapas
   impressao: { titulo: 'Cronograma para imprimir', desenhar: telaImpressao },
   execucao: { titulo: 'Checklist de execução', desenhar: telaExecucao },
+  cadastros: { titulo: 'Cadastros mestre', desenhar: telaCadastros },
+  criticidade: { titulo: 'Criticidade', desenhar: telaCriticidade },
+  plano: { titulo: 'Plano Mestre', desenhar: telaPlano },
+  mensal: { titulo: 'Planejamento mensal', desenhar: telaMensal },
+  falhas: { titulo: 'Registro de falhas', desenhar: telaFalhas },
 };
 
 const main = document.getElementById('conteudo');
@@ -38,7 +47,7 @@ function mostrar() {
   const nome = location.hash.slice(1);
   const tela = TELAS[nome] ?? TELAS.inicio;
   const atual = TELAS[nome] ? nome : 'inicio';
-  document.querySelectorAll('.etapas a').forEach((a) => {
+  document.querySelectorAll('nav a[data-tela]').forEach((a) => {
     if (a.dataset.tela === atual) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
