@@ -78,3 +78,15 @@ por profissional habilitado. Não ampliar tarefas técnicas ou periodicidades se
   e restauração, desfazer remoção, filtros, aviso de gravação, recuperação e geração offline de XLSX/DOCX.
 - Os 16 PRs foram integrados à main por solicitação do mantenedor. A publicação é executada pelo fluxo do GitHub Pages.
 - Leitor de tela, aparelhos reais e Excel antigo ainda precisam de conferência manual.
+
+## Templates PCMD — etapa 1 (22/10/2026)
+
+PCMD-02 acrescentado como exportação separada, com notas vazias, limites editáveis e
+criticidade calculada sem alterar o cadastro ou as tarefas do app. Plano completo em
+[PLANO-TEMPLATES.md](PLANO-TEMPLATES.md), fila T-01 a T-10 com etapas intermediárias.
+Lint, 176 testes, build, Chromium (inclusive PCMD offline) e revisão independente aprovados.
+LibreOffice com recálculo forçado corrigiu cache errado e conferiu 81 resultados após mudar
+notas e limites. Conversão padrão sem recálculo não foi aceita como evidência.
+Áreas de impressão, cabeçalhos repetidos e origem dos rodapés corrigidos na revisão.
+PR aguardará o mantenedor: sem merge, publicação, consumo de API ou início da etapa 2.
+Excel 2010 e impressão física continuam pendentes de conferência manual.

@@ -32,6 +32,22 @@ jobs:
         run: npm ci
       - name: Verificar código, testes e versão final
         run: npm run verificar
+      - name: Gerar protótipo fictício PCMD-02 para revisão
+        run: npm run gerar:prototipo-pcmd
+      - name: Conferir recálculo externo quando houver LibreOffice
+        run: |
+          if command -v soffice >/dev/null 2>&1; then
+            npm run verificar:recalculo-pcmd
+          else
+            echo 'LibreOffice ausente: recálculo externo não executado nesta máquina. Conferência no Excel 2010 permanece pendente.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Guardar exemplo PCMD-02 e valores esperados
+        uses: actions/upload-artifact@v4
+        with:
+          name: prototipo-pcmd-02
+          path: artifacts/pcmd/
+          retention-days: 30
+          if-no-files-found: error
       - name: Instalar ferramenta de navegador com versão fixada
         run: npm ci --prefix ferramentas/navegador
       - name: Preparar Chromium e dependências do sistema

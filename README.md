@@ -68,6 +68,24 @@ UTL;compressor_ar;Compressor da linha de ar;Fabricante Exemplo;CX-100
 Tipos aceitos na biblioteca inicial: `motor_eletrico`, `compressor_ar`, `bomba_centrifuga`, `ponte_rolante`.
 O separador pode ser ponto e vírgula, vírgula ou tabulação (o padrão ao copiar do Excel).
 
+## Pacote PCMD em construção
+
+Na tela **Entrega**, o botão **Pacote PCMD — Ativos e criticidade (.xlsx)** baixa o protótipo
+PCMD-02 separado da planilha e do resumo atuais. Ele aproveita os ativos já cadastrados e oferece
+cinco notas de criticidade para preencher no Excel. Notas vazias ou inválidas ficam **Pendente**.
+Os limites iniciais A≥12 e B≥9 são sugestões editáveis; segurança com nota 3 determina classe A.
+Confirme os critérios com o responsável antes de usar o resultado para decisões de manutenção.
+
+Esta etapa contém Leia-me, Ativos e Criticidade, Listas e Cadastros mínimos. Os demais documentos,
+o histórico completo e a importação da planilha serão acrescentados por etapas; o app ainda não
+recebe de volta essas notas. Guarde o arquivo preenchido: gerar outro não recupera suas edições.
+Compatibilidade pretendida: Excel 2010. Fórmulas levam cache inicial e recálculo ao abrir; consulte
+o Leia-me e pressione F9 se necessário. A conferência manual nessa versão continua pendente.
+Para revisar um exemplo fictício, rode `npm run gerar:prototipo-pcmd`: o XLSX e os valores
+esperados ficam em `artifacts/pcmd/` e também no artefato `prototipo-pcmd-02` do Actions.
+Com LibreOffice instalado, `npm run verificar:recalculo-pcmd` compara os resultados recalculados
+com as regras JavaScript. Veja o [plano e as etapas](docs/PLANO-TEMPLATES.md).
+
 ## Como rodar no seu computador
 
 Pré-requisito: [Node.js LTS](https://nodejs.org/) instalado.

@@ -2,6 +2,8 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import ExcelJS from 'exceljs';
+import { AVISO } from '../src/logica/pacote.js';
 import { iniciarServidor, aguardarOffline, executarComRecursos } from './navegador.mjs';
 
 const ferramenta = process.env.PCM_PLAYWRIGHT || new URL('../ferramentas/navegador/node_modules/playwright/index.mjs', import.meta.url).href;
@@ -76,6 +78,8 @@ await executarComRecursos({
     const bytesBackup = await readFile(await backup.path());
     page.on('dialog', (d) => d.accept());
     await page.locator('#em-branco').click();
+    await page.getByRole('link', { name: '4. Entrega' }).click();
+    assert.equal(await page.locator('#baixar-pcmd').isDisabled(), true, 'Lista vazia deve bloquear PCMD');
     await page.getByRole('link', { name: '1. Início' }).click();
     await page.locator('#restaurar-backup').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: bytesBackup });
     await page.waitForFunction(() => document.querySelector('#mensagens').textContent.includes('Backup restaurado'));
@@ -90,6 +94,14 @@ await executarComRecursos({
     await page.locator('#desfazer-remocao').click();
     await page.waitForFunction((q) => document.querySelectorAll('.equip').length === q, quantidade);
     assert.equal(await page.locator('.equip').count(), quantidade);
+    // O pacote novo segue a mesma validação das exportações existentes.
+    const descricao = page.locator('.equip [data-campo="descricao"]').first();
+    const textoOriginal = await descricao.inputValue();
+    await descricao.fill('');
+    await page.getByRole('link', { name: '4. Entrega' }).click();
+    assert.equal(await page.locator('#baixar-pcmd').isDisabled(), true, 'Pendência em ativo deve bloquear PCMD');
+    await page.getByRole('link', { name: '2. Equipamentos' }).click();
+    await page.locator('.equip [data-campo="descricao"]').first().fill(textoOriginal);
     await page.goto('http://127.0.0.1:4175/#impressao');
     await page.locator('#filtro-setor').selectOption('PRD');
     await page.locator('#filtro-especialidade').selectOption('Elétrica');
@@ -102,13 +114,30 @@ await executarComRecursos({
     await page.reload();
     await page.getByRole('heading', { name: 'Checklist de execução', exact: true }).waitFor();
     await page.getByRole('link', { name: '4. Entrega' }).click();
-    for (const [botao, extensao] of [['#baixar-xlsx', '.xlsx'], ['#baixar-docx', '.docx']]) {
-      const [arquivo] = await Promise.all([page.waitForEvent('download'), page.locator(botao).click()]);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Entrega deve caber no celular');
+    const salvoAntesDoDownload = await page.evaluate(() => localStorage.getItem('pcm-direto:rascunho:v1'));
+    for (const [botao, extensao] of [['#baixar-xlsx', '.xlsx'], ['#baixar-docx', '.docx'], ['#baixar-pcmd', '.xlsx']]) {
+      if (botao === '#baixar-pcmd') await page.locator(botao).focus();
+      const [arquivo] = await Promise.all([page.waitForEvent('download'), botao === '#baixar-pcmd' ? page.keyboard.press('Enter') : page.locator(botao).click()]);
       assert.ok(arquivo.suggestedFilename().endsWith(extensao));
       const bytes = await readFile(await arquivo.path());
       assert.ok(bytes.length > 5000);
       assert.equal(bytes.subarray(0, 2).toString(), 'PK');
+      if (botao === '#baixar-pcmd') {
+        assert.ok(arquivo.suggestedFilename().startsWith('pcmd-02-'));
+        const wb = new ExcelJS.Workbook();
+        await wb.xlsx.load(bytes);
+        assert.deepEqual(wb.worksheets.map((a) => a.name), ['Leia-me', 'PCMD-02 Ativos e Criticidade', 'Listas', 'Cadastros']);
+        for (const aba of wb.worksheets) {
+          assert.ok(aba.headerFooter.oddFooter.includes(AVISO));
+          assert.ok(aba.headerFooter.oddFooter.includes('Origem:'));
+        }
+        const valores = [];
+        wb.getWorksheet('PCMD-02 Ativos e Criticidade').eachRow((r) => r.eachCell((c) => { if (c.formula) valores.push(c.result); }));
+        assert.ok(valores.includes('Pendente'), 'Notas não informadas devem continuar pendentes');
+      }
     }
+    assert.equal(await page.evaluate(() => localStorage.getItem('pcm-direto:rascunho:v1')), salvoAntesDoDownload, 'Downloads não devem alterar rascunho');
     await contexto.setOffline(false);
     await page.goto('http://127.0.0.1:4175/#revisao');
     await page.evaluate(() => { Storage.prototype.setItem = () => { throw new Error('Falha simulada de armazenamento'); }; });
@@ -121,6 +150,6 @@ await executarComRecursos({
     await page.getByRole('button', { name: 'Baixar dados originais para recuperação' }).waitFor();
     assert.equal(await page.evaluate(() => localStorage.getItem('pcm-direto:rascunho:v1')), '{');
     assert.deepEqual(erros, []);
-    console.log('Aprovado: celular, teclado, importação, checklist, backup/restauração, desfazer remoção, filtros, falha de gravação, recuperação, abertura offline e XLSX/DOCX offline.');
+    console.log('Aprovado: celular, teclado, importação, checklist, backup/restauração, desfazer remoção, filtros, falha de gravação, recuperação, abertura offline e XLSX/DOCX/PCMD offline.');
   },
 });

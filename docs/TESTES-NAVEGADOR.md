@@ -44,3 +44,7 @@ danificado. Leitor de tela, aparelhos reais e Excel antigo ainda exigem conferê
 
 O roteiro também confere checklist após recarregar, download e restauração do backup, recuperação
 da última máquina removida, filtros de impressão e aviso visível após falha simulada de gravação.
+
+O roteiro também baixa o protótipo PCMD-02 offline usando o teclado, confere as quatro abas,
+pendências e rodapés e garante que a geração não altere o rascunho. Lista vazia ou ativo com
+pendência bloqueia esse download, assim como as exportações anteriores.
