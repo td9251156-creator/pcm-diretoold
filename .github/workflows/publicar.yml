@@ -32,12 +32,21 @@ jobs:
         run: npm ci
       - name: Verificar código, testes e versão final
         run: npm run verificar
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
       - name: Instalar ferramenta de navegador com versão fixada
         run: npm ci --prefix ferramentas/navegador
       - name: Preparar Chromium e dependências do sistema
         run: node ferramentas/navegador/node_modules/playwright/cli.js install --with-deps chromium
       - name: Conferir fluxos no navegador, inclusive sem internet
         run: npm run test:navegador
+      - name: Conferir interface do catálogo com dados fictícios
+        run: npm run test:catalogo:navegador
+      - name: Preparar PostgreSQL de teste com versão fixada
+        run: docker pull postgres:17-alpine@sha256:eee6c6e1b0894fa4fe0075eb054af9fd1cf39a35321c2d4110626cfe506411fb
+      - name: Conferir permissões do catálogo em banco descartável
+        run: npm run test:catalogo:banco
       - name: Guardar a versão final para publicar
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4

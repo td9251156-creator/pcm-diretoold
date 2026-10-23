@@ -19,8 +19,10 @@ de manutenção bloqueia apenas o trecho que depende dela; avance no restante au
 
 ## Regras do produto
 
-- Tudo roda no navegador, sem servidor, login, banco de dados, analytics ou rastreamento.
-  Nenhum dado do usuário deve sair do navegador. Não acrescente API ou serviço pago.
+- A gestão da fábrica e seus backups permanecem locais. O mantenedor autorizou um catálogo
+  público separado com Supabase: login para contribuir e revisão antes de publicar. Somente os
+  campos explícitos do modelo são enviados; nunca enviar TAGs, pessoas, falhas ou backups.
+  Não ativar analytics, cobrança ou API de IA por consequência dessa autorização.
 - Mantenha HTML, CSS e JavaScript simples, sem framework, TypeScript ou reescrita grande.
   Só acrescente dependência se indispensável e com licença compatível com MIT.
 - Interface, mensagens, comentários e documentação devem ser em português do Brasil.

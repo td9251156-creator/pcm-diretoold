@@ -13,6 +13,7 @@ import { telaCadastros } from './telas/cadastros.js';
 import { telaCriticidade } from './telas/criticidade.js';
 import { telaPlano, telaMensal } from './telas/planejamento.js';
 import { telaFalhas } from './telas/falhas.js';
+import { telaCatalogo } from './telas/catalogo.js';
 
 const TELAS = {
   inicio: { titulo: 'Início', desenhar: telaInicio },
@@ -27,6 +28,7 @@ const TELAS = {
   plano: { titulo: 'Plano Mestre', desenhar: telaPlano },
   mensal: { titulo: 'Planejamento mensal', desenhar: telaMensal },
   falhas: { titulo: 'Registro de falhas', desenhar: telaFalhas },
+  catalogo: { titulo: 'Catálogo de máquinas', desenhar: telaCatalogo },
 };
 
 const main = document.getElementById('conteudo');

@@ -17,6 +17,14 @@ O projeto é mantido de forma voluntária: a resposta é feita assim que possív
 
 ## Escopo
 
-O PCM Direto roda inteiro no navegador e não envia dados para servidores.
-Os dados digitados ficam no armazenamento local (localStorage) do próprio navegador do usuário.
+A gestão local usa o armazenamento do navegador. O catálogo opcional envia seus campos de
+contribuição ao Supabase e usa autenticação; inventário, pessoas, falhas e backups não são enviados.
 Relatos sobre dependências (bibliotecas de terceiros) também são bem-vindos.
+
+
+## Catálogo colaborativo: direção autorizada em 22/10/2026
+
+A restrição anterior de ausência de login/banco é substituída somente para o catálogo público
+de modelos reutilizáveis. A gestão da fábrica continua local e não é sincronizada. Contribuições
+explícitas usam Supabase Auth/PostgreSQL, com revisão antes da publicação. Código preparado
+não significa serviço online ativado. Consulte [configuração do catálogo](docs/CATALOGO-COLABORATIVO.md) e [ativação dos benefícios](docs/ATIVACAO-STUDENT.md).

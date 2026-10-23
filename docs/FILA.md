@@ -85,3 +85,19 @@ Não abrir tarefas públicas com dados pessoais, segredos ou detalhes de falhas 
   o Actions recebeu `OPENAI_API_KEY`; modelo ausente e ativação desabilitada. Não houve chamada à IA,
   portanto validade da chave, saldo e acesso ao modelo ainda não foram testados. Tentativas de salvar
   as duas variáveis pela integração retornaram HTTP 403; precisam ser cadastradas nas configurações do GitHub.
+
+
+## Catálogo e benefícios estudantis — 22/10/2026
+
+- Implementado no ramo `catalogo/modelos-colaborativos`, dependente da interface do PR #32:
+  catálogo público, rascunhos autenticados, revisão, versões e cópia somente do cadastro local.
+- Validação local: lint, 178 testes, build, Chromium dos fluxos locais/offline e catálogo com
+  provedor fictício interceptado; permissões testadas em PostgreSQL 17 real descartável.
+- Revisão independente sem bloqueadores; divergência de apelido opcional e mensagens de
+  permissões/limites corrigidas. Runner aguarda PostgreSQL definitivo por TCP para não confundir
+  servidor temporário de inicialização com banco pronto.
+- Ativação real pendente da criação do projeto Supabase, SMTP e configurações públicas da conta.
+  Resgates do Student Pack e integração Sentry ainda não ativados.
+- Prompt externo entregue em PROMPT-CLAUDE-TEMPLATES.md; nenhum template criado aqui.
+- Próxima rodada: validar login real e permissões no projeto conectado, depois receber e conferir
+  os arquivos produzidos pelo Claude Code antes de integrar seus campos. Sem merge/publicação nesta rodada.

@@ -13,9 +13,12 @@
     "test": "vitest run",
     "lint": "eslint .",
     "verificar": "npm run lint && npm test && npm run build",
-    "test:navegador": "node scripts/verificar-navegador.mjs"
+    "test:navegador": "node scripts/verificar-navegador.mjs",
+    "test:catalogo:banco": "node scripts/verificar-catalogo-banco.mjs",
+    "test:catalogo:navegador": "node scripts/verificar-catalogo-navegador.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.118.0",
     "docx": "^9.12.0",
     "exceljs": "^4.4.0"
   },

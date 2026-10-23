@@ -7,6 +7,9 @@ Thumbs.db
 *.xlsx
 *.docx
 .claude/
+.env
+.env.*
+!.env.example
 
 # Artefatos locais de verificações e propostas anteriores
 artifacts/
