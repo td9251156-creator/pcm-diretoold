@@ -60,3 +60,14 @@ Não existe executor de implementação permanente ativado por este documento.
 
 Fontes: https://education.github.com/pack · https://supabase.com/pricing ·
 https://supabase.com/docs/guides/auth/auth-smtp
+
+
+## Projeto criado e banco instalado
+
+Em 22/10/2026, a consulta pública no projeto informado pelo mantenedor respondeu HTTP 200.
+Tabela e função de moderação estão instaladas; visitante retorna `false` e chamadas anônimas
+de salvar/aprovar foram recusadas com permissão negada, sem criar ou alterar registros.
+Login por e-mail e cadastro aparecem habilitados nas configurações públicas. SMTP e URLs
+de retorno não podem ser conferidos por essa chave. O build local conectado passou.
+Consulte [FINALIZAR-ATIVACAO.md](FINALIZAR-ATIVACAO.md) para os poucos passos restantes.
+A checagem no Actions confirma a configuração das Repository Variables sem imprimir seu valor.
