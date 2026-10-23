@@ -1,0 +1,5 @@
+# Os modelos entregues são versionados (a raiz ignora *.xlsx e *.docx de testes manuais)
+!*.xlsx
+!*.docx
+build/
+__pycache__/
