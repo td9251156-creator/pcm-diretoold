@@ -16,6 +16,8 @@ Abra https://supabase.com/dashboard/project/yzcjksiowgcncpxttoxt/auth/url-config
 
 ## 2. Configurar o envio de e-mail
 
+Passos com todos os campos e script pronto: [EMAIL-SUPABASE.md](EMAIL-SUPABASE.md).
+
 Abra Authentication → Email/SMTP no painel do Supabase e configure seu provedor de envio.
 O envio padrão permite apenas endereços autorizados da equipe, com limites baixos.
 Não abra inscrições públicas dependendo desse envio padrão. As credenciais de SMTP ficam
