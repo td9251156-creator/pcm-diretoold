@@ -53,28 +53,51 @@ def campo(paragrafo, instrucao, texto_padrao="1"):
     paragrafo._p.append(fld)
 
 
-def sumario(paragrafo):
-    def fld(tipo):
-        f = OxmlElement("w:fldChar")
-        f.set(qn("w:fldCharType"), tipo)
-        r = OxmlElement("w:r")
-        r.append(f)
-        return r
-    paragrafo._p.append(fld("begin"))
-    r = OxmlElement("w:r")
-    instr = OxmlElement("w:instrText")
-    instr.set(qn("xml:space"), "preserve")
-    instr.text = ' TOC \\o "1-2" \\h \\z \\u '
-    r.append(instr)
-    paragrafo._p.append(r)
-    paragrafo._p.append(fld("separate"))
-    r = OxmlElement("w:r")
-    t = OxmlElement("w:t")
-    t.text = ("Sumário ainda não atualizado. No Word: clique aqui com o botão direito e escolha Atualizar campo. "
-              "No LibreOffice: Ferramentas > Atualizar > Atualizar tudo.")
-    r.append(t)
-    paragrafo._p.append(r)
-    paragrafo._p.append(fld("end"))
+def borda_paragrafo(pPr, lado, cor, tamanho=8, espaco=4):
+    bdr = pPr.find(qn("w:pBdr"))
+    if bdr is None:
+        bdr = OxmlElement("w:pBdr")
+        pPr.append(bdr)
+    el = OxmlElement(f"w:{lado}")
+    el.set(qn("w:val"), "single")
+    el.set(qn("w:sz"), str(tamanho))
+    el.set(qn("w:space"), str(espaco))
+    el.set(qn("w:color"), cor)
+    bdr.append(el)
+
+
+def sombra_paragrafo(pPr, cor):
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:val"), "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"), cor)
+    pPr.append(shd)
+
+
+def bordas_tabela(tabela, horizontais="D5DDE5", externa=AZUL):
+    """Tabela leve: sem linhas verticais, linhas horizontais finas e base azul."""
+    tblPr = tabela._tbl.tblPr
+    antigo = tblPr.find(qn("w:tblBorders"))
+    if antigo is not None:
+        tblPr.remove(antigo)
+    b = OxmlElement("w:tblBorders")
+    for lado, val, cor, sz in (("top", "single", externa, 8), ("left", "nil", None, 0), ("bottom", "single", externa, 8),
+                               ("right", "nil", None, 0), ("insideH", "single", horizontais, 4), ("insideV", "nil", None, 0)):
+        el = OxmlElement(f"w:{lado}")
+        el.set(qn("w:val"), val)
+        if cor:
+            el.set(qn("w:sz"), str(sz))
+            el.set(qn("w:space"), "0")
+            el.set(qn("w:color"), cor)
+        b.append(el)
+    tblPr.append(b)
+    mar = OxmlElement("w:tblCellMar")
+    for lado, v in (("top", 45), ("bottom", 45), ("left", 85), ("right", 85)):
+        el = OxmlElement(f"w:{lado}")
+        el.set(qn("w:w"), str(v))
+        el.set(qn("w:type"), "dxa")
+        mar.append(el)
+    tblPr.append(mar)
 
 
 def repetir_cabecalho(linha):
@@ -119,7 +142,7 @@ class Manual:
         rpr.append(lang)
         normal.paragraph_format.space_after = Pt(4)
         normal.paragraph_format.line_spacing = 1.1
-        for nome, tam in (("Title", 20), ("Heading 1", 14), ("Heading 2", 12), ("Heading 3", 11)):
+        for nome, tam in (("Title", 22), ("Heading 1", 13), ("Heading 2", 11), ("Heading 3", 10.5)):
             s = st[nome]
             s.font.name = FONTE
             s.font.size = Pt(tam)
@@ -136,7 +159,17 @@ class Manual:
                 if f.get(qn(a)) is not None:
                     del f.attrib[qn(a)]
             s.paragraph_format.keep_with_next = True
-            s.paragraph_format.space_before = Pt(12 if nome == "Heading 1" else 8)
+            s.paragraph_format.space_before = Pt(14 if nome == "Heading 1" else 8)
+            s.paragraph_format.space_after = Pt(4)
+        st["Heading 2"].font.color.rgb = _cor(DESTAQUE)
+        borda_paragrafo(st["Heading 1"].element.get_or_add_pPr(), "bottom", DESTAQUE, 8, 3)
+        titulo = st["Title"]
+        titulo.font.color.rgb = _cor("FFFFFF")
+        titulo.paragraph_format.space_after = Pt(0)
+        tpPr = titulo.element.get_or_add_pPr()
+        for lado in ("top", "left", "bottom", "right"):  # borda da mesma cor do fundo: dá respiro à faixa
+            borda_paragrafo(tpPr, lado, AZUL, 24, 10)
+        sombra_paragrafo(tpPr, AZUL)
         for nome in ("List Bullet", "List Number"):
             st[nome].font.name = FONTE
         if "Marcador PCMD" not in [s.name for s in st]:
@@ -152,6 +185,13 @@ class Manual:
         nt.font.size = Pt(9)
         nt.font.italic = True
         nt.font.color.rgb = _cor("404040")
+        de = st.add_style("Destaque PCMD", WD_STYLE_TYPE.PARAGRAPH)
+        de.base_style = st["Normal"]
+        de.font.size = Pt(9.5)
+        de.paragraph_format.space_before = Pt(4)
+        de.paragraph_format.space_after = Pt(8)
+        de.paragraph_format.left_indent = Cm(0.3)
+        de.paragraph_format.right_indent = Cm(0.2)
         tb = st.add_style("Tabela PCMD", WD_STYLE_TYPE.PARAGRAPH)
         tb.base_style = st["Normal"]
         tb.font.size = Pt(9)
@@ -171,6 +211,19 @@ class Manual:
         sec.bottom_margin = Cm(2.6)
         sec.header_distance = Cm(0.9)
         sec.footer_distance = Cm(0.8)
+
+    def destaque(self, texto, rotulo=None, cor=DESTAQUE, fundo="F4F7FA"):
+        """Quadro de destaque: barra lateral colorida e fundo suave."""
+        par = self.doc.add_paragraph(style="Destaque PCMD")
+        pPr = par._p.get_or_add_pPr()
+        borda_paragrafo(pPr, "left", cor, 24, 8)
+        sombra_paragrafo(pPr, fundo)
+        if rotulo:
+            r = par.add_run(rotulo + "  ")
+            r.bold = True
+            r.font.color.rgb = _cor(cor)
+        self._texto(par, texto, "parágrafo")
+        return par
 
     def _cabecalho_rodape(self, sec):
         largura = sec.page_width - sec.left_margin - sec.right_margin
@@ -229,7 +282,10 @@ class Manual:
     def p(self, texto, estilo=None):
         return self._texto(self.doc.add_paragraph(style=estilo), texto, "parágrafo")
 
-    def h1(self, texto):
+    def h1(self, texto, numerar=True):
+        if numerar:
+            self._n_secao = getattr(self, "_n_secao", 0) + 1
+            texto = f"{self._n_secao}. {texto}"
         return self.doc.add_heading(texto, level=1)
 
     def h2(self, texto):
@@ -254,6 +310,7 @@ class Manual:
         lay = OxmlElement("w:tblLayout")
         lay.set(qn("w:type"), "fixed")
         tblPr.append(lay)
+        bordas_tabela(t)
         linha = t.rows[0]
         repetir_cabecalho(linha)
         nao_quebrar(linha)
@@ -268,42 +325,48 @@ class Manual:
             r.font.color.rgb = _cor("FFFFFF")
         return t
 
-    def _linha(self, t, textos, larguras_cm, local="célula de tabela", destaque=None):
+    def _linha(self, t, textos, larguras_cm, local="célula de tabela", destaque=None, primeira_negrito=False):
         linha = t.add_row()
         nao_quebrar(linha)
+        zebra = len(t.rows) % 2 == 1  # linhas de dados pares (a 1ª linha é o cabeçalho)
         for i, tx in enumerate(textos):
             cel = linha.cells[i]
             cel.width = Cm(larguras_cm[i])
+            if zebra:
+                sombrear(cel, "F4F7FA")
             par = cel.paragraphs[0]
             par.style = self.doc.styles["Tabela PCMD"]
             self._texto(par, tx, local)
+            if primeira_negrito and i == 0:
+                for r in par.runs:
+                    r.bold = True
+                    r.font.color.rgb = _cor(AZUL)
             if destaque and destaque(i, tx):
                 for r in par.runs:
                     r.bold = True
                     r.font.color.rgb = _cor(SEGURANCA)
         return linha
 
-    def tabela(self, cabecalhos, linhas, larguras_cm, legenda=None):
+    def tabela(self, cabecalhos, linhas, larguras_cm, legenda=None, primeira_negrito=True):
         if legenda:
             self.legenda(legenda)
         t = self._tabela(cabecalhos, larguras_cm)
         for l in linhas:
-            self._linha(t, l, larguras_cm)
+            self._linha(t, l, larguras_cm, primeira_negrito=primeira_negrito)
         self.doc.add_paragraph()
         return t
 
     def legenda(self, texto):
         par = self.doc.add_paragraph(style="Nota PCMD")
         par.paragraph_format.keep_with_next = True
-        par.add_run(texto)
+        self._texto(par, texto, "parágrafo")
 
     def regiao(self, rid, larguras_cm, legenda, destaque=None, cabecalhos=None):
         """Tabela repetível. Template: uma linha modelo com marcadores. Exemplo: uma linha por registro."""
         spec = E.REGIOES_DOC[rid]
         campos = [c for c, _ in spec["campos"]]
         cab = cabecalhos or [rot for _, rot in spec["campos"]]
-        self.legenda(f"{legenda} · Região repetível «{rid}»: " +
-                     ("repita a linha modelo para cada registro." if self.valores is None else "uma linha por registro."))
+        self.legenda(legenda + (f" · região repetível «{rid}»: repita a linha modelo para cada registro." if self.valores is None else ""))
         t = self._tabela(cab, larguras_cm)
         indice = len(self.doc.tables) - 1
         if self.valores is None:
@@ -318,38 +381,50 @@ class Manual:
         self.doc.add_paragraph()
         return t
 
-    def identificacao(self):
+    def identificacao(self, resumo):
+        """Capa enxuta: faixa com o título, grade de identificação e aviso em quadro de destaque."""
         self.doc.add_paragraph(self.titulo, style="Title")
         p = self.doc.add_paragraph()
-        r = p.add_run(f"{self.codigo} · Modelo documental do PCM Direto (versão do modelo {VERSAO_MODELO})")
-        r.font.color.rgb = _cor(AZUL)
-        linhas = [
-            ("Código", self.codigo), ("Título", self.titulo), ("Organização", "{{organizacao.nome}}"),
-            ("Revisão", "{{documento.revisao}}"), ("Data da revisão", "{{documento.data}}"),
-            ("Elaborador", "{{documento.elaborador}}"), ("Aprovador", "{{documento.aprovador}}"),
-            ("Próxima revisão", "{{documento.proxima_revisao}}"), ("Situação", "{{documento.situacao}}"),
-            ("Referencial", "{{organizacao.referencial}}"), ("Origem dos dados", "{{origem.dados}}"), ("Data de emissão", "{{emissao.data}}"),
+        p.paragraph_format.space_before = Pt(6)
+        r = p.add_run(f"{self.codigo}  ·  ")
+        r.bold, r.font.color.rgb = True, _cor(DESTAQUE)
+        r = p.add_run(resumo)
+        r.font.color.rgb = _cor("5B6875")
+        pares = [
+            ("Organização", "{{organizacao.nome}}", "Referencial", "{{organizacao.referencial}}"),
+            ("Revisão", "{{documento.revisao}}", "Data da revisão", "{{documento.data}}"),
+            ("Elaborador", "{{documento.elaborador}}", "Aprovador", "{{documento.aprovador}}"),
+            ("Próxima revisão", "{{documento.proxima_revisao}}", "Situação", "{{documento.situacao}}"),
+            ("Origem dos dados", "{{origem.dados}}", "Data de emissão", "{{emissao.data}}"),
         ]
-        t = self._tabela(["Identificação documental", "Valor"], [5.0, 12.0])
-        for a, b in linhas:
-            self._linha(t, [a, b], [5.0, 12.0], local="célula de tabela (identificação)")
-        self.doc.add_paragraph()
-        self.nota("Aprovador: preencha somente após a aprovação efetiva por quem tem essa atribuição. Este modelo não registra nem presume aprovação.")
-        par = self.doc.add_paragraph()
-        par.paragraph_format.space_before = Pt(6)
-        r = par.add_run(f"AVISO: {AVISO}")
-        r.bold = True
-        r.font.size = Pt(9.5)
-        pPr = par._p.get_or_add_pPr()
-        shd = OxmlElement("w:shd")
-        shd.set(qn("w:val"), "clear")
-        shd.set(qn("w:fill"), AVISO_FUNDO)
-        pPr.append(shd)
-        self.nota(f"Modelo PCM Direto · Autor: {AUTOR} · Contato público: {CONTATO} · Licença {LICENCA} · "
-                  f"versão {VERSAO_MODELO} de {dt.date.fromisoformat(DATA_MODELO):%d/%m/%Y}. Sem vínculos automáticos com planilhas ou bancos de dados.")
-        self.doc.add_heading("Sumário", level=1)
-        sumario(self.doc.add_paragraph())
-        self.doc.add_page_break()
+        larg = [3.0, 5.5, 3.0, 5.5]
+        t = self.doc.add_table(rows=0, cols=4)
+        t.alignment = WD_TABLE_ALIGNMENT.CENTER
+        t.autofit = False
+        for i, w in enumerate(larg):
+            t.columns[i].width = Cm(w)
+        lay = OxmlElement("w:tblLayout")
+        lay.set(qn("w:type"), "fixed")
+        t._tbl.tblPr.append(lay)
+        bordas_tabela(t, externa="D5DDE5")
+        for a, b, c, d in pares:
+            linha = t.add_row()
+            nao_quebrar(linha)
+            for i, tx in enumerate((a, b, c, d)):
+                cel = linha.cells[i]
+                cel.width = Cm(larg[i])
+                par = cel.paragraphs[0]
+                par.style = self.doc.styles["Tabela PCMD"]
+                if i % 2 == 0:
+                    sombrear(cel, "EEF3F8")
+                    rr = par.add_run(tx)
+                    rr.font.size, rr.font.color.rgb, rr.bold = Pt(8), _cor("5B6875"), True
+                else:
+                    self._texto(par, tx, "célula de tabela (identificação)", negrito=True)
+        self.doc.add_paragraph().paragraph_format.space_after = Pt(2)
+        self.destaque(AVISO, "AVISO", cor=DESTAQUE, fundo=AVISO_FUNDO)
+        self.nota("Aprovador: preencher somente após aprovação efetiva. Este modelo não registra nem presume aprovação. "
+                  f"Modelo PCM Direto {VERSAO_MODELO} ({dt.date.fromisoformat(DATA_MODELO):%d/%m/%Y}) · {AUTOR} · {CONTATO} · Licença {LICENCA}.")
 
     def secao_paisagem(self):
         sec = self.doc.add_section(WD_SECTION.NEW_PAGE)
@@ -360,7 +435,7 @@ class Manual:
         return sec
 
     def checklist(self, itens):
-        larg = [1.2, 11.3, 4.5]
+        larg = [1.0, 11.5, 4.5]
         t = self._tabela(["Nº", "Item de conferência", "Conferido por / data"], larg)
         for i, item in enumerate(itens, start=1):
             self._linha(t, [str(i), item, ""], larg)
@@ -377,157 +452,133 @@ class Manual:
 
 
 # ------------------------------------------------------------ conteúdo comum
-def termos_comuns(m):
-    return [
-        ("Ativo local", "Equipamento efetivo da organização, com ID técnico próprio, setor, TAG, plano, criticidade e histórico."),
-        ("Modelo de máquina compartilhado", "Referência reutilizável do catálogo público do PCM Direto, sujeita a revisão. Não é o inventário da organização "
-                                            "nem este documento. Usar um modelo cria um cadastro local; não há sincronização automática."),
-        ("Template documental", "Arquivo Excel/Word preenchido com dados locais (este manual é um deles). Não consulta o catálogo nem envia dados."),
-        ("ID técnico", "Identificador estável de ativo, tarefa, pessoa, execução ou falha. Não é substituído por TAG, nome ou número de linha."),
-        ("TAG", "Rótulo legível do ativo no formato SETOR-SIGLA-NNN (ex.: UTL-CMP-001)."),
-        ("Chave da tarefa", "Par ID do ativo|ID da tarefa."),
-        ("Chave da ocorrência", "Chave da tarefa|data prevista no formato AAAA-MM-DD."),
-        ("Tarefa de segurança", "Tarefa que não pode ser retirada do plano nem ter a frequência reduzida em relação à referência."),
-        ("Pendente", "Resultado incompleto: falta informação para concluir (ex.: nota de criticidade ausente)."),
-        ("A definir", "Valor que ainda não foi definido pelo responsável. Não é substituído por valor presumido."),
-    ]
+TERMOS = [
+    ("Ativo local", "Equipamento efetivo da organização, com ID técnico, setor, TAG, plano, criticidade e histórico."),
+    ("Modelo de máquina compartilhado", "Referência reutilizável do catálogo público do PCM Direto, sujeita a revisão. Usá-lo cria um cadastro local, "
+                                        "sem sincronização automática."),
+    ("Template documental", "Arquivo Excel/Word preenchido com dados locais, como este manual. Não consulta o catálogo nem envia dados."),
+    ("ID técnico", "Identificador estável de ativo, tarefa, pessoa, execução ou falha. Não é substituído por TAG, nome ou número de linha."),
+    ("TAG", "Rótulo legível do ativo no formato SETOR-SIGLA-NNN (ex.: UTL-CMP-001)."),
+    ("Tarefa de segurança", "Tarefa que não pode ser retirada do plano nem ter a frequência reduzida em relação à referência."),
+    ("Pendente / A definir", "Pendente: falta informação para concluir. A definir: valor ainda não definido pelo responsável; nunca é presumido."),
+]
 
 
-def referencias(m, rotulo):
-    m.h1("Referências")
-    m.p("Referencial adotado: {{organizacao.referencial}}. O referencial inicial do PCM Direto é GERAL (sem norma).")
-    m.p("Cada referência começa como Não verificado. Só pode ser marcada como Verificado quando houver fonte oficial com endereço HTTPS, versão e data; "
-        "essa marcação registra a conferência do responsável e não certifica conformidade. Referências sem fonte suficiente permanecem pendentes. "
-        "Não cite número de norma sem fonte oficial, versão e data verificáveis.")
-    m.regiao("requisitos", [5.2, 2.0, 2.3, 4.7, 2.8], f"Tabela · Referências do {rotulo} (cadastro M6)")
+def referencias(m):
+    m.h1("Referências e requisitos")
+    m.p("Referencial adotado: {{organizacao.referencial}} (o inicial do PCM Direto é GERAL (sem norma)).")
+    m.destaque("Cada referência começa Não verificado. Verificado exige fonte oficial HTTPS, versão e data; registra a conferência do responsável "
+               "e não certifica conformidade. Não cite número de norma sem essas informações.", "REGRA", cor=AZUL)
+    m.regiao("requisitos", [5.2, 2.0, 2.3, 4.7, 2.8], "Referências registradas (PCMD-01, aba Requisitos)")
 
 
 def responsabilidades(m, papeis):
     m.h1("Responsabilidades")
-    m.tabela(["Papel", "Responsabilidade", "Pessoa"], papeis, [4.0, 9.0, 4.0], "Tabela · Papéis neste manual")
-    m.regiao("pessoas", [4.0, 4.4, 3.4, 5.2], "Tabela · Pessoas e funções cadastradas (cadastro M3, somente pessoas ativas)")
+    m.tabela(["Papel", "Responsabilidade", "Pessoa"], papeis, [4.2, 8.8, 4.0])
+    m.regiao("pessoas", [4.0, 4.4, 3.4, 5.2], "Pessoas ativas (PCMD-01, aba Pessoas)")
     m.nota("Inclua apenas os dados pessoais necessários. Pessoas inativadas continuam associadas aos registros anteriores.")
 
 
 def historico(m):
     m.h1("Histórico de revisão")
-    m.regiao("revisoes", [2.0, 2.8, 8.2, 4.0], "Tabela · Histórico de revisão deste documento")
+    m.regiao("revisoes", [2.0, 2.8, 8.2, 4.0], "Revisões deste documento (PCMD-01, aba Revisões)")
 
 
 # ------------------------------------------------------------ W1
 def manual_w1(valores=None, regioes=None):
     m = Manual("PCMD-W1", "Manual de Gestão de Ativos", valores, regioes)
-    m.identificacao()
+    m.identificacao("Como cadastrar, identificar, classificar e preservar o histórico dos ativos.")
 
     m.h1("Objetivo e escopo")
     m.p("Este manual descreve como {{organizacao.nome}} cadastra, identifica, classifica e mantém o histórico dos seus ativos de manutenção, "
-        "usando os registros do PCM Direto e os modelos PCMD.")
-    m.p("Escopo: cadastro e hierarquia dos ativos, IDs e TAGs, setores, criticidade, responsáveis, conservação do histórico, requisitos e fontes, "
-        "controle documental e distinção entre o cadastro local e o modelo público do catálogo.")
-    m.p("Fora do escopo: procedimentos de execução de tarefas, cálculo de indicadores sem regra aprovada e qualquer declaração de conformidade legal.")
+        "com os registros do PCM Direto e os modelos PCMD.")
+    m.tabela(["Dentro do escopo", "Fora do escopo"], [
+        ("Cadastro e hierarquia, IDs e TAGs, setores, criticidade, responsáveis, histórico, requisitos e controle documental.",
+         "Procedimentos de execução, indicadores sem regra aprovada e qualquer declaração de conformidade legal."),
+    ], [8.5, 8.5], primeira_negrito=False)
 
-    m.h1("Termos e definições")
-    m.tabela(["Termo", "Definição"], termos_comuns(m), [4.5, 12.5])
+    m.h1("Termos")
+    m.tabela(["Termo", "Definição"], TERMOS, [4.5, 12.5])
 
-    referencias(m, "PCMD-W1")
     responsabilidades(m, [
         ("Elaborador", "Prepara e atualiza este manual e os cadastros de referência.", "{{documento.elaborador}}"),
-        ("Aprovador", "Aprova o manual depois de revisado. O campo só é preenchido após aprovação efetiva.", "{{documento.aprovador}}"),
-        ("Responsável pela criticidade", "Define o significado dos níveis 1, 2 e 3 de cada critério e confere as notas atribuídas.", "A definir"),
-        ("Responsável por tarefa", "Pessoa associada a cada tarefa no plano mestre (PCMD-03).", "Ver PCMD-03"),
+        ("Aprovador", "Aprova o manual revisado. Preenchido só após aprovação efetiva.", "{{documento.aprovador}}"),
+        ("Responsável pela criticidade", "Define o significado dos níveis 1, 2 e 3 e confere as notas.", "A definir"),
+        ("Responsável por tarefa", "Pessoa ligada a cada tarefa pelo ID; renomear a pessoa não quebra o vínculo.", "Ver PCMD-03"),
     ])
 
-    m.h1("Cadastro e hierarquia dos ativos")
-    m.p("A hierarquia usada pelos registros é: organização → setor → ativo → tarefas do plano. Cada ativo pertence a um setor e a um tipo de "
-        "equipamento da biblioteca técnica.")
+    m.h1("Cadastro dos ativos")
+    m.p("Hierarquia: organização → setor → ativo → tarefas do plano. Cada ativo pertence a um setor e a um tipo de equipamento da biblioteca técnica.")
     m.h2("IDs e TAGs")
-    m.lista([
-        "Cada ativo tem um ID técnico estável, criado no cadastro. O ID não muda quando a descrição ou a TAG mudam.",
-        "A TAG segue o formato SETOR-SIGLA-NNN: sigla do setor (2 a 4 letras ou números), sigla de 3 letras do tipo e número com 3 dígitos.",
-        "TAG, nome de pessoa, número de linha ou título não substituem os IDs técnicos nos vínculos entre registros.",
-        "Execuções e falhas guardam a TAG e a descrição vigentes no momento do registro; renomear o ativo não reescreve o histórico.",
-    ])
+    m.tabela(["Item", "Regra"], [
+        ("ID técnico", "Criado no cadastro e estável: não muda quando a descrição ou a TAG mudam."),
+        ("TAG", "SETOR-SIGLA-NNN: setor (2 a 4 letras ou números), sigla de 3 letras do tipo e número de 3 dígitos."),
+        ("Vínculos", "Sempre pelo ID. TAG, nome, número de linha ou título não substituem IDs."),
+        ("Histórico", "Execuções e falhas guardam a TAG e a descrição do momento do registro."),
+    ], [3.5, 13.5])
     m.h2("Setores")
-    m.regiao("setores", [3.0, 14.0], "Tabela · Setores cadastrados")
-    m.h2("Registro dos ativos")
-    m.p("A lista completa dos ativos, com notas e classe de criticidade, está no Anexo A deste manual e na planilha PCMD-02 Ativos.")
+    m.regiao("setores", [3.0, 14.0], "Setores cadastrados (PCMD-02, aba Setores)")
 
     m.h1("Criticidade")
-    m.p("A criticidade usa cinco critérios, nesta ordem: Segurança (N1), Qualidade (N2), Produção (N3), Frequência de falha (N4) e "
-        "Custo/tempo de reparo (N5). Cada nota é um número inteiro de 1 a 3. Nota ausente é ausência, não zero.")
-    m.tabela(["Situação", "Resultado"], [
-        ("Alguma nota ausente ou inválida", "Classe Pendente, sem soma parcial como resultado."),
-        ("Cinco notas válidas e Segurança = 3", "Classe A."),
-        ("Cinco notas válidas e soma ≥ limite A ({{criticidade.limite_a}})", "Classe A."),
-        ("Cinco notas válidas e soma ≥ limite B ({{criticidade.limite_b}})", "Classe B."),
-        ("Demais casos com cinco notas válidas", "Classe C."),
-        ("Limites inválidos (fora de 5 ≤ B < A ≤ 15 ou não inteiros)", "Classe Pendente, com orientação para corrigir os limites."),
-    ], [8.0, 9.0], "Tabela · Regra de classificação (a soma vai de 5 a 15)")
-    m.p("Limites vigentes: A = {{criticidade.limite_a}} e B = {{criticidade.limite_b}}. Os limites iniciais do PCM Direto são A = 12 e B = 9.")
+    m.p("Cinco critérios, nesta ordem: Segurança (N1), Qualidade (N2), Produção (N3), Frequência de falha (N4) e Custo/tempo de reparo (N5). "
+        "Cada nota é um inteiro de 1 a 3; nota ausente é ausência, não zero.")
+    m.tabela(["Situação", "Classe"], [
+        ("Alguma nota ausente ou inválida", "Pendente"),
+        ("Segurança = 3", "A"),
+        ("Soma ≥ limite A ({{criticidade.limite_a}})", "A"),
+        ("Soma ≥ limite B ({{criticidade.limite_b}})", "B"),
+        ("Demais casos com cinco notas válidas", "C"),
+        ("Limites fora de 5 ≤ B < A ≤ 15 ou não inteiros", "Pendente"),
+    ], [12.0, 5.0], "Regra de classificação, avaliada de cima para baixo (soma de 5 a 15; limites iniciais A = 12 e B = 9)")
     m.tabela(["Critério", "Nível 1", "Nível 2", "Nível 3"], [
         (c, "A definir pelo mantenedor", "A definir pelo mantenedor", "A definir pelo mantenedor")
         for c in ("N1 Segurança", "N2 Qualidade", "N3 Produção", "N4 Frequência de falha", "N5 Custo/tempo de reparo")
-    ], [4.4, 4.2, 4.2, 4.2], "Tabela · Significado dos níveis (definido pelo responsável; o PCM Direto não define)")
-    m.p("A classe de criticidade não altera automaticamente frequências, tarefas nem proteções de segurança. Qualquer mudança no plano é decisão "
-        "registrada do profissional responsável.")
+    ], [4.4, 4.2, 4.2, 4.2], "Significado dos níveis (definido pelo responsável; o PCM Direto não define)")
+    m.destaque("A classe não altera frequências, tarefas nem proteções de segurança. Mudanças no plano são decisão registrada do profissional responsável.",
+               "IMPORTANTE", cor=SEGURANCA, fundo="FBE7EA")
 
-    m.h1("Responsáveis pelas tarefas")
-    m.p("Cada tarefa do plano mestre pode ter uma pessoa responsável, identificada pelo ID da pessoa. O nome exibido vem do cadastro de pessoas; "
-        "alterar o nome não quebra o vínculo. Pessoas inativas permanecem nos registros anteriores.")
+    m.h1("Histórico")
+    m.tabela(["Situação", "O que acontece"], [
+        ("Várias realizações da mesma tarefa", "Cada execução é um registro com ID próprio."),
+        ("Execução cancelada", "Continua no histórico e sai da contagem do realizado."),
+        ("Marcação antiga migrada", "Aparece como legado sem vínculo e não multiplica realizações."),
+        ("Ativo removido", "Execuções e falhas continuam, com TAG e descrição preservadas."),
+        ("Horas de parada vazias", "Significam não informado; não viram zero."),
+    ], [5.5, 11.5])
 
-    m.h1("Conservação do histórico")
-    m.lista([
-        "Cada execução é um registro com ID próprio; pode haver vários registros para a mesma tarefa.",
-        "Cancelar uma execução mantém o registro no histórico e o exclui da contagem do realizado.",
-        "Marcações antigas migradas aparecem como legado sem vínculo e não multiplicam realizações.",
-        "Remover um ativo não apaga o histórico de execuções e falhas; os registros preservam TAG e descrição.",
-        "Horas de parada vazias significam não informado; não são convertidas em zero.",
-    ])
-
-    m.h1("Requisitos e fontes")
-    m.p("Os requisitos aplicáveis são registrados na tabela de referências (seção Referências) com fonte, versão, data e status. "
-        "Enquanto não houver fonte oficial verificável, o requisito permanece Não verificado.")
+    referencias(m)
 
     m.h1("Controle documental")
-    m.p("Os documentos do sistema usam o prefixo PCMD e estão relacionados na lista mestra (PCMD-01), com revisão, data, elaborador, aprovador, "
-        "próxima revisão e situação. Cada revisão é registrada no histórico de revisão. A próxima revisão deste manual é {{documento.proxima_revisao}}.")
-    m.tabela(["Código", "Documento"], [(c, t) for c, t, _ in E.DOCUMENTOS_PCMD], [3.0, 14.0], "Tabela · Documentos PCMD")
-
-    m.h1("Cadastro local e modelo público")
-    m.p("O catálogo colaborativo do PCM Direto reúne modelos de máquina compartilhados, sujeitos a revisão. Ao usar um modelo, cria-se um ativo local; "
-        "as tarefas sugeridas na contribuição não substituem automaticamente a biblioteca validada nem suas proteções, e não há sincronização "
-        "automática com o catálogo.")
-    m.p("Pessoas, organização, falhas e execuções pertencem à gestão local e não devem ser publicadas no catálogo. Este manual e as planilhas não "
-        "consultam o catálogo pela internet nem enviam dados.")
+    m.p("Os documentos PCMD ficam na lista mestra (PCMD-01) com revisão, datas, elaborador, aprovador e situação; cada revisão entra no histórico. "
+        "Próxima revisão deste manual: {{documento.proxima_revisao}}.")
+    m.tabela(["Código", "Documento"], [(c, t) for c, t, _ in E.DOCUMENTOS_PCMD], [3.0, 14.0])
+    m.destaque("Ao usar um modelo do catálogo colaborativo, cria-se um ativo local; não há sincronização automática. Pessoas, organização, falhas e "
+               "execuções são locais e não devem ser publicadas. Este manual e as planilhas não consultam a internet nem enviam dados.",
+               "CATÁLOGO", cor=AZUL)
 
     m.h1("Indicadores")
-    m.tabela(["Indicador", "Regra explícita", "Meta", "Situação"], [
-        ("Ativos com criticidade concluída", "Ativos com classe A, B ou C ÷ ativos cadastrados (PCMD-02).", "A definir", "Regra definida; meta a definir"),
-        ("Ativos com classe Pendente", "Contagem de ativos com classe Pendente (PCMD-02).", "A definir", "Regra definida; meta a definir"),
-        ("Requisitos verificados", "Requisitos com status Verificado ÷ requisitos cadastrados.", "A definir", "Regra definida; meta a definir"),
-        ("Disponibilidade", "Não calculada: regra técnica a definir pelo mantenedor.", "{{metas.disponibilidade}}", "A definir"),
-        ("MTBF e MTTR", "Não calculados: regras técnicas a definir pelo mantenedor.", "A definir", "A definir"),
-    ], [3.8, 6.4, 2.8, 4.0], "Tabela · Indicadores do manual")
+    m.tabela(["Indicador", "Regra explícita", "Meta"], [
+        ("Criticidade concluída", "Ativos com classe A, B ou C ÷ ativos cadastrados (PCMD-02).", "A definir"),
+        ("Ativos Pendente", "Contagem de ativos com classe Pendente (PCMD-02).", "A definir"),
+        ("Requisitos verificados", "Requisitos Verificado ÷ requisitos cadastrados (PCMD-01).", "A definir"),
+        ("Disponibilidade, MTBF e MTTR", "Não calculados: regras técnicas a definir pelo mantenedor.", "{{metas.disponibilidade}}"),
+    ], [4.2, 9.6, 3.2])
 
     m.h1("Checklist de conferência")
     m.checklist([
-        "Todos os ativos têm ID técnico, TAG, setor e tipo.",
-        "As TAGs seguem o formato SETOR-SIGLA-NNN e não há IDs repetidos.",
-        "O significado dos níveis 1, 2 e 3 de cada critério foi definido pelo responsável.",
-        "Ativos com classe Pendente foram identificados e têm responsável pela avaliação.",
-        "Limites A e B são inteiros e respeitam 5 ≤ B < A ≤ 15.",
-        "Referências marcadas como Verificado têm fonte HTTPS, versão e data.",
-        "Nenhum número de norma foi citado sem fonte oficial, versão e data.",
-        "Histórico de execuções e falhas foi preservado após alterações no cadastro.",
-        "Elaborador preenchido; aprovador preenchido somente após aprovação efetiva.",
-        "Lista mestra e histórico de revisão atualizados.",
+        "Todo ativo tem ID, TAG no formato SETOR-SIGLA-NNN, setor e tipo; não há IDs repetidos.",
+        "O significado dos níveis 1, 2 e 3 foi definido; limites A e B respeitam 5 ≤ B < A ≤ 15.",
+        "Ativos Pendente estão identificados e têm responsável pela avaliação.",
+        "Referências Verificado têm fonte HTTPS, versão e data; nenhuma norma citada sem fonte.",
+        "Histórico de execuções e falhas preservado após mudanças no cadastro.",
+        "Aprovador preenchido só após aprovação efetiva; lista mestra e revisões atualizadas.",
     ])
     historico(m)
 
     m.secao_paisagem()
-    m.h1("Anexo A · Ativos e criticidade")
-    m.p("Origem: PCMD-02 Ativos. Nota vazia = não avaliada; pontuação só aparece com as cinco notas válidas.")
-    m.regiao("ativos", [2.6, 6.4, 1.4, 3.4, 1.1, 1.1, 1.1, 1.1, 1.1, 2.4, 2.0], "Tabela · Ativos e criticidade",
+    m.h1("Anexo A · Ativos e criticidade", numerar=False)
+    m.p("Origem: PCMD-02, aba Ativos. Nota vazia = não avaliada; a pontuação só aparece com as cinco notas válidas.")
+    m.regiao("ativos", [2.6, 6.4, 1.4, 3.4, 1.1, 1.1, 1.1, 1.1, 1.1, 2.4, 2.0], "Ativos e criticidade",
              destaque=lambda i, tx: i == 10 and tx == "Pendente")
     return m
 
@@ -535,119 +586,102 @@ def manual_w1(valores=None, regioes=None):
 # ------------------------------------------------------------ W2
 def manual_w2(valores=None, regioes=None):
     m = Manual("PCMD-W2", "Manual de Estratégia de Manutenção", valores, regioes)
-    m.identificacao()
+    m.identificacao("Como escolher e revisar estratégias, planejar, registrar execuções e tratar falhas.")
 
     m.h1("Objetivo e escopo")
-    m.p("Este manual descreve como {{organizacao.nome}} avalia as consequências das falhas, escolhe e revisa as estratégias de manutenção, "
-        "registra a origem das tarefas, planeja, executa e trata falhas, usando os registros do PCM Direto e os modelos PCMD.")
-    m.p("As estratégias, os prazos por classe e as metas são definidos pelo profissional responsável. Enquanto não forem definidos, aparecem como "
-        "A definir; este manual não cria regras técnicas.")
+    m.p("Este manual descreve como {{organizacao.nome}} escolhe e revisa estratégias de manutenção, planeja, registra execuções e trata falhas, "
+        "com os registros do PCM Direto e os modelos PCMD. Cadastro, criticidade e histórico seguem o Manual de Gestão de Ativos (PCMD-W1).")
+    m.destaque("Estratégias, prazos por classe e metas são definidos pelo profissional responsável. Enquanto não forem, aparecem como A definir: "
+               "este manual não cria regras técnicas.", "IMPORTANTE", cor=AZUL)
 
-    m.h1("Termos e definições")
-    m.tabela(["Termo", "Definição"], termos_comuns(m) + [
+    m.h1("Termos")
+    m.tabela(["Termo", "Definição"], [
         ("Ocorrência prevista", "Trio ativo + tarefa + data prevista gerado a partir do plano vigente."),
-        ("Execução vinculada", "Registro de realização que informa a data prevista da ocorrência que atendeu."),
+        ("Execução vinculada", "Realização que informa a data prevista da ocorrência que atendeu."),
         ("Estratégia de manutenção", "Forma de atuação escolhida para um ativo ou tarefa pelo profissional responsável."),
+        ("Tarefa de segurança", "Não pode ser retirada do plano nem ter a frequência reduzida em relação à referência."),
     ], [4.5, 12.5])
+    m.nota("Demais termos (ativo local, ID técnico, TAG, Pendente, A definir): ver PCMD-W1.")
 
-    referencias(m, "PCMD-W2")
     responsabilidades(m, [
         ("Elaborador", "Prepara e atualiza este manual.", "{{documento.elaborador}}"),
-        ("Aprovador", "Aprova o manual depois de revisado. O campo só é preenchido após aprovação efetiva.", "{{documento.aprovador}}"),
-        ("Profissional responsável pela estratégia", "Avalia as consequências, escolhe e revisa as estratégias, define prazos por classe.", "{{estrategia.responsavel}}"),
-        ("Responsável por tarefa", "Pessoa associada a cada tarefa no plano mestre (PCMD-03).", "Ver PCMD-03"),
+        ("Aprovador", "Aprova o manual revisado. Preenchido só após aprovação efetiva.", "{{documento.aprovador}}"),
+        ("Responsável pela estratégia", "Avalia consequências, escolhe e revisa estratégias e define prazos por classe.", "{{estrategia.responsavel}}"),
+        ("Responsável por tarefa", "Pessoa ligada a cada tarefa do plano mestre (PCMD-03).", "Ver PCMD-03"),
     ])
 
-    m.h1("Avaliação das consequências")
-    m.p("A avaliação parte da criticidade registrada no Manual de Gestão de Ativos (PCMD-W1) e na planilha PCMD-02: cinco notas de 1 a 3 "
-        "(Segurança, Qualidade, Produção, Frequência de falha e Custo/tempo de reparo) e a classe A, B, C ou Pendente.")
-    m.lista([
-        "Ativos com classe Pendente são avaliados antes de qualquer decisão de estratégia baseada na classe.",
-        "O profissional responsável registra a justificativa de cada decisão no histórico de revisão ou em documento próprio.",
-        "A classe não altera automaticamente a frequência de nenhuma tarefa.",
-    ])
-
-    m.h1("Escolha e revisão das estratégias")
-    m.p("A escolha da estratégia é feita pelo profissional responsável ({{estrategia.responsavel}}). A tabela abaixo fica em A definir até que "
-        "essa definição técnica seja registrada.")
+    m.h1("Estratégia por classe")
+    m.p("A avaliação parte da criticidade do PCMD-02 (classe A, B, C ou Pendente). Ativos Pendente são avaliados antes de qualquer decisão baseada "
+        "na classe, e cada decisão tem justificativa registrada.")
     m.tabela(["Classe", "Estratégia predominante", "Prazo de atendimento", "Revisão do plano"], [
         (c.upper(), f"{{{{estrategia.classe_{c}.estrategia}}}}", f"{{{{estrategia.classe_{c}.prazo}}}}", f"{{{{estrategia.classe_{c}.revisao}}}}")
         for c in "abc"
     ] + [("Pendente", "Avaliar a criticidade antes de definir", "Não se aplica", "Não se aplica")],
-        [2.2, 5.6, 4.6, 4.6], "Tabela · Estratégia por classe (definição do profissional responsável)")
-    m.p("Periodicidade de revisão desta estratégia: {{estrategia.periodicidade_revisao}}.")
+        [2.2, 5.6, 4.6, 4.6], "Definição do profissional responsável ({{estrategia.responsavel}})")
+    m.p("Periodicidade de revisão da estratégia: {{estrategia.periodicidade_revisao}}. A classe não altera automaticamente nenhuma frequência.")
 
     m.h1("Origem das tarefas")
-    m.lista([
-        "As tarefas vêm da biblioteca técnica do PCM Direto, com origem e versão registradas em cada tarefa.",
-        "Tarefa genérica traz a origem exata: base genérica a validar com manual do fabricante.",
-        "Ao confirmar uma tarefa em manual do fabricante ou outra fonte, a origem e a versão da tarefa são atualizadas.",
-        "Tarefa marcada como segurança não pode ser excluída, desmarcada nem ter intervalo ampliado em relação à referência; só é permitido manter "
-        "ou aumentar a frequência.",
-        "Validações e proteções de planilhas ajudam a evitar erros, mas podem ser contornadas por colagem ou edição externa; não substituem as travas do app.",
-    ])
+    m.tabela(["Regra", "Detalhe"], [
+        ("Origem e versão", "Toda tarefa vem da biblioteca técnica com origem e versão registradas."),
+        ("Tarefa genérica", "Origem exata: base genérica a validar com manual do fabricante."),
+        ("Confirmação", "Ao confirmar em manual do fabricante ou outra fonte, atualizar origem e versão."),
+    ], [4.0, 13.0])
+    m.destaque("Tarefa de segurança não pode ser excluída, desmarcada nem ter intervalo ampliado; só é permitido manter ou aumentar a frequência. "
+               "Validações de planilha ajudam, mas podem ser contornadas e não substituem as travas do app.", "SEGURANÇA", cor=SEGURANCA, fundo="FBE7EA")
 
-    m.h1("Planejamento")
-    m.h2("Plano mestre e cronograma")
+    m.h1("Do plano ao registro")
+    m.h2("Fluxo")
+    m.tabela(["Etapa", "O que fazer", "Onde"], [
+        ("1. Planejar", "Manter atividade, frequência vigente, especialidade, duração e responsável de cada tarefa.", "PCMD-03 Plano Mestre"),
+        ("2. Prever", "Gerar as ocorrências do ciclo de 52 semanas a partir do início (sem calendário ISO; diária = dias úteis, sem feriados).",
+         "PCMD-04 Ocorrências"),
+        ("3. Executar", "Registrar cada realização com data, responsável e a data prevista da ocorrência atendida.", "PCMD-04 Execuções"),
+        ("4. Acompanhar", "Ver o % realizado por mês da data prevista e comparar com a meta {{metas.aderencia}}.", "PCMD-04 Cronograma"),
+    ], [2.6, 10.4, 4.0])
+    m.h2("Como o realizado é contado")
     m.lista([
-        "O plano mestre (PCMD-03) é a fonte do cronograma: atividade, frequência vigente, especialidade, duração estimada e responsável.",
-        "O cronograma do PCM Direto trabalha com 52 semanas a partir da data de início do ciclo, sem calendário ISO e sem redistribuir tarefas entre meses.",
-        "Tarefa diária considera cinco dias úteis por semana, sem calendário de feriados; cada dia útil é uma ocorrência com a duração de um dia.",
-        "Horas previstas são estimadas a partir da duração da tarefa. Não representam horas efetivamente trabalhadas.",
-    ])
-
-    m.h1("Execução e registro")
-    m.h2("Vínculo entre execução e ocorrência prevista")
-    m.lista([
-        "Cada realização é registrada como uma execução, com data realizada, responsável e, quando houver, a data prevista da ocorrência atendida.",
-        "O realizado é contado pelo vínculo explícito à ocorrência prevista, nunca pela coincidência da data real.",
-        "Duas execuções da mesma ocorrência contam uma ocorrência concluída.",
-        "Execuções canceladas permanecem no histórico e não contam. Execuções sem vínculo (incluindo legado) aparecem separadas.",
-        "O mês considerado é o da data prevista, mesmo que a realização ocorra em outro mês.",
+        "Pelo vínculo explícito à ocorrência prevista, nunca pela coincidência da data real; o mês é o da data prevista.",
+        "Duas execuções da mesma ocorrência contam uma vez. Canceladas e sem vínculo (inclusive legado) aparecem separadas e não contam.",
+        "Horas previstas são estimadas pela duração da tarefa; não são horas trabalhadas.",
     ])
 
     m.h1("Tratamento de falhas")
-    m.p("Cada falha é registrada na ficha PCMD-05 com ativo, data, sintoma, causa, ação, horas de parada (opcional), peça e responsável. "
-        "A análise de causa e a definição de ações seguem o critério do profissional responsável; este manual não prescreve procedimentos técnicos.")
+    m.p("Cada falha vai para a ficha PCMD-05 com ativo, data, sintoma, causa, ação, horas de parada (opcional), peça e responsável. "
+        "A análise de causa segue o critério do profissional responsável; este manual não prescreve procedimentos técnicos.")
     m.lista([
         "Horas de parada vazias significam não informado e não são tratadas como zero.",
-        "Falhas recorrentes são levadas à revisão da estratégia, conforme a periodicidade definida.",
-        "Não são calculados MTBF, MTTR ou disponibilidade sem regras aprovadas.",
+        "Falhas recorrentes vão para a revisão da estratégia, na periodicidade definida.",
     ])
 
     m.h1("Indicadores")
-    m.tabela(["Indicador", "Regra explícita", "Meta", "Situação"], [
-        ("% realizado do plano (por ocorrência)", "Ocorrências concluídas distintas ÷ ocorrências previstas distintas no mês da data prevista. "
-         "Mês sem previsão: Sem previsão.", "{{metas.aderencia}}", "Regra definida"),
-        ("Falhas registradas", "Contagem de registros da PCMD-05 no período.", "A definir", "Regra definida; meta a definir"),
-        ("Horas de parada informadas", "Soma das horas informadas na PCMD-05; registros vazios não entram como zero.", "A definir",
-         "Regra definida; não é indicador de disponibilidade"),
-        ("Disponibilidade, MTBF e MTTR", "Não calculados: regras técnicas a definir pelo mantenedor.", "{{metas.disponibilidade}}", "A definir"),
-    ], [3.8, 6.6, 2.6, 4.0], "Tabela · Indicadores do manual")
+    m.tabela(["Indicador", "Regra explícita", "Meta"], [
+        ("% realizado (por ocorrência)", "Concluídas distintas ÷ previstas distintas, no mês da data prevista; mês sem previsão: Sem previsão.", "{{metas.aderencia}}"),
+        ("Falhas registradas", "Contagem de registros da PCMD-05 no período.", "A definir"),
+        ("Horas de parada informadas", "Soma das horas informadas na PCMD-05; vazios não entram como zero. Não é disponibilidade.", "A definir"),
+        ("Disponibilidade, MTBF e MTTR", "Não calculados: regras técnicas a definir pelo mantenedor.", "{{metas.disponibilidade}}"),
+    ], [4.2, 9.6, 3.2])
 
-    m.h1("Revisão do manual e da estratégia")
-    m.p("A estratégia é revisada pelo profissional responsável na periodicidade {{estrategia.periodicidade_revisao}} e sempre que houver mudança "
-        "relevante no ativo, na criticidade, no histórico de falhas ou nas referências. Cada revisão é registrada no histórico abaixo e na lista mestra (PCMD-01).")
+    m.h1("Revisão")
+    m.p("A estratégia é revisada na periodicidade {{estrategia.periodicidade_revisao}} e sempre que mudarem o ativo, a criticidade, o histórico "
+        "de falhas ou as referências. Cada revisão entra no histórico abaixo e na lista mestra (PCMD-01).")
+
+    referencias(m)
 
     m.h1("Checklist de conferência")
     m.checklist([
-        "Todos os ativos têm criticidade avaliada ou estão identificados como Pendente.",
-        "A estratégia por classe foi definida pelo profissional responsável ou permanece A definir.",
-        "Tarefas de segurança mantêm frequência igual ou maior que a referência e não foram retiradas.",
-        "Toda tarefa tem origem e versão; tarefas genéricas trazem a origem exata da base genérica.",
-        "Execuções informam a data prevista quando atendem uma ocorrência do cronograma.",
-        "Execuções canceladas e sem vínculo não foram contadas no percentual.",
-        "Falhas registradas com sintoma, data e ativo; horas de parada vazias não foram tratadas como zero.",
-        "Metas e indicadores sem regra aprovada permanecem A definir.",
-        "Elaborador preenchido; aprovador preenchido somente após aprovação efetiva.",
-        "Histórico de revisão e lista mestra atualizados.",
+        "Estratégia por classe definida pelo responsável ou mantida como A definir; Pendente avaliado antes.",
+        "Tarefas de segurança com frequência igual ou maior que a referência e não retiradas.",
+        "Toda tarefa tem origem e versão; genéricas trazem a origem exata da base genérica.",
+        "Execuções informam a data prevista; canceladas e sem vínculo fora do percentual.",
+        "Falhas com ativo, data e sintoma; horas de parada vazias não tratadas como zero.",
+        "Metas sem regra aprovada como A definir; aprovador só após aprovação efetiva.",
     ])
     historico(m)
 
     m.secao_paisagem()
-    m.h1("Anexo A · Plano mestre (resumo)")
-    m.p("Origem: PCMD-03 Plano Mestre. Segurança = Sim indica tarefa que não pode ser retirada nem ter a frequência reduzida.")
-    m.regiao("tarefas", [2.4, 1.7, 6.6, 2.2, 2.7, 2.0, 2.3, 3.4, 2.4], "Tabela · Tarefas do plano",
+    m.h1("Anexo A · Plano mestre (resumo)", numerar=False)
+    m.p("Origem: PCMD-03, aba Plano Mestre. Segurança = Sim: a tarefa não pode ser retirada nem ter a frequência reduzida.")
+    m.regiao("tarefas", [2.4, 1.7, 6.6, 2.2, 2.7, 2.0, 2.3, 3.4, 2.4], "Tarefas do plano",
              destaque=lambda i, tx: i == 6 and tx == "Sim")
     return m
 

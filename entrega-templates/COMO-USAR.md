@@ -4,80 +4,95 @@
 
 Modelo versão 1.0.0 (23/10/2026) · Autor: Thiago Oliveira Lima · Contato público: pcmdireto@gmail.com · Licença MIT.
 
-## O que há nesta pasta
+## Escolha o arquivo
 
-| Arquivo | Para que serve |
+Cada arquivo é independente: baixe só o que for usar. Todos têm uma versão **em branco** e uma versão **-Exemplo** com dados fictícios
+(Indústria Exemplo, Pessoa A, Pessoa B, fabricantes fictícios).
+
+| Arquivo | O que tem | Abas |
+|---|---|---|
+| `planilhas/PCMD-01-Controle-Documental.xlsx` | Lista mestra, revisões, organização, pessoas e requisitos | Início, Lista Mestra, Revisões, Organização, Pessoas, Requisitos, Listas |
+| `planilhas/PCMD-02-Ativos-Criticidade.xlsx` | Inventário de ativos e classe A/B/C/Pendente | Início, Ativos, Critérios, Setores, Listas |
+| `planilhas/PCMD-03-04-Plano-Cronograma.xlsx` | Plano mestre, ocorrências, execuções e painel mensal com gráfico | Início, Plano Mestre, Cronograma, Ocorrências, Execuções, Listas |
+| `planilhas/PCMD-05-Ficha-Falha.xlsx` | Registro de falhas | Início, Ficha de Falha |
+| `manuais/PCMD-W1-Manual-Gestao-Ativos.docx` | Manual de Gestão de Ativos, com marcadores `{{...}}` | — |
+| `manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx` | Manual de Estratégia de Manutenção, com marcadores | — |
+
+Outros itens: `previas/` (PDFs só para ver a impressão), `CONTRATO-CAMPOS.json` e `DICIONARIO-DE-DADOS.md` (mapa proposto para um futuro
+adaptador), `RELATORIO-DE-TESTES.md`, `gerador/` e `testes/`.
+
+Nada aqui altera o app, seus dados, exportações, backups ou workflows. O PCM Direto **ainda não** preenche estes arquivos.
+
+## Planilhas: o básico
+
+- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). A aba **Início** lista as abas, os passos e a legenda; informe ali a origem dos
+  dados e a data de emissão.
+- A cor do cabeçalho diz o que fazer: **azul** = preencher; **laranja** = referência da biblioteca; **cinza** = automático (fórmula, não
+  digite). Acima do cabeçalho, um rótulo curto repete isso (PREENCHER, ID, REFERÊNCIA, AUTOMÁTICO, FUTURO).
+- Ao preencher, a linha ganha listras e as colunas automáticas ficam cinza. Conferências usam texto e cor: `ERRO` (vermelho),
+  `Pendente`/`Verificar` (âmbar) e `OK` (verde).
+- Cálculos em branco? Recalcule: Excel `Ctrl+Alt+F9`; LibreOffice `Ctrl+Shift+F9`. Prévias de e-mail ou celular podem não calcular fórmulas.
+- Como os arquivos são independentes, nomes de pessoas e TAGs são gravados como texto ao lado do ID. O vínculo é sempre o ID.
+
+## Regras principais
+
+**IDs e chaves.** Chave da tarefa = `ID do ativo|ID da tarefa`; chave da ocorrência = chave da tarefa + `|AAAA-MM-DD` (data prevista).
+Cada execução e falha tem ID próprio. TAG e descrição do histórico ficam como foram registradas; remover ativo ou tarefa não apaga o histórico.
+
+**Criticidade (PCMD-02).** Cinco notas inteiras de 1 a 3 (Segurança, Qualidade, Produção, Frequência de falha, Custo/tempo de reparo).
+Faltando nota, nota inválida ou limites inválidos → Pendente. Com as cinco: Segurança = 3 → A; senão soma ≥ limite A → A; senão soma ≥ limite B → B;
+senão C. Limites iniciais A = 12 e B = 9 (inteiros, 5 ≤ B < A ≤ 15), na aba Critérios. A classe nunca altera frequências.
+
+**Cronograma (PCMD-03/04).** O plano vigente é a fonte; 52 semanas a partir do início, sem calendário ISO. Diária = cinco dias úteis por semana,
+sem feriados, cada dia uma ocorrência com a duração de um dia. Concluída = ao menos uma execução não cancelada vinculada; duplicadas contam uma vez;
+canceladas e sem vínculo aparecem separadas. O mês é o da data prevista; mês sem previsão mostra *Sem previsão*; previsões fora do ano ficam à parte.
+Horas são estimadas, não trabalhadas.
+
+**Segurança das tarefas.** Tarefa de segurança não pode ser retirada nem ter intervalo ampliado. A coluna Conferência do Plano Mestre mostra `ERRO`
+quando isso acontece. O Plano Mestre é protegido sem senha só contra edição acidental: para incluir tarefas, use *Revisão > Desproteger Planilha*
+e proteja de novo. Validações e proteção podem ser contornadas por colagem ou por outro programa; não substituem as travas do app.
+
+**Datas, horas e vazios.** Datas reais do Excel (dd/mm/aaaa); horas em decimal (1,5 = uma hora e meia); vazio = não informado (horas de parada
+vazias não viram zero); percentuais como fração com formato % (0,5 = 50%). Textos que começam com `=`, `+`, `-` ou `@` continuam texto.
+
+**Metas, requisitos e indicadores.** Referencial inicial GERAL (sem norma). Requisitos começam Não verificado; Verificado exige versão, data e fonte
+HTTPS e não certifica conformidade. Metas vazias ficam A definir. Não há cálculo de MTBF, MTTR ou disponibilidade sem regra aprovada.
+
+## Capacidade e como ampliar
+
+| Arquivo · aba | Linhas com fórmulas e validações |
 |---|---|
-| `PCM-Direto-Modelos.xlsx` | Pasta Excel em branco, com cabeçalhos, validações, fórmulas e impressão configurada. |
-| `PCM-Direto-Exemplo.xlsx` | Mesma estrutura, preenchida só com dados fictícios (Indústria Exemplo, Pessoa A, Pessoa B). |
-| `PCMD-W1-Manual-Gestao-Ativos.docx` | Template do Manual de Gestão de Ativos, com marcadores `{{...}}` visíveis. |
-| `PCMD-W2-Manual-Estrategia-Manutencao.docx` | Template do Manual de Estratégia de Manutenção. |
-| `PCMD-W1-...-Exemplo.docx`, `PCMD-W2-...-Exemplo.docx` | Os manuais preenchidos com os dados fictícios. |
-| `CONTRATO-CAMPOS.json` | Mapa proposto, versão 1, de cada campo, marcador e região para um futuro adaptador. |
-| `DICIONARIO-DE-DADOS.md` | O mesmo conteúdo do contrato em tabelas legíveis. |
-| `RELATORIO-DE-TESTES.md` | O que foi testado de fato, com qual programa, e as limitações. |
-| `previas/` | PDFs gerados pelo LibreOffice só para conferir a impressão. Os arquivos editáveis são os XLSX/DOCX. |
-| `gerador/` | Código-fonte da geração. `testes/` | Verificações automáticas dos arquivos gerados. |
+| PCMD-01 · Lista Mestra / Revisões / Pessoas / Requisitos | 50 / 100 / 60 / 60 |
+| PCMD-02 · Ativos / Setores | 300 / 30 |
+| PCMD-03/04 · Plano Mestre / Ocorrências / Execuções | 2.000 / 5.000 / 3.000 |
+| PCMD-05 · Ficha de Falha | 1.000 |
 
-Nada aqui altera o app, seus dados, exportações, backups ou workflows. O PCM Direto **ainda não** preenche estes arquivos:
-a integração será feita depois, por um adaptador que vai ler o `CONTRATO-CAMPOS.json` e ser testado à parte.
+Todas as tabelas começam na linha 7. A linha 4 mostra quantas linhas estão preenchidas (e quantas têm `ERRO`) e muda para **ATENÇÃO** se houver
+dados abaixo da capacidade; o painel do Cronograma também confere Ocorrências e Execuções. Para ampliar:
 
-## Usar a planilha (preenchimento manual)
+1. No Plano Mestre, desproteja a aba.
+2. Copie a última linha da tabela inteira e cole nas linhas de baixo: fórmulas, formatos e validações vão juntos.
+3. Em *Fórmulas > Gerenciador de Nomes*, estenda os nomes da aba até a nova última linha (lista no `DICIONARIO-DE-DADOS.md`,
+   por exemplo `pl_chave`, `oc_chave`, `oc_conta`, `oc_concluida`, `ex_chave_oc`, `ex_cancelada`).
+4. Ajuste a área de impressão e o filtro. Proteja de novo o Plano Mestre.
 
-1. Abra `PCM-Direto-Modelos.xlsx` no Excel 2010 ou posterior (ou LibreOffice Calc). Se pedir, permita o recálculo.
-   Se aparecerem cálculos em branco: Excel `Ctrl+Alt+F9`; LibreOffice `Ctrl+Shift+F9`.
-2. Siga a ordem da aba **Leia-me**: Leia-me (origem e data de emissão) → Cadastros → PCMD-02 Ativos → PCMD-03 Plano Mestre →
-   PCMD-04 Ocorrências e PCMD-04 Cronograma → Execuções → PCMD-05 Ficha de Falha → PCMD-01 Lista Mestra e Revisões.
-3. A linha 5 de cada tabela diz o papel da coluna: **ENTRADA**, **ID TÉCNICO**, **REFERÊNCIA**, **CÁLCULO** (não digitar),
-   **MANUAL** ou **FUTURO** (manter vazio). Passe o mouse no cabeçalho para ver origem, regra de vazio e validação.
-4. **PCMD-03 Plano Mestre** é protegido sem senha para não alterar sem querer a referência técnica. Para incluir tarefas da biblioteca,
-   use *Revisão > Desproteger Planilha*, cole as colunas REFERÊNCIA e proteja de novo. Isso não é segurança de acesso.
-5. **PCMD-04 Ocorrências** recebe uma linha por ativo + tarefa + data prevista (diária = uma linha por dia útil), com a fonte da data.
-   Depois informe o ano em **PCMD-04 Cronograma**. O % do mês conta ocorrências com execução vinculada, nunca a data real.
+## Fórmulas e compatibilidade
 
-Abas e códigos: `Leia-me`, `PCMD-01 Lista Mestra`, `PCMD-02 Ativos`, `PCMD-03 Plano Mestre`, `PCMD-04 Cronograma` (resumo),
-`PCMD-04 Ocorrências` (tabela de ocorrências do PCMD-04), `PCMD-05 Ficha de Falha`, `Execuções`, `Cadastros`, `Listas`, `Revisões`.
-O PCMD-04 foi dividido em duas abas para manter o resumo legível e a tabela de ocorrências filtrável.
+Funções clássicas, sem PROCX, FILTRO, ÚNICO, CLASSIFICAR, SEQUÊNCIA, LET, LAMBDA, macros, VBA, Power Query, conexões ou vínculos externos.
+As fórmulas ficam gravadas no padrão do formato (inglês) e o Excel em português mostra os nomes traduzidos: IF = SE, AND = E, OR = OU,
+ISNUMBER = ÉNÚM, IFERROR = SEERRO, COUNTIF(S) = CONT.SE(S), COUNTA = CONT.VALORES, SUMIFS = SOMASES, INDEX = ÍNDICE, MATCH = CORRESP,
+YEAR = ANO, MONTH = MÊS, DAY = DIA, LEFT = ESQUERDA, RIGHT = DIREITA, LEN = NÚM.CARACT, FIND = PROCURAR.
 
-### Capacidade e como ampliar
+Impressão: A4, ajustada à largura (tabelas largas em duas páginas, repetindo as colunas de identificação), cabeçalho da tabela repetido
+e o aviso completo no rodapé de cada página.
 
-| Aba | Linhas com fórmulas e validações |
-|---|---|
-| PCMD-01 Lista Mestra | 50 (linhas 7 a 56) |
-| PCMD-02 Ativos | 300 (7 a 306) |
-| PCMD-03 Plano Mestre | 2.000 (7 a 2.006) |
-| PCMD-04 Ocorrências | 5.000 (7 a 5.006) |
-| Execuções | 3.000 (7 a 3.006) |
-| PCMD-05 Ficha de Falha | 1.000 (7 a 1.006) |
-| Revisões | 100 (7 a 106) |
-| Cadastros | 30 setores, 60 pessoas, 60 requisitos |
+## Manuais Word
 
-A linha 4 de cada tabela mostra quantas linhas estão preenchidas e mostra **ATENÇÃO** se houver dados abaixo da capacidade.
-Para ampliar sem perder fórmulas e validações:
-
-1. (Plano Mestre) desproteja a aba.
-2. Selecione a última linha da tabela inteira (todas as colunas) e copie.
-3. Selecione as linhas novas abaixo e cole: fórmulas, formatos e validações são copiados juntos.
-4. Em *Fórmulas > Gerenciador de Nomes*, estenda até a nova última linha os nomes da aba (lista completa no `DICIONARIO-DE-DADOS.md`,
-   por exemplo `at_id`, `pl_chave`, `oc_chave`, `oc_conta`, `oc_concluida`, `ex_chave_oc`, `ex_cancelada`).
-5. Ajuste a área de impressão e, se for o caso, o filtro. Proteja de novo o Plano Mestre.
-
-### O que as validações não fazem
-
-Validações e proteções do Excel evitam erros de digitação, mas podem ser contornadas por colagem ou por outro programa. Por isso as colunas
-**Conferência** recalculam e mostram `ERRO:` ou `Verificar:` (por exemplo, tarefa de segurança com frequência reduzida). Elas não
-substituem as travas do app.
-
-## Usar os manuais Word
-
-- Os marcadores ficam visíveis (laranja e negrito), por exemplo `{{organizacao.nome}}` e `{{documento.revisao}}`, no corpo, em células,
-  no cabeçalho e no rodapé. Substitua manualmente ou, no futuro, pelo adaptador. A lista completa e o local de cada um estão no contrato.
-- Tabelas com a legenda *Região repetível «nome»* têm uma linha modelo: repita a linha para cada registro.
-- Sumário: no Word, botão direito no sumário > *Atualizar campo*; no LibreOffice, *Ferramentas > Atualizar > Atualizar tudo*.
-  O número de páginas do rodapé também é campo e se atualiza ao abrir ou imprimir na maioria dos editores.
-- Não há vínculo automático com Excel, banco de dados ou internet.
-- Só preencha **aprovador** depois de uma aprovação efetiva. Estratégias, prazos por classe, metas e significado dos níveis ficam
-  *A definir* até a definição do profissional responsável.
+- Marcadores visíveis (laranja e negrito), como `{{organizacao.nome}}` e `{{documento.revisao}}`, no corpo, em células, no cabeçalho e no rodapé.
+  Substitua à mão ou, no futuro, pelo adaptador. Lista completa e locais no contrato.
+- Tabelas com *região repetível «nome»* têm uma linha modelo: repita a linha para cada registro.
+- Só preencha **aprovador** depois de aprovação efetiva. Estratégias, prazos, metas e significado dos níveis ficam *A definir* até a definição
+  do profissional responsável. Não há vínculo automático com Excel, banco de dados ou internet.
 
 ## Regerar os arquivos (reprodutível)
 
@@ -85,16 +100,16 @@ Na raiz do repositório:
 
 ```bash
 python3 -m pip install -r entrega-templates/gerador/requirements.txt
-python3 entrega-templates/gerador/gerar_tudo.py          # gera XLSX, DOCX, contrato e dicionário
+python3 entrega-templates/gerador/gerar_tudo.py          # gera planilhas, manuais, contrato e dicionário
 python3 entrega-templates/testes/verificar_entrega.py    # testes nos arquivos gerados + prévias PDF
 ```
 
 - A geração usa Node.js 18+ para rodar a lógica real do app (`src/logica/plano.js`, `cronograma.js`, `pacote.js`) e uma cópia de referência de
   `gestao.js` do ramo `interface/cadastros-operacao-sem-templates` (`gerador/referencia/`), só para os dados de demonstração.
 - Os testes exigem LibreOffice com Python UNO e `pdftotext`/`pdfinfo` (poppler). Resultado em `testes/resultado-testes.json`.
-- Os arquivos gerados têm data fixa de criação (23/10/2026) para facilitar a comparação entre gerações.
+- Os arquivos gerados têm data fixa de criação (23/10/2026).
 
 ## Dados e privacidade
 
 Pessoas, organização, falhas e execuções pertencem à gestão local. Não publique planilhas ou manuais preenchidos no catálogo público.
-Os exemplos usam apenas dados fictícios; as tarefas do exemplo foram copiadas fielmente da biblioteca 0.1.0, com origem e versão.
+As tarefas do exemplo foram copiadas fielmente da biblioteca 0.1.0, com origem e versão.

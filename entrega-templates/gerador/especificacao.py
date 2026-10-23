@@ -26,12 +26,12 @@ SITUACAO_ORIGEM = {
     CALCULO: "Calculado por fórmula no modelo; o adaptador não deve escrever nesta célula.",
 }
 
-PAPEIS = {
-    "id": ("ID TÉCNICO", "Identificador técnico estável; não substituir por TAG, nome ou número de linha."),
-    "entrada": ("ENTRADA", "Célula de entrada (fundo branco)."),
+PAPEIS = {  # rótulo curto exibido acima do cabeçalho, descrição usada no contrato
+    "id": ("ID", "Identificador técnico estável; não substituir por TAG, nome ou número de linha."),
+    "entrada": ("PREENCHER", "Célula de entrada."),
     "referencia": ("REFERÊNCIA", "Referência técnica da biblioteca/plano; protegida contra edição acidental."),
-    "calculo": ("CÁLCULO", "Resultado de fórmula (fundo cinza); não digitar."),
-    "manual": ("MANUAL", "Preenchimento manual documental; o app não fornece."),
+    "calculo": ("AUTOMÁTICO", "Resultado de fórmula; não digitar."),
+    "manual": ("PREENCHER", "Preenchimento manual documental; o app não fornece."),
     "futuro": ("FUTURO", "Reservado para uso futuro; não integrado; deixar vazio."),
 }
 
@@ -67,7 +67,7 @@ class Aba:
     nome: str
     codigo: str
     titulo: str
-    instrucao: str
+    instrucao: str  # uma frase curta exibida na linha 2
     colunas: list
     capacidade: int
     paisagem: bool = True
@@ -89,8 +89,6 @@ HORAS_DV = {"type": "decimal", "operator": "greaterThanOrEqual", "formula1": "0"
             "error": "Informe horas como número decimal maior ou igual a zero (ex.: 1,5).",
             "prompt": "Horas em número decimal (1,5 = uma hora e meia). Vazio = não informado."}
 SIMNAO_DV = {"type": "list", "formula1": "=lst_sim_nao", "error": "Use Sim ou Não.", "prompt": "Escolha Sim ou Não."}
-PESSOA_DV = {"type": "list", "formula1": "=cad_pessoa_id", "error": "Use um ID de pessoa cadastrado em Cadastros.",
-             "prompt": "ID técnico da pessoa (aba Cadastros, bloco Pessoas). O nome aparece ao lado."}
 ID_DV = {"type": "custom", "formula1": "AND(LEN({c})<=120,ISERROR(FIND(\"|\",{c})),ISERROR(FIND(\" \",{c})))",
          "error": "ID técnico: sem espaços e sem o caractere |.", "prompt": "ID técnico estável (letras sem acento, números, hífen ou sublinhado)."}
 
@@ -99,8 +97,15 @@ NOTA_DV = {"type": "whole", "operator": "between", "formula1": "1", "formula2": 
            "prompt": "Inteiro de 1 a 3. Vazio = não avaliado (classe Pendente)."}
 
 
-def nome_pessoa(col_id):
-    return f'=IF({col_id}{{r}}="","",IFERROR(INDEX(cad_pessoa_nome,MATCH({col_id}{{r}},cad_pessoa_id,0)),"Pessoa não cadastrada"))'
+def responsavel(prefixo, origem_id):
+    """ID e nome do responsável. Cada arquivo é independente: o nome é gravado ao lado do ID, sem consulta a outro arquivo."""
+    return [
+        Coluna(f"{prefixo}.responsavel_id", "Responsável (ID)", "entrada", "texto", _r(origem_id), RAMO, largura=11, dv=ID_DV,
+               obs="ID de gestao.pessoas[] (cadastro em PCMD-01, aba Pessoas)."),
+        Coluna(f"{prefixo}.responsavel_nome", "Responsável (nome)", "entrada", "texto",
+               _r(f"nome de gestao.pessoas[] com id = {origem_id}"), RAMO, largura=16, privacidade=PRIV_NOME,
+               obs="Nome exibido; o vínculo é feito pelo ID."),
+    ]
 
 
 def chave_data(col_chave, col_data):
@@ -115,9 +120,8 @@ def nota_valida(c):
 
 # ---------------------------------------------------------------- PCMD-01
 LISTA_MESTRA = Aba(
-    nome="PCMD-01 Lista Mestra", codigo="PCMD-01", titulo="PCMD-01 · Lista mestra de documentos",
-    instrucao="Uma linha por documento. Revisão, datas, elaborador, aprovador e situação são preenchidos manualmente. "
-              "Só informe aprovador depois de uma aprovação efetiva.",
+    nome="Lista Mestra", codigo="PCMD-01", titulo="Lista mestra de documentos",
+    instrucao="Uma linha por documento. Informe o aprovador só depois da aprovação efetiva.",
     capacidade=50, linhas_impressao_modelo=12,
     colunas=[
         Coluna("documento.codigo", "Código", "entrada", "texto", "Código PCMD do modelo (documental)", MANUAL, "obrigatório",
@@ -159,9 +163,8 @@ DOCUMENTOS_PCMD = [
 
 # ---------------------------------------------------------------- PCMD-02
 ATIVOS = Aba(
-    nome="PCMD-02 Ativos", codigo="PCMD-02", titulo="PCMD-02 · Ativos e criticidade",
-    instrucao="Uma linha por ativo local. Notas de 1 a 3 (inteiras); nota vazia mantém a classe Pendente. "
-              "Segurança = 3 resulta em A. Limites A/B ficam em Cadastros. A classe não altera frequências.",
+    nome="Ativos", codigo="PCMD-02", titulo="Ativos e criticidade",
+    instrucao="Uma linha por ativo. Notas inteiras de 1 a 3; nota vazia deixa a classe Pendente. Limites A/B na aba Critérios.",
     capacidade=300, congelar_col=2, paginas_largura=2, colunas_repetidas="A:B",
     colunas=[
         Coluna("ativo.id", "ID do ativo", "id", "texto", "estado.equipamentos[].id", MAIN, "obrigatório", largura=13,
@@ -205,15 +208,14 @@ ATIVOS = Aba(
         Coluna("criticidade.orientacao", "Orientação", "calculo", "texto", "Fórmula", CALCULO, largura=30,
                formula='=IF(P{r}="","",IF(A{r}="","Pendente: falta o ID do ativo",IF(COUNTIF(at_id,A{r})>1,"ERRO: ID do ativo duplicado",'
                        'IF(COUNTA(K{r}:O{r})>P{r},"Pendente: nota inválida (use inteiro de 1 a 3)",IF(P{r}<5,"Pendente: falta(m) "&(5-P{r})&" nota(s)",'
-                       'IF(NOT(cad_limites_ok),"Pendente: corrija os limites A/B em Cadastros",IF(K{r}=3,"A por Segurança = 3","Classe pela soma e limites")))))))'),
+                       'IF(NOT(cad_limites_ok),"Pendente: corrija os limites A/B em Critérios",IF(K{r}=3,"A por Segurança = 3","Classe pela soma e limites")))))))'),
     ],
 )
 
 # ---------------------------------------------------------------- PCMD-03
 PLANO = Aba(
-    nome="PCMD-03 Plano Mestre", codigo="PCMD-03", titulo="PCMD-03 · Plano mestre",
-    instrucao="Uma linha por tarefa de cada ativo. Colunas REFERÊNCIA vêm da biblioteca e ficam protegidas (sem senha). "
-              "Edite frequência vigente, situação e responsável. Tarefa de segurança: manter ou aumentar a frequência; não retirar.",
+    nome="Plano Mestre", codigo="PCMD-03", titulo="Plano mestre",
+    instrucao="Uma linha por tarefa. REFERÊNCIA fica protegida (sem senha). Tarefa de segurança: só manter ou aumentar a frequência.",
     capacidade=2000, congelar_col=4, protegida=True, paginas_largura=2, colunas_repetidas="A:D",
     colunas=[
         Coluna("tarefa.ativo_id", "ID do ativo", "id", "texto", "plano[].equipamentoId (gerarPlano, src/logica/plano.js)", MAIN, "obrigatório",
@@ -221,8 +223,8 @@ PLANO = Aba(
         Coluna("tarefa.id", "ID da tarefa", "id", "texto", "plano[].tarefaId (biblioteca.tipos[].tarefas[].id)", MAIN, "obrigatório", largura=10, dv=ID_DV),
         Coluna("tarefa.chave", "Chave da tarefa (ativo|tarefa)", "calculo", "texto", "Fórmula: equipamentoId|tarefaId (chaveAjuste)", CALCULO, largura=22,
                formula='=IF(OR(A{r}="",B{r}=""),"",A{r}&"|"&B{r})', nome="pl_chave"),
-        Coluna("tarefa.tag", "TAG", "calculo", "texto", "Fórmula a partir de PCMD-02 (plano[].tag)", CALCULO, largura=13, nome="pl_tag",
-               formula='=IF(A{r}="","",IFERROR(INDEX(at_tag,MATCH(A{r},at_id,0)),"Ativo não cadastrado"))'),
+        Coluna("tarefa.tag", "TAG", "referencia", "texto", "plano[].tag (TAG vigente do ativo)", MAIN, "obrigatório", largura=13, nome="pl_tag",
+               obs="Copiada do cadastro do ativo; este arquivo não consulta o PCMD-02."),
         Coluna("tarefa.atividade", "Atividade", "referencia", "texto", "plano[].descricao", MAIN, "obrigatório", largura=40, nome="pl_atividade"),
         Coluna("tarefa.origem", "Origem", "referencia", "texto", "plano[].origem", MAIN, "obrigatório", largura=22,
                obs="Tarefa genérica usa exatamente: base genérica a validar com manual do fabricante."),
@@ -245,10 +247,7 @@ PLANO = Aba(
                formato="número decimal de horas", largura=11, numero="0.00",
                formula='=IF(AND(ISNUMBER(K{r}),ISNUMBER(M{r})),K{r}*M{r},"")', obs="Estimativa; não são horas trabalhadas."),
         Coluna("tarefa.ativa", "Ativa no plano", "entrada", "sim_nao", "plano[].ativa (true → Sim)", MAIN, "obrigatório", largura=9, dv=SIMNAO_DV, nome="pl_ativa"),
-        Coluna("tarefa.responsavel_id", "Responsável (ID)", "entrada", "lista", _r("gestao.responsaveis['equipamentoId|tarefaId']"), RAMO, largura=11,
-               dv=PESSOA_DV, privacidade=PRIV_NENHUM),
-        Coluna("tarefa.responsavel_nome", "Responsável (nome)", "calculo", "texto", "Fórmula a partir de Cadastros", CALCULO, largura=16,
-               formula=nome_pessoa("P"), privacidade=PRIV_NOME),
+        *responsavel("tarefa", "gestao.responsaveis['equipamentoId|tarefaId']"),
         Coluna("tarefa.conferencia", "Conferência de segurança e frequência", "calculo", "texto", "Fórmula (equivale a podeAlterar)", CALCULO, largura=34,
                formula='=IF(C{r}="","",IF(COUNTIF(pl_chave,C{r})>1,"ERRO: chave de tarefa duplicada",IF(I{r}="Sim",'
                        'IF(O{r}="Não","ERRO: tarefa de segurança retirada do plano",IF(NOT(ISNUMBER(K{r})),"ERRO: frequência vigente inválida",'
@@ -261,9 +260,8 @@ PLANO = Aba(
 
 # ---------------------------------------------------------------- PCMD-04 Ocorrências
 OCORRENCIAS = Aba(
-    nome="PCMD-04 Ocorrências", codigo="PCMD-04", titulo="PCMD-04 · Ocorrências previstas (uma linha por ativo + tarefa + data)",
-    instrucao="Datas previstas vêm do cronograma de 52 semanas do app (futuro adaptador) ou de digitação explícita, com fonte. "
-              "Diária = uma linha por dia útil. O realizado é contado pelo vínculo da execução, nunca pela data real.",
+    nome="Ocorrências", codigo="PCMD-04", titulo="Ocorrências previstas",
+    instrucao="Uma linha por ativo + tarefa + data prevista, com a fonte da data. Diária = uma linha por dia útil.",
     capacidade=5000, congelar_col=3, paginas_largura=2, colunas_repetidas="A:C",
     colunas=[
         Coluna("ocorrencia.ativo_id", "ID do ativo", "id", "texto", _r("ocorrenciasPlanejadas(dados)[].equipamentoId"), RAMO, "obrigatório", largura=13, dv=ID_DV),
@@ -275,15 +273,15 @@ OCORRENCIAS = Aba(
         Coluna("ocorrencia.chave_tarefa", "Chave da tarefa", "calculo", "texto", "Fórmula", CALCULO, largura=20, formula='=IF(OR(A{r}="",B{r}=""),"",A{r}&"|"&B{r})'),
         Coluna("ocorrencia.chave", "Chave da ocorrência (ativo|tarefa|AAAA-MM-DD)", "calculo", "texto", "Fórmula (equivale a ocorrencia.chave do app)", CALCULO,
                largura=30, formula=chave_data("E", "C"), nome="oc_chave"),
-        Coluna("ocorrencia.linha_plano", "Linha no plano (técnico)", "calculo", "inteiro", "Fórmula: posição da chave no PCMD-03", CALCULO, largura=8,
+        Coluna("ocorrencia.linha_plano", "Linha no plano (técnico)", "calculo", "inteiro", "Fórmula: posição da chave no Plano Mestre", CALCULO, largura=8,
                formula='=IF(E{r}="","",IFERROR(MATCH(E{r},pl_chave,0),0))', obs="0 = tarefa não encontrada no plano."),
-        Coluna("ocorrencia.tag", "TAG", "calculo", "texto", "Fórmula a partir do PCMD-03", CALCULO, largura=13,
+        Coluna("ocorrencia.tag", "TAG", "calculo", "texto", "Fórmula a partir do Plano Mestre", CALCULO, largura=13,
                formula='=IF(G{r}="","",IF(G{r}=0,"Tarefa fora do plano",INDEX(pl_tag,G{r})))'),
-        Coluna("ocorrencia.atividade", "Atividade", "calculo", "texto", "Fórmula a partir do PCMD-03", CALCULO, largura=34,
+        Coluna("ocorrencia.atividade", "Atividade", "calculo", "texto", "Fórmula a partir do Plano Mestre", CALCULO, largura=34,
                formula='=IF(N(G{r})=0,"",INDEX(pl_atividade,G{r}))'),
-        Coluna("ocorrencia.especialidade", "Especialidade", "calculo", "texto", "Fórmula a partir do PCMD-03", CALCULO, largura=12,
+        Coluna("ocorrencia.especialidade", "Especialidade", "calculo", "texto", "Fórmula a partir do Plano Mestre", CALCULO, largura=12,
                formula='=IF(N(G{r})=0,"",INDEX(pl_especialidade,G{r}))'),
-        Coluna("ocorrencia.horas_estimadas", "Horas estimadas (h)", "calculo", "numero_horas", "Fórmula: duração por execução do PCMD-03", CALCULO,
+        Coluna("ocorrencia.horas_estimadas", "Horas estimadas (h)", "calculo", "numero_horas", "Fórmula: duração por execução do Plano Mestre", CALCULO,
                formato="número decimal de horas", largura=9, numero="0.00", nome="oc_horas",
                formula='=IF(N(G{r})=0,"",INDEX(pl_duracao,G{r}))', obs="Diária: duração de um dia; a soma da semana não é multiplicada outra vez."),
         Coluna("ocorrencia.ano", "Ano previsto", "calculo", "inteiro", "Fórmula", CALCULO, largura=7, numero="0", nome="oc_ano",
@@ -308,9 +306,8 @@ OCORRENCIAS = Aba(
 
 # ---------------------------------------------------------------- Execuções
 EXECUCOES = Aba(
-    nome="Execuções", codigo="", titulo="Execuções · Histórico de realizações",
-    instrucao="Cada realização é um registro com ID próprio. A data prevista vincula a execução à ocorrência; sem ela, o registro fica sem vínculo. "
-              "Cancelar = marcar Sim; o registro continua no histórico. TAG e descrição ficam preservadas como foram registradas.",
+    nome="Execuções", codigo="PCMD-04", titulo="Execuções realizadas",
+    instrucao="Um registro por realização. A data prevista vincula à ocorrência. Cancelar = Sim (o registro continua no histórico).",
     capacidade=3000, congelar_col=1, paginas_largura=2, colunas_repetidas="A:C",
     colunas=[
         Coluna("execucao.id", "ID do registro", "id", "texto", _r("gestao.historico[].id"), RAMO, "obrigatório", largura=12, dv=ID_DV, nome="ex_id"),
@@ -327,9 +324,7 @@ EXECUCOES = Aba(
         Coluna("execucao.chave_ocorrencia", "Chave da ocorrência vinculada", "calculo", "texto", "Fórmula", CALCULO, largura=30,
                formula=chave_data("D", "G"), nome="ex_chave_oc"),
         Coluna("execucao.observacao", "Observação", "entrada", "texto", _r("gestao.historico[].observacao"), RAMO, largura=30, privacidade=PRIV_LIVRE),
-        Coluna("execucao.responsavel_id", "Responsável (ID)", "entrada", "lista", _r("gestao.historico[].responsavelId"), RAMO, largura=11, dv=PESSOA_DV),
-        Coluna("execucao.responsavel_nome", "Responsável (nome)", "calculo", "texto", "Fórmula a partir de Cadastros", CALCULO, largura=14,
-               formula=nome_pessoa("K"), privacidade=PRIV_NOME),
+        *responsavel("execucao", "gestao.historico[].responsavelId"),
         Coluna("execucao.origem", "Origem do registro", "entrada", "lista", _r("gestao.historico[].origem (app | legado)"), RAMO, "obrigatório", largura=9,
                dv={"type": "list", "formula1": "=lst_origem_execucao", "error": "Use app ou legado.", "prompt": "app = registrado no app; legado = marcação antiga migrada."}),
         Coluna("execucao.cancelada", "Cancelada", "entrada", "sim_nao", _r("gestao.historico[].cancelada (true → Sim)"), RAMO, "obrigatório", largura=9,
@@ -338,8 +333,9 @@ EXECUCOES = Aba(
                formula='=IF(A{r}&B{r}&C{r}="","",IF(I{r}="","Sem vínculo",IF(COUNTIF(oc_chave,I{r})>0,"Vinculada","Previsão não encontrada")))'),
         Coluna("execucao.ano", "Ano realizado", "calculo", "inteiro", "Fórmula", CALCULO, largura=7, numero="0", nome="ex_ano",
                formula='=IF(ISNUMBER(H{r}),YEAR(H{r}),"")'),
-        Coluna("execucao.situacao_ativo", "Situação do ativo", "calculo", "texto", "Fórmula", CALCULO, largura=18,
-               formula='=IF(B{r}="","",IF(COUNTIF(at_id,B{r})>0,"Ativo cadastrado","Ativo removido: histórico preservado"))'),
+        Coluna("execucao.situacao_plano", "Tarefa no plano atual?", "calculo", "texto", "Fórmula: chave da tarefa no Plano Mestre", CALCULO, largura=18,
+               formula='=IF(D{r}="","",IF(COUNTIF(pl_chave,D{r})>0,"No plano atual","Fora do plano: histórico preservado"))',
+               obs="Ativo ou tarefa removidos não apagam o histórico."),
         Coluna("execucao.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=26,
                formula='=IF(A{r}&B{r}&C{r}="","",IF(A{r}="","ERRO: falta ID do registro",IF(COUNTIF(ex_id,A{r})>1,"ERRO: ID do registro duplicado",'
                        'IF(NOT(ISNUMBER(H{r})),"ERRO: data realizada ausente ou inválida",IF(AND(ISNUMBER(pcmd_emissao),N(H{r})>N(pcmd_emissao)),"Verificar: realizada após a emissão","OK")))))'),
@@ -351,9 +347,8 @@ EXECUCOES = Aba(
 
 # ---------------------------------------------------------------- PCMD-05
 FALHAS = Aba(
-    nome="PCMD-05 Ficha de Falha", codigo="PCMD-05", titulo="PCMD-05 · Ficha de falha",
-    instrucao="Um registro por falha. Horas de parada são opcionais: vazio = não informado (não é zero). "
-              "TAG preservada como registrada. Não há cálculo de MTBF, MTTR ou disponibilidade.",
+    nome="Ficha de Falha", codigo="PCMD-05", titulo="Ficha de falha",
+    instrucao="Um registro por falha. Horas de parada vazias = não informado (não é zero). Sem cálculo de MTBF, MTTR ou disponibilidade.",
     capacidade=1000, congelar_col=1, paginas_largura=2, colunas_repetidas="A:B",
     colunas=[
         Coluna("falha.id", "ID do registro", "id", "texto", _r("gestao.falhas[].id"), RAMO, "obrigatório", largura=12, dv=ID_DV, nome="fa_id"),
@@ -367,13 +362,9 @@ FALHAS = Aba(
         Coluna("falha.horas_parada", "Horas de parada (h, opcional)", "entrada", "numero_horas", _r("gestao.falhas[].horasParada (null → vazio)"), RAMO,
                formato="número decimal de horas", largura=11, dv=HORAS_DV, numero="0.00", vazio="Vazio = não informado; nunca converter em zero."),
         Coluna("falha.peca", "Peça", "entrada", "texto", _r("gestao.falhas[].peca"), RAMO, largura=16),
-        Coluna("falha.responsavel_id", "Responsável (ID)", "entrada", "lista", _r("gestao.falhas[].responsavelId"), RAMO, largura=11, dv=PESSOA_DV),
-        Coluna("falha.responsavel_nome", "Responsável (nome)", "calculo", "texto", "Fórmula a partir de Cadastros", CALCULO, largura=14,
-               formula=nome_pessoa("J"), privacidade=PRIV_NOME),
+        *responsavel("falha", "gestao.falhas[].responsavelId"),
         Coluna("falha.parada_situacao", "Parada informada?", "calculo", "texto", "Fórmula", CALCULO, largura=14, nome="fa_parada",
                formula='=IF(A{r}&B{r}="","",IF(H{r}="","Não informado",IF(ISNUMBER(H{r}),"Informado","ERRO: horas devem ser número")))'),
-        Coluna("falha.situacao_ativo", "Situação do ativo", "calculo", "texto", "Fórmula", CALCULO, largura=18,
-               formula='=IF(B{r}="","",IF(COUNTIF(at_id,B{r})>0,"Ativo cadastrado","Ativo removido: histórico preservado"))'),
         Coluna("falha.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=24,
                formula='=IF(A{r}&B{r}="","",IF(A{r}="","ERRO: falta ID do registro",IF(COUNTIF(fa_id,A{r})>1,"ERRO: ID duplicado",'
                        'IF(NOT(ISNUMBER(C{r})),"ERRO: data ausente ou inválida",IF(E{r}="","ERRO: falta o sintoma","OK")))))'),
@@ -382,8 +373,8 @@ FALHAS = Aba(
 
 # ---------------------------------------------------------------- Revisões
 REVISOES = Aba(
-    nome="Revisões", codigo="", titulo="Revisões · Histórico de revisão dos documentos",
-    instrucao="Registre cada revisão documental: documento, revisão, data, mudança e responsável. Preenchimento manual.",
+    nome="Revisões", codigo="PCMD-01", titulo="Histórico de revisões",
+    instrucao="Uma linha por revisão documental: documento, revisão, data, mudança e responsável.",
     capacidade=100, paisagem=False, linhas_impressao_modelo=20,
     colunas=[
         Coluna("revisao.documento", "Documento (código)", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=14),
@@ -395,64 +386,72 @@ REVISOES = Aba(
     ],
 )
 
-ABAS_TABELA = [LISTA_MESTRA, ATIVOS, PLANO, OCORRENCIAS, EXECUCOES, FALHAS, REVISOES]
+# ---------------------------------------------------------------- Cadastros em tabela
+SETORES = Aba(
+    nome="Setores", codigo="PCMD-02", titulo="Setores",
+    instrucao="Siglas de 2 a 4 letras ou números usadas na TAG (SETOR-SIGLA-NNN).",
+    capacidade=30, paisagem=False, linhas_impressao_modelo=12,
+    colunas=[
+        Coluna("setor.sigla", "Sigla do setor", "entrada", "texto", _r("gestao.organizacao.setores[]") + "; também estado.equipamentos[].setor (main)", RAMO,
+               "obrigatório", largura=12, nome="cad_setor", validacao="2 a 4 letras maiúsculas/números (normalizarSetor)."),
+        Coluna("setor.descricao", "Descrição do setor", "manual", "texto", "Não existe no app (o app guarda só a sigla)", MANUAL, largura=40, privacidade=PRIV_ORG),
+        Coluna("setor.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=30,
+               formula='=IF(A{r}="","",IF(OR(LEN(A{r})<2,LEN(A{r})>4),"ERRO: use 2 a 4 caracteres",IF(COUNTIF(cad_setor,A{r})>1,"ERRO: sigla repetida","OK")))'),
+    ],
+)
+PESSOAS = Aba(
+    nome="Pessoas", codigo="PCMD-01", titulo="Pessoas e funções",
+    instrucao="Dado pessoal mínimo, só neste arquivo local. Pessoa inativa continua nos registros anteriores.",
+    capacidade=60, paisagem=False, linhas_impressao_modelo=15,
+    colunas=[
+        Coluna("pessoa.id", "ID da pessoa", "id", "texto", _r("gestao.pessoas[].id"), RAMO, "obrigatório", largura=12, dv=ID_DV, nome="cad_pessoa_id"),
+        Coluna("pessoa.nome", "Nome", "entrada", "texto", _r("gestao.pessoas[].nome"), RAMO, "obrigatório", largura=22, nome="cad_pessoa_nome", privacidade=PRIV_NOME),
+        Coluna("pessoa.funcao", "Função", "entrada", "texto", _r("gestao.pessoas[].funcao"), RAMO, largura=22, privacidade=PRIV_NOME),
+        Coluna("pessoa.especialidade", "Especialidade", "entrada", "texto", _r("gestao.pessoas[].especialidade"), RAMO, largura=14),
+        Coluna("pessoa.ativo", "Ativa", "entrada", "sim_nao", _r("gestao.pessoas[].ativo (true → Sim)"), RAMO, "obrigatório", largura=8, dv=SIMNAO_DV,
+               obs="Pessoa inativa continua nos registros anteriores."),
+        Coluna("pessoa.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=18,
+               formula='=IF(A{r}&B{r}="","",IF(A{r}="","ERRO: falta ID",IF(COUNTIF(cad_pessoa_id,A{r})>1,"ERRO: ID repetido",IF(B{r}="","ERRO: falta nome","OK"))))'),
+    ],
+)
+REQUISITOS = Aba(
+    nome="Requisitos", codigo="PCMD-01", titulo="Requisitos e referências",
+    instrucao="Tudo começa Não verificado. Verificado exige versão, data e fonte HTTPS e não certifica conformidade.",
+    capacidade=60, linhas_impressao_modelo=12,
+    colunas=[
+        Coluna("requisito.id", "ID do requisito", "id", "texto", _r("gestao.requisitos[].id"), RAMO, "obrigatório", largura=12, dv=ID_DV),
+        Coluna("requisito.referencia", "Referência ou título", "entrada", "texto", _r("gestao.requisitos[].referencia"), RAMO, "obrigatório", largura=34,
+               obs="Não citar número de norma sem fonte oficial, versão e data."),
+        Coluna("requisito.versao", "Versão", "entrada", "texto", _r("gestao.requisitos[].versao"), RAMO, largura=10, vazio="Vazio = A definir."),
+        Coluna("requisito.data", "Data da referência (dd/mm/aaaa)", "entrada", "data", _r("gestao.requisitos[].data ('' → vazio)"), RAMO,
+               formato="data dd/mm/aaaa", largura=12, dv=DATA_DV, numero="dd/mm/yyyy", vazio="Vazio = A definir."),
+        Coluna("requisito.fonte", "Fonte oficial (link HTTPS)", "entrada", "texto", _r("gestao.requisitos[].fonte"), RAMO, largura=30,
+               dv={"type": "custom", "formula1": 'OR({c}="",LEFT({c},8)="https://")', "error": "Use um link que comece com https://", "prompt": "Link HTTPS da fonte oficial (texto, sem hiperlink automático)."},
+               validacao="Vazio ou começa com https://."),
+        Coluna("requisito.status", "Status de verificação", "entrada", "lista", _r("gestao.requisitos[].status (nao_verificado | verificado)"), RAMO, "obrigatório",
+               largura=14, dv={"type": "list", "formula1": "=lst_status_requisito", "error": "Use Não verificado ou Verificado.", "prompt": "Verificado exige versão, data e fonte HTTPS; não certifica conformidade."}),
+        Coluna("requisito.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=32,
+               formula='=IF(A{r}&B{r}="","",IF(F{r}="Verificado",IF(OR(C{r}="",NOT(ISNUMBER(D{r})),LEFT(E{r},8)<>"https://"),'
+                       '"ERRO: Verificado exige versão, data e fonte HTTPS","Verificado pelo responsável (não certifica conformidade)"),"Não verificado: verificar na fonte oficial"))'),
+    ],
+)
 
-# ---------------------------------------------------------------- Cadastros (blocos)
-# Linhas fixas da aba Cadastros (ver gerar_xlsx.montar_cadastros)
-CAD = {
-    "org_inicio": 7, "limites_inicio": 15, "niveis_inicio": 22, "metas_inicio": 31,
-    "setores_cab": 37, "setores_cap": 30,
-    "pessoas_cab": 70, "pessoas_cap": 60,
-    "req_cab": 133, "req_cap": 60,
-}
+ABAS_TABELA = [LISTA_MESTRA, REVISOES, PESSOAS, REQUISITOS, ATIVOS, SETORES, PLANO, OCORRENCIAS, EXECUCOES, FALHAS]
 
-CAMPOS_CADASTROS = [
-    # id, rótulo, célula, papel, tipo, origem, situação, vazio, validação, privacidade, obs
-    ("organizacao.nome", "Nome da organização", "B8", "entrada", "texto", _r("gestao.organizacao.nome"), RAMO, "Vazio = não informado.", "Até 120 caracteres.", PRIV_ORG, "Intervalo cad_org_nome."),
-    ("organizacao.referencial", "Referencial", "B9", "entrada", "texto", _r("gestao.organizacao.referencial"), RAMO, "Padrão: GERAL (sem norma).", "Até 120 caracteres; não citar norma sem fonte.", PRIV_NENHUM, "Intervalo cad_referencial."),
-    ("organizacao.prefixo", "Prefixo dos documentos", "B10", "entrada", "texto", _r("gestao.organizacao.padraoCodigo"), RAMO, "Padrão: PCMD.", "Até 40 caracteres.", PRIV_NENHUM, "Intervalo cad_prefixo."),
-    ("organizacao.elaborador_id", "Elaborador padrão (ID)", "B11", "entrada", "lista", _r("gestao.organizacao.elaborador"), RAMO, "Vazio = não informado.", "Lista cad_pessoa_id.", PRIV_NENHUM, "Nome em C11 (cálculo)."),
-    ("organizacao.aprovador_id", "Aprovador padrão (ID)", "B12", "entrada", "lista", _r("gestao.organizacao.aprovador"), RAMO, "Vazio = não informado; não presumir aprovação.", "Lista cad_pessoa_id.", PRIV_NENHUM, "Nome em C12 (cálculo)."),
-    ("criticidade.limite_a", "Limite A", "B16", "entrada", "inteiro", _r("gestao.criticidade.limites.a"), RAMO, "Padrão 12.", "Inteiro; 5 ≤ B < A ≤ 15.", PRIV_NENHUM, "Intervalo cad_limite_a."),
-    ("criticidade.limite_b", "Limite B", "B17", "entrada", "inteiro", _r("gestao.criticidade.limites.b"), RAMO, "Padrão 9.", "Inteiro; 5 ≤ B < A ≤ 15.", PRIV_NENHUM, "Intervalo cad_limite_b."),
-    ("criticidade.limites_ok", "Limites válidos?", "B18", "calculo", "booleano", "Fórmula", CALCULO, "—", "VERDADEIRO/FALSO.", PRIV_NENHUM, "Intervalo cad_limites_ok; texto explicativo em C18."),
-    ("criticidade.niveis", "Significado dos níveis 1/2/3 por critério", "B24:D28", "manual", "texto", "Definição do mantenedor; não existe no app", MANUAL, "Vazio = A definir pelo mantenedor.", "Texto livre.", PRIV_NENHUM, "Situação em E24:E28 (cálculo)."),
-    ("metas.disponibilidade", "Meta de disponibilidade (%)", "B32", "entrada", "percentual", _r("gestao.metas.disponibilidade (0–100 no app → dividir por 100)"), RAMO, "Vazio = A definir (null no app).", "0% a 100%.", PRIV_ORG, "Intervalo cad_meta_disponibilidade. Disponibilidade não é calculada."),
-    ("metas.aderencia", "Meta de aderência preventiva (%)", "B33", "entrada", "percentual", _r("gestao.metas.aderencia (0–100 no app → dividir por 100)"), RAMO, "Vazio = A definir (null no app).", "0% a 100%.", PRIV_ORG, "Intervalo cad_meta_aderencia."),
-]
-
-COLUNAS_SETORES = [
-    Coluna("setor.sigla", "Sigla do setor", "entrada", "texto", _r("gestao.organizacao.setores[]") + "; também estado.equipamentos[].setor (main)", RAMO,
-           "obrigatório", largura=12, nome="cad_setor", validacao="2 a 4 letras maiúsculas/números (normalizarSetor)."),
-    Coluna("setor.descricao", "Descrição do setor", "manual", "texto", "Não existe no app (o app guarda só a sigla)", MANUAL, largura=40, privacidade=PRIV_ORG),
-    Coluna("setor.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=30,
-           formula='=IF(A{r}="","",IF(OR(LEN(A{r})<2,LEN(A{r})>4),"ERRO: use 2 a 4 caracteres",IF(COUNTIF(cad_setor,A{r})>1,"ERRO: sigla repetida","OK")))'),
-]
-COLUNAS_PESSOAS = [
-    Coluna("pessoa.id", "ID da pessoa", "id", "texto", _r("gestao.pessoas[].id"), RAMO, "obrigatório", largura=12, dv=ID_DV, nome="cad_pessoa_id"),
-    Coluna("pessoa.nome", "Nome", "entrada", "texto", _r("gestao.pessoas[].nome"), RAMO, "obrigatório", largura=24, nome="cad_pessoa_nome", privacidade=PRIV_NOME),
-    Coluna("pessoa.funcao", "Função", "entrada", "texto", _r("gestao.pessoas[].funcao"), RAMO, largura=26, privacidade=PRIV_NOME),
-    Coluna("pessoa.especialidade", "Especialidade", "entrada", "texto", _r("gestao.pessoas[].especialidade"), RAMO, largura=16),
-    Coluna("pessoa.ativo", "Ativa", "entrada", "sim_nao", _r("gestao.pessoas[].ativo (true → Sim)"), RAMO, "obrigatório", largura=8, dv=SIMNAO_DV,
-           obs="Pessoa inativa continua nos registros anteriores."),
-    Coluna("pessoa.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=26,
-           formula='=IF(A{r}&B{r}="","",IF(A{r}="","ERRO: falta ID",IF(COUNTIF(cad_pessoa_id,A{r})>1,"ERRO: ID repetido",IF(B{r}="","ERRO: falta nome","OK"))))'),
-]
-COLUNAS_REQUISITOS = [
-    Coluna("requisito.id", "ID do requisito", "id", "texto", _r("gestao.requisitos[].id"), RAMO, "obrigatório", largura=12, dv=ID_DV),
-    Coluna("requisito.referencia", "Referência ou título", "entrada", "texto", _r("gestao.requisitos[].referencia"), RAMO, "obrigatório", largura=34,
-           obs="Não citar número de norma sem fonte oficial, versão e data."),
-    Coluna("requisito.versao", "Versão", "entrada", "texto", _r("gestao.requisitos[].versao"), RAMO, largura=10, vazio="Vazio = A definir."),
-    Coluna("requisito.data", "Data da referência (dd/mm/aaaa)", "entrada", "data", _r("gestao.requisitos[].data ('' → vazio)"), RAMO,
-           formato="data dd/mm/aaaa", largura=12, dv=DATA_DV, numero="dd/mm/yyyy", vazio="Vazio = A definir."),
-    Coluna("requisito.fonte", "Fonte oficial (link HTTPS)", "entrada", "texto", _r("gestao.requisitos[].fonte"), RAMO, largura=30,
-           dv={"type": "custom", "formula1": 'OR({c}="",LEFT({c},8)="https://")', "error": "Use um link que comece com https://", "prompt": "Link HTTPS da fonte oficial (texto, sem hiperlink automático)."},
-           validacao="Vazio ou começa com https://."),
-    Coluna("requisito.status", "Status de verificação", "entrada", "lista", _r("gestao.requisitos[].status (nao_verificado | verificado)"), RAMO, "obrigatório",
-           largura=14, dv={"type": "list", "formula1": "=lst_status_requisito", "error": "Use Não verificado ou Verificado.", "prompt": "Verificado exige versão, data e fonte HTTPS; não certifica conformidade."}),
-    Coluna("requisito.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=32,
-           formula='=IF(A{r}&B{r}="","",IF(F{r}="Verificado",IF(OR(C{r}="",NOT(ISNUMBER(D{r})),LEFT(E{r},8)<>"https://"),'
-                   '"ERRO: Verificado exige versão, data e fonte HTTPS","Verificado pelo responsável (não certifica conformidade)"),"Não verificado: verificar na fonte oficial"))'),
+# ---------------------------------------------------------------- Células únicas (formulários)
+# Abas Organização (PCMD-01) e Critérios (PCMD-02): cabeçalho na linha 6, campos a partir da linha 7.
+CAMPOS_CELULAS = [
+    # id, rótulo, aba, célula, papel, tipo, origem, situação, vazio, validação, privacidade, obs
+    ("organizacao.nome", "Nome da organização", "Organização", "B7", "entrada", "texto", _r("gestao.organizacao.nome"), RAMO, "Vazio = não informado.", "Até 120 caracteres.", PRIV_ORG, "Intervalo cad_org_nome."),
+    ("organizacao.referencial", "Referencial", "Organização", "B8", "entrada", "texto", _r("gestao.organizacao.referencial"), RAMO, "Padrão: GERAL (sem norma).", "Até 120 caracteres; não citar norma sem fonte.", PRIV_NENHUM, "Intervalo cad_referencial."),
+    ("organizacao.prefixo", "Prefixo dos documentos", "Organização", "B9", "entrada", "texto", _r("gestao.organizacao.padraoCodigo"), RAMO, "Padrão: PCMD.", "Até 40 caracteres.", PRIV_NENHUM, "Intervalo cad_prefixo."),
+    ("organizacao.elaborador_id", "Elaborador padrão (ID)", "Organização", "B10", "entrada", "lista", _r("gestao.organizacao.elaborador"), RAMO, "Vazio = não informado.", "Lista cad_pessoa_id.", PRIV_NENHUM, "Nome em C10 (cálculo, aba Pessoas)."),
+    ("organizacao.aprovador_id", "Aprovador padrão (ID)", "Organização", "B11", "entrada", "lista", _r("gestao.organizacao.aprovador"), RAMO, "Vazio = não informado; não presumir aprovação.", "Lista cad_pessoa_id.", PRIV_NENHUM, "Nome em C11 (cálculo, aba Pessoas)."),
+    ("metas.disponibilidade", "Meta de disponibilidade (%)", "Organização", "B12", "entrada", "percentual", _r("gestao.metas.disponibilidade (0–100 no app → dividir por 100)"), RAMO, "Vazio = A definir (null no app).", "0% a 100%.", PRIV_ORG, "Intervalo cad_meta_disponibilidade. Disponibilidade não é calculada."),
+    ("criticidade.limite_a", "Limite A", "Critérios", "B7", "entrada", "inteiro", _r("gestao.criticidade.limites.a"), RAMO, "Padrão 12.", "Inteiro; 5 ≤ B < A ≤ 15.", PRIV_NENHUM, "Intervalo cad_limite_a."),
+    ("criticidade.limite_b", "Limite B", "Critérios", "B8", "entrada", "inteiro", _r("gestao.criticidade.limites.b"), RAMO, "Padrão 9.", "Inteiro; 5 ≤ B < A ≤ 15.", PRIV_NENHUM, "Intervalo cad_limite_b."),
+    ("criticidade.limites_ok", "Limites válidos?", "Critérios", "B9", "calculo", "booleano", "Fórmula", CALCULO, "—", "VERDADEIRO/FALSO.", PRIV_NENHUM, "Intervalo cad_limites_ok; texto explicativo em C9."),
+    ("criticidade.niveis", "Significado dos níveis 1/2/3 por critério", "Critérios", "B13:D17", "manual", "texto", "Definição do mantenedor; não existe no app", MANUAL, "Vazio = A definir pelo mantenedor.", "Texto livre.", PRIV_NENHUM, "Situação em E13:E17 (cálculo)."),
 ]
 
 # ---------------------------------------------------------------- Listas
@@ -465,22 +464,94 @@ SITUACOES_DOCUMENTO = ["Em elaboração", "Em revisão", "Aprovado", "Obsoleto"]
 TIPOS_DOCUMENTO = ["Planilha (XLSX)", "Manual (DOCX)", "Outro"]
 TIPOS_TAREFA_REFERENCIA = ["Preventiva", "Preditiva", "Lubrificação", "Inspeção", "Autônoma"]
 
-# ---------------------------------------------------------------- Cronograma (resumo)
+# ---------------------------------------------------------------- Cronograma (painel)
+# Parâmetros em C7:C11; cartões nas linhas 13 (rótulo) e 14 (valor); resumo mensal; gráfico; quadros separados.
 CRONO = {"ano": "C7", "inicio": "C8", "fonte": "C9", "conf_ano": "C10", "meta": "C11",
-         "cab_mes": 13, "jan": 14, "total": 26, "fora_cab": 29, "semv_cab": 34, "conf_cab": 40}
+         "cartao_rot": 13, "cartao": 14, "card_meta": "E14",
+         "cab_mes": 17, "jan": 18, "total": 30, "grafico": 33, "fora_cab": 52, "semv_cab": 57, "conf_cab": 63}
+
+CAMPOS_CELULAS += [
+    ("cronograma.ano", "Ano consultado", "Cronograma", CRONO["ano"], "entrada", "inteiro", _r("escolha do usuário (resumoMensal(dados, gestao, ano))"), RAMO, "Vazio = resumo em branco.", "Inteiro de 1900 a 9999.", PRIV_NENHUM, "Intervalo crono_ano."),
+    ("cronograma.inicio", "Início do ciclo (semana 1)", "Cronograma", CRONO["inicio"], "entrada", "data", "estado.inicio (AAAA-MM-DD, main)", MAIN, "Vazio = não informado.", "Data válida.", PRIV_NENHUM, "Intervalo crono_inicio. Informativo."),
+    ("cronograma.fonte", "Fonte das ocorrências", "Cronograma", CRONO["fonte"], "entrada", "texto", "Texto do adaptador ou de quem preenche", FUTURO, "Vazio = não informado.", "Texto.", PRIV_NENHUM, ""),
+    ("metas.aderencia", "Meta de aderência preventiva (%)", "Cronograma", CRONO["meta"], "entrada", "percentual", _r("gestao.metas.aderencia (0–100 no app → dividir por 100)"), RAMO, "Vazio = A definir (null no app).", "0% a 100%.", PRIV_ORG, "Intervalo crono_meta_aderencia."),
+]
+
+# ---------------------------------------------------------------- Arquivos XLSX
+# Cada arquivo é independente (sem fórmula que dependa de outro arquivo). A aba Início de cada um
+# guarda origem e data de emissão (pcmd_origem e pcmd_emissao).
+@dataclass
+class Arquivo:
+    chave: str
+    nome: str            # nome do arquivo sem extensão e sem "-Exemplo"
+    codigo: str
+    titulo: str
+    resumo: str
+    abas: list           # (nome da aba, para que serve)
+    passos: list
+    tabelas: list        # objetos Aba deste arquivo
+    listas: list = field(default_factory=list)  # chaves de listas deste arquivo
+
+
+ARQUIVOS = [
+    Arquivo("01", "PCMD-01-Controle-Documental", "PCMD-01", "Controle documental",
+            "Lista mestra, histórico de revisões, organização, pessoas e requisitos.",
+            [("Lista Mestra", "Documentos PCMD com revisão, datas, elaborador, aprovador e situação."),
+             ("Revisões", "Histórico de cada revisão documental."),
+             ("Organização", "Nome, referencial, prefixo, elaborador/aprovador padrão e meta de disponibilidade."),
+             ("Pessoas", "Pessoas e funções (dado pessoal mínimo, local)."),
+             ("Requisitos", "Referências com fonte, versão, data e status de verificação."),
+             ("Listas", "Valores aceitos nas listas suspensas.")],
+            ["Preencha a aba Organização e cadastre as Pessoas.",
+             "Registre as referências em Requisitos (começam Não verificado).",
+             "Mantenha a Lista Mestra e o histórico de Revisões a cada mudança."],
+            [LISTA_MESTRA, REVISOES, PESSOAS, REQUISITOS],
+            ["tipo_documento", "situacao_documento", "sim_nao", "status_requisito"]),
+    Arquivo("02", "PCMD-02-Ativos-Criticidade", "PCMD-02", "Ativos e criticidade",
+            "Inventário de ativos com TAG e classificação de criticidade A, B, C ou Pendente.",
+            [("Ativos", "Um ativo por linha, com as cinco notas e a classe calculada."),
+             ("Critérios", "Limites A/B e significado dos níveis 1, 2 e 3 de cada critério."),
+             ("Setores", "Siglas de setor usadas na TAG."),
+             ("Listas", "Tipos de equipamento da biblioteca.")],
+            ["Cadastre os Setores e confira os limites em Critérios.",
+             "Lance um ativo por linha em Ativos, com ID e TAG.",
+             "Dê as cinco notas de 1 a 3; a classe aparece sozinha."],
+            [ATIVOS, SETORES],
+            ["tipos"]),
+    Arquivo("03", "PCMD-03-04-Plano-Cronograma", "PCMD-03/04", "Plano mestre e cronograma",
+            "Plano mestre, ocorrências previstas, execuções e painel mensal de % realizado.",
+            [("Plano Mestre", "Tarefas por ativo, frequência vigente e conferência de segurança."),
+             ("Cronograma", "Painel do ano: cartões, resumo mensal e gráfico."),
+             ("Ocorrências", "Uma linha por ativo + tarefa + data prevista."),
+             ("Execuções", "Realizações vinculadas às ocorrências; canceladas ficam no histórico."),
+             ("Listas", "Frequências, especialidades e valores aceitos.")],
+            ["Lance as tarefas no Plano Mestre (referências da biblioteca).",
+             "Liste as datas previstas em Ocorrências, com a fonte.",
+             "Registre cada realização em Execuções, com a data prevista.",
+             "Informe o ano no Cronograma e acompanhe o painel."],
+            [PLANO, OCORRENCIAS, EXECUCOES],
+            ["frequencias", "especialidades", "sim_nao", "origem_execucao", "tipos_tarefa"]),
+    Arquivo("05", "PCMD-05-Ficha-Falha", "PCMD-05", "Ficha de falha",
+            "Registro de falhas com sintoma, causa, ação, horas de parada e responsável.",
+            [("Ficha de Falha", "Um registro por falha; horas de parada são opcionais.")],
+            ["Registre cada falha com ID, ativo, data e sintoma.",
+             "Complete causa, ação, peça e responsável quando souber.",
+             "Deixe horas de parada vazias se não foram medidas."],
+            [FALHAS]),
+]
 
 # ---------------------------------------------------------------- Word
 MARCADORES_DOC = [
     # id, descrição, tipo, origem, situação, vazio
     ("organizacao.nome", "Nome da organização", "texto", _r("gestao.organizacao.nome"), RAMO, "Vazio → 'A definir'."),
     ("organizacao.referencial", "Referencial adotado", "texto", _r("gestao.organizacao.referencial"), RAMO, "Padrão 'GERAL (sem norma)'."),
-    ("documento.revisao", "Revisão do documento", "texto", "PCMD-01 Lista Mestra (manual)", MANUAL, "Vazio → 'A definir'."),
-    ("documento.data", "Data da revisão (dd/mm/aaaa)", "data", "PCMD-01 Lista Mestra (manual)", MANUAL, "Vazio → 'A definir'."),
+    ("documento.revisao", "Revisão do documento", "texto", "PCMD-01, aba Lista Mestra (manual)", MANUAL, "Vazio → 'A definir'."),
+    ("documento.data", "Data da revisão (dd/mm/aaaa)", "data", "PCMD-01, aba Lista Mestra (manual)", MANUAL, "Vazio → 'A definir'."),
     ("documento.elaborador", "Nome do elaborador", "texto", _r("nome de gestao.pessoas[] com id = gestao.organizacao.elaborador"), RAMO, "Vazio → 'A definir'."),
     ("documento.aprovador", "Nome do aprovador", "texto", _r("nome de gestao.pessoas[] com id = gestao.organizacao.aprovador"), RAMO,
      "Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação."),
-    ("documento.proxima_revisao", "Próxima revisão (dd/mm/aaaa)", "data", "PCMD-01 Lista Mestra (manual)", MANUAL, "Vazio → 'A definir'."),
-    ("documento.situacao", "Situação do documento", "texto", "PCMD-01 Lista Mestra (manual)", MANUAL, "Vazio → 'Em elaboração'."),
+    ("documento.proxima_revisao", "Próxima revisão (dd/mm/aaaa)", "data", "PCMD-01, aba Lista Mestra (manual)", MANUAL, "Vazio → 'A definir'."),
+    ("documento.situacao", "Situação do documento", "texto", "PCMD-01, aba Lista Mestra (manual)", MANUAL, "Vazio → 'Em elaboração'."),
     ("emissao.data", "Data de emissão do arquivo (dd/mm/aaaa)", "data", "Data em que o adaptador gera o arquivo", FUTURO, "Vazio → 'A definir'."),
     ("origem.dados", "Origem dos dados", "texto", "Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa)", FUTURO, "Vazio → 'Não informada'."),
     ("criticidade.limite_a", "Limite A da criticidade", "inteiro", _r("gestao.criticidade.limites.a"), RAMO, "Vazio → 'A definir'."),
@@ -515,7 +586,7 @@ REGIOES_DOC = {
                 "campos": [("tarefa.tag", "TAG"), ("tarefa.id", "ID tarefa"), ("tarefa.atividade", "Atividade"), ("tarefa.frequencia_vigente", "Frequência"),
                            ("tarefa.especialidade", "Especialidade"), ("tarefa.duracao_horas", "Duração (h)"), ("tarefa.seguranca", "Segurança"),
                            ("tarefa.origem_versao", "Origem / versão"), ("tarefa.responsavel_nome", "Responsável")]},
-    "revisoes": {"descricao": "Histórico de revisão do documento", "origem": "Aba Revisões (manual)", "situacao": MANUAL,
+    "revisoes": {"descricao": "Histórico de revisão do documento", "origem": "PCMD-01, aba Revisões (manual)", "situacao": MANUAL,
                  "campos": [("revisao.numero", "Revisão"), ("revisao.data", "Data"), ("revisao.descricao", "Descrição da mudança"),
                             ("revisao.responsavel", "Responsável")]},
 }
