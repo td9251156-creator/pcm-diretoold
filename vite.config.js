@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import { configuracaoCatalogo } from './src/logica/catalogo.js';
 
 /** A versão muda também quando só o conteúdo de um arquivo fixo ou do worker muda. */
 export function versaoDoCache(arquivos) {
@@ -41,7 +42,13 @@ function serviceWorker() {
 // inclusive em https://<usuario>.github.io/pcm-direto/
 export default defineConfig({
   base: './',
-  plugins: [serviceWorker()],
+  plugins: [{
+    name: 'pcm-configuracao-publica',
+    configResolved(config) {
+      const resultado = configuracaoCatalogo(config.env);
+      if (resultado.erro) throw new Error(resultado.erro);
+    },
+  }, serviceWorker()],
   build: {
     // As bibliotecas de planilha e documento são grandes; o aviso padrão não ajuda aqui.
     chunkSizeWarningLimit: 2000,

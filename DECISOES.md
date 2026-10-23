@@ -69,3 +69,11 @@ que continuam obrigatórias. O formato do rascunho e suas chaves de armazenament
 | Perda do rascunho (limpeza do navegador) | Rascunho só no localStorage; orientar a baixar a planilha ao final |
 | Dependências desatualizadas | Poucas dependências; revisar alertas do `npm audit` periodicamente |
 | Planilha em versões antigas do Excel | Só funções clássicas (PROCV, ÍNDICE, CORRESP), sem macros nem matriz dinâmica |
+
+
+## Catálogo colaborativo: direção autorizada em 22/10/2026
+
+A restrição anterior de ausência de login/banco é substituída somente para o catálogo público
+de modelos reutilizáveis. A gestão da fábrica continua local e não é sincronizada. Contribuições
+explícitas usam Supabase Auth/PostgreSQL, com revisão antes da publicação. Código preparado
+não significa serviço online ativado. Consulte [configuração do catálogo](docs/CATALOGO-COLABORATIVO.md) e [ativação dos benefícios](docs/ATIVACAO-STUDENT.md).

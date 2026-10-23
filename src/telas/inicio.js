@@ -40,6 +40,7 @@ export function telaInicio(main, ir) {
       <p>${esc(estado.gestao.organizacao.nome || 'Organização ainda não informada')} · ${estado.gestao.pessoas.filter(p => p.ativo).length} pessoas ativas ·
         ${estado.equipamentos.filter(e => criticidadeAtivo(estado.gestao.criticidade.notas[e.id], estado.gestao.criticidade.limites).classe !== 'Pendente').length} ativos avaliados.</p>
       <div class="painel-modulos">
+        <a class="modulo" href="#catalogo"><strong>Catálogo colaborativo</strong><span>Consulte modelos e compartilhe contribuições para revisão.</span></a>
         <a class="modulo" href="#cadastros"><strong>Cadastros mestre</strong><span>Organização, pessoas, metas e requisitos.</span></a>
         <a class="modulo" href="#criticidade"><strong>Criticidade</strong><span>Avaliação por ativo, sem alterar segurança.</span></a>
         <a class="modulo" href="#plano"><strong>Plano Mestre</strong><span>Atividades, responsáveis e próximas ocorrências.</span></a>
@@ -59,7 +60,7 @@ export function telaInicio(main, ir) {
 
     <section class="cartao">
       <h3>Seus dados</h3>
-      <p>Tudo é feito neste navegador. Nenhum dado é enviado para servidor. O rascunho fica salvo aqui mesmo,
+      <p>Seus equipamentos, planos e registros de gestão ficam neste navegador. O catálogo online recebe somente os campos que você preencher no formulário de contribuição e os dados necessários ao login. O rascunho local fica salvo aqui mesmo,
       então limpar os dados do navegador apaga a lista: ao terminar, baixe a planilha.</p>
       <p>O backup completo guarda equipamentos, biblioteca, ajustes, capacidade, data do plano, cadastros, criticidade, histórico e falhas.</p>
       <button type="button" id="baixar-backup">Baixar backup completo (.json)</button>

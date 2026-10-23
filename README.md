@@ -6,8 +6,8 @@ Gerador de PCM (Planejamento e Controle de Manutenção) aberto e em português.
 Você informa a lista de equipamentos e recebe o plano de manutenção preventiva pronto,
 com cronograma anual, em planilha (.xlsx) e documento (.docx).
 
-- Roda 100% no navegador: sem servidor, sem login e sem banco de dados.
-- Seus dados ficam só no seu computador ou celular (lista salva no próprio navegador).
+- Gestão local no navegador, com catálogo colaborativo online opcional pelo Supabase.
+- Inventário e histórico ficam no aparelho; apenas contribuições explícitas vão ao catálogo.
 - Funciona como aplicativo no PC e no celular (PWA instalável).
 - Gratuito e de código aberto (licença MIT).
 
@@ -142,3 +142,11 @@ Parte do código deste projeto foi escrita com ajuda de IA e revisada pelo autor
 ## Licença
 
 [MIT](LICENSE) — Copyright (c) 2026 Thiago Oliveira Lima.
+
+
+## Catálogo colaborativo: direção autorizada em 22/10/2026
+
+A restrição anterior de ausência de login/banco é substituída somente para o catálogo público
+de modelos reutilizáveis. A gestão da fábrica continua local e não é sincronizada. Contribuições
+explícitas usam Supabase Auth/PostgreSQL, com revisão antes da publicação. Código preparado
+não significa serviço online ativado. Consulte [configuração do catálogo](docs/CATALOGO-COLABORATIVO.md) e [ativação dos benefícios](docs/ATIVACAO-STUDENT.md).

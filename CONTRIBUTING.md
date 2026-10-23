@@ -11,7 +11,7 @@ Obrigado pelo interesse no PCM Direto. Toda ajuda é bem-vinda, principalmente d
 
 ## Regras que não mudam
 
-1. Tudo continua rodando só no navegador: sem servidor, login ou banco de dados.
+1. Preserve a gestão local. O catálogo Supabase é separado e só recebe contribuições explícitas.
 2. Nenhuma referência a norma sem fonte oficial, com versão e data. Na dúvida, escreva "verificar na fonte oficial".
 3. Nenhuma promessa de conformidade, de aprovação em auditoria ou de ganho.
 4. O aviso permanente continua visível em todas as telas.
@@ -30,3 +30,11 @@ Para desenvolvimento com agentes, siga [AGENTS.md](AGENTS.md), a
 
 Ao contribuir, você concorda que sua contribuição será publicada sob a [licença MIT](LICENSE)
 e que seguirá o [Código de Conduta](CODE_OF_CONDUCT.md).
+
+
+## Catálogo colaborativo: direção autorizada em 22/10/2026
+
+A restrição anterior de ausência de login/banco é substituída somente para o catálogo público
+de modelos reutilizáveis. A gestão da fábrica continua local e não é sincronizada. Contribuições
+explícitas usam Supabase Auth/PostgreSQL, com revisão antes da publicação. Código preparado
+não significa serviço online ativado. Consulte [configuração do catálogo](docs/CATALOGO-COLABORATIVO.md) e [ativação dos benefícios](docs/ATIVACAO-STUDENT.md).

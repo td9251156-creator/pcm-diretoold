@@ -187,3 +187,11 @@ oficial, versão, data e revisão habilitada.
 O checklist atual guarda a última marcação de cada tarefa. Histórico completo, fotos e assinatura
 exigem desenho e decisão próprios. A conferência manual com leitor de tela, aparelhos reais e
 Excel antigo permanece importante, mesmo com o roteiro automático de navegador aprovado.
+
+
+## Catálogo colaborativo: direção autorizada em 22/10/2026
+
+A restrição anterior de ausência de login/banco é substituída somente para o catálogo público
+de modelos reutilizáveis. A gestão da fábrica continua local e não é sincronizada. Contribuições
+explícitas usam Supabase Auth/PostgreSQL, com revisão antes da publicação. Código preparado
+não significa serviço online ativado. Consulte [configuração do catálogo](CATALOGO-COLABORATIVO.md) e [ativação dos benefícios](ATIVACAO-STUDENT.md).
