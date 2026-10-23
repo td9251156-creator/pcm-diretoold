@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 
 from comum import RAMO_GESTAO
 
-LINHA_TIPO = 5      # linha com o papel da coluna (ENTRADA, CÁLCULO...)
+LINHA_TIPO = 5      # linha de respiro entre o topo e o cabeçalho (alertas ficam na linha 4)
 LINHA_CAB = 6       # cabeçalho da tabela
 PRIMEIRA = 7        # primeira linha de dados
 
@@ -60,6 +60,7 @@ class Coluna:
     nome: str | None = None  # intervalo nomeado da coluna
     dv: dict | None = None   # validação de dados do Excel
     numero: str | None = None  # formato numérico do Excel
+    oculta: bool = False       # coluna técnica: continua calculando, mas fica oculta na tela e na impressão
 
 
 @dataclass
@@ -438,6 +439,55 @@ REQUISITOS = Aba(
 
 ABAS_TABELA = [LISTA_MESTRA, REVISOES, PESSOAS, REQUISITOS, ATIVOS, SETORES, PLANO, OCORRENCIAS, EXECUCOES, FALHAS]
 
+# ---------------------------------------------------------------- Apresentação
+# Cabeçalhos curtos (o significado completo fica no contrato e no dicionário) e colunas técnicas ocultas.
+CABECALHOS = {
+    "documento.data": "Data da revisão", "documento.elaborador": "Elaborador", "documento.aprovador": "Aprovador",
+    "documento.proxima_revisao": "Próxima revisão",
+    "ativo.descricao": "Descrição", "ativo.tipo_id": "Tipo", "ativo.setor": "Setor", "ativo.tag_conferencia": "Conferência TAG",
+    "criticidade.nota_seguranca": "N1 Segurança", "criticidade.nota_qualidade": "N2 Qualidade", "criticidade.nota_producao": "N3 Produção",
+    "criticidade.nota_frequencia_falha": "N4 Freq. de falha", "criticidade.nota_custo_reparo": "N5 Custo/tempo reparo",
+    "criticidade.pontuacao": "Pontuação",
+    "tarefa.frequencia_referencia": "Frequência referência", "tarefa.seguranca": "Segurança", "tarefa.vezes_ano": "Vezes/ano",
+    "tarefa.duracao_horas": "Duração (h)", "tarefa.horas_ciclo": "Horas/ano", "tarefa.ativa": "Ativa", "tarefa.conferencia": "Conferência",
+    "tarefa.observacao": "Observação", "tarefa.responsavel_nome": "Responsável",
+    "ocorrencia.data_prevista": "Data prevista", "ocorrencia.fonte": "Fonte da data", "ocorrencia.horas_estimadas": "Horas (h)",
+    "ocorrencia.concluida": "Concluída",
+    "execucao.tag": "TAG", "execucao.descricao": "Descrição", "execucao.data_prevista": "Data prevista", "execucao.data": "Data realizada",
+    "execucao.origem": "Origem", "execucao.situacao_plano": "No plano?", "execucao.responsavel_nome": "Responsável",
+    "falha.data": "Data", "falha.tag": "TAG", "falha.horas_parada": "Parada (h)", "falha.responsavel_nome": "Responsável",
+    "revisao.documento": "Documento", "revisao.data": "Data", "revisao.responsavel": "Responsável",
+    "requisito.referencia": "Referência", "requisito.data": "Data", "requisito.fonte": "Fonte oficial (HTTPS)", "requisito.status": "Status",
+    "setor.sigla": "Sigla", "setor.descricao": "Descrição",
+}
+OCULTAS = {
+    "ativo.tipo_nome", "criticidade.notas_validas",
+    "tarefa.chave", "tarefa.responsavel_id",
+    "ocorrencia.chave_tarefa", "ocorrencia.chave", "ocorrencia.linha_plano", "ocorrencia.ano", "ocorrencia.mes", "ocorrencia.posicao",
+    "ocorrencia.primeira", "ocorrencia.conta", "ocorrencia.execucoes_ativas",
+    "execucao.chave_tarefa", "execucao.chave_ocorrencia", "execucao.ano", "execucao.duracao_real_horas", "execucao.responsavel_id",
+    "falha.responsavel_id", "falha.parada_situacao",
+}
+for _aba in ABAS_TABELA:
+    for _c in _aba.colunas:
+        _c.cabecalho = CABECALHOS.get(_c.id, _c.cabecalho)
+        _c.oculta = _c.id in OCULTAS
+        if _c.id == "ocorrencia.concluida":
+            _c.numero = '"Sim";"Sim";"Não"'  # valor 1/0 (usado nas somas), exibido como Sim/Não
+            _c.largura = 11
+    _visivel = sum(_c.largura for _c in _aba.colunas if not _c.oculta)
+    if _aba.paginas_largura == 2 and _visivel <= 200:
+        _aba.paginas_largura, _aba.colunas_repetidas = 1, None
+# Larguras mais justas: a tabela inteira cabe na largura de uma página (ou de duas, nas abas largas).
+LARGURAS = {
+    "documento.titulo": 30, "documento.elaborador": 15, "documento.aprovador": 15, "documento.conferencia": 24, "documento.observacao": 20,
+    "falha.sintoma": 26, "falha.causa": 22, "falha.acao": 22,
+    "ocorrencia.fonte": 22, "tarefa.origem": 26,
+}
+for _aba in ABAS_TABELA:
+    for _c in _aba.colunas:
+        _c.largura = LARGURAS.get(_c.id, _c.largura)
+
 # ---------------------------------------------------------------- Células únicas (formulários)
 # Abas Organização (PCMD-01) e Critérios (PCMD-02): cabeçalho na linha 6, campos a partir da linha 7.
 CAMPOS_CELULAS = [
@@ -465,10 +515,9 @@ TIPOS_DOCUMENTO = ["Planilha (XLSX)", "Manual (DOCX)", "Outro"]
 TIPOS_TAREFA_REFERENCIA = ["Preventiva", "Preditiva", "Lubrificação", "Inspeção", "Autônoma"]
 
 # ---------------------------------------------------------------- Cronograma (painel)
-# Parâmetros em C7:C11; cartões nas linhas 13 (rótulo) e 14 (valor); resumo mensal; gráfico; quadros separados.
-CRONO = {"ano": "C7", "inicio": "C8", "fonte": "C9", "conf_ano": "C10", "meta": "C11",
-         "cartao_rot": 13, "cartao": 14, "card_meta": "E14",
-         "cab_mes": 17, "jan": 18, "total": 30, "grafico": 33, "fora_cab": 52, "semv_cab": 57, "conf_cab": 63}
+# Parâmetros em C7:C11 (situação da meta em E11); resumo mensal; gráfico; quadros separados.
+CRONO = {"ano": "C7", "inicio": "C8", "fonte": "C9", "conf_ano": "C10", "meta": "C11", "card_meta": "E11",
+         "cab_mes": 14, "jan": 15, "total": 27, "grafico": 30, "fora_cab": 47, "semv_cab": 52, "conf_cab": 58}
 
 CAMPOS_CELULAS += [
     ("cronograma.ano", "Ano consultado", "Cronograma", CRONO["ano"], "entrada", "inteiro", _r("escolha do usuário (resumoMensal(dados, gestao, ano))"), RAMO, "Vazio = resumo em branco.", "Inteiro de 1900 a 9999.", PRIV_NENHUM, "Intervalo crono_ano."),
@@ -519,16 +568,16 @@ ARQUIVOS = [
             [ATIVOS, SETORES],
             ["tipos"]),
     Arquivo("03", "PCMD-03-04-Plano-Cronograma", "PCMD-03/04", "Plano mestre e cronograma",
-            "Plano mestre, ocorrências previstas, execuções e painel mensal de % realizado.",
+            "Plano mestre, ocorrências previstas, execuções e resumo mensal de % realizado.",
             [("Plano Mestre", "Tarefas por ativo, frequência vigente e conferência de segurança."),
-             ("Cronograma", "Painel do ano: cartões, resumo mensal e gráfico."),
+             ("Cronograma", "Resumo mensal do ano, gráfico e conferências."),
              ("Ocorrências", "Uma linha por ativo + tarefa + data prevista."),
              ("Execuções", "Realizações vinculadas às ocorrências; canceladas ficam no histórico."),
              ("Listas", "Frequências, especialidades e valores aceitos.")],
             ["Lance as tarefas no Plano Mestre (referências da biblioteca).",
              "Liste as datas previstas em Ocorrências, com a fonte.",
              "Registre cada realização em Execuções, com a data prevista.",
-             "Informe o ano no Cronograma e acompanhe o painel."],
+             "Informe o ano no Cronograma e acompanhe o resumo mensal."],
             [PLANO, OCORRENCIAS, EXECUCOES],
             ["frequencias", "especialidades", "sim_nao", "origem_execucao", "tipos_tarefa"]),
     Arquivo("05", "PCMD-05-Ficha-Falha", "PCMD-05", "Ficha de falha",

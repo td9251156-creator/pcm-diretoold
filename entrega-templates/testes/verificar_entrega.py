@@ -367,8 +367,8 @@ def verificar_exemplo(demo):
     check(g8, "fora do ano igual ao app (previstas)", (fora["Antes do ano"] or 0) + (fora["Depois do ano"] or 0) == app["foraDoAno"]["previstas"], fora)
     check(g8, "sem vínculo no ano igual ao app", semv[0] == app["semVinculo"], semv)
     tot = sum(x["previstas"] for x in app["meses"])
-    card = wbv["Cronograma"].cell(E.CRONO["cartao"], 1).value
-    check(g8, "cartão Previstas no ano igual à soma dos meses do app", card == tot, (card, tot))
+    total = wbv["Cronograma"].cell(E.CRONO["total"], 3).value
+    check(g8, "Total do ano (previstas) igual à soma dos meses do app", total == tot, (total, tot))
     w2 = recalc_ex["02"]
     cls = {w2[A.nome].cell(r, 1).value: (w2[A.nome].cell(r, col(A, "criticidade.pontuacao")).value, w2[A.nome].cell(r, col(A, "criticidade.classe")).value)
            for r in range(7, 7 + len(demo["equipamentos"]))}
@@ -384,7 +384,7 @@ def verificar_exemplo(demo):
                     v = wsv.cell(r, c).value
                     if isinstance(v, str) and (v.startswith("#") or v.startswith("Err:")):
                         erros.append((aba.nome, r, c, v))
-        for ws_ in recalc_ex[k].worksheets:  # topo, cartões e painéis
+        for ws_ in recalc_ex[k].worksheets:  # topo, formulários e Cronograma
             for row in ws_.iter_rows(min_row=1, max_row=min(ws_.max_row, 80)):
                 for c in row:
                     if isinstance(c.value, str) and (c.value.startswith("#") or c.value.startswith("Err:")):

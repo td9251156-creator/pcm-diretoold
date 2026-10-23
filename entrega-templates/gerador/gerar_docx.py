@@ -18,7 +18,7 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 import especificacao as E
-from comum import AUTOR, AVISO, AVISO_FUNDO, AZUL, CONTATO, DATA_MODELO, DESTAQUE, FONTE, LICENCA, LOGO_PNG, RAIZ_REPO, SEGURANCA, VERSAO_MODELO
+from comum import AUTOR, AVISO, AZUL, CONTATO, DESTAQUE, FONTE, LICENCA, LOGO_PNG, RAIZ_REPO, SEGURANCA, VERSAO_MODELO
 
 MARCADOR = re.compile(r"(\{\{[a-z0-9_.]+\}\})")
 
@@ -142,7 +142,7 @@ class Manual:
         rpr.append(lang)
         normal.paragraph_format.space_after = Pt(4)
         normal.paragraph_format.line_spacing = 1.1
-        for nome, tam in (("Title", 22), ("Heading 1", 13), ("Heading 2", 11), ("Heading 3", 10.5)):
+        for nome, tam in (("Title", 20), ("Heading 1", 13), ("Heading 2", 11), ("Heading 3", 10.5)):
             s = st[nome]
             s.font.name = FONTE
             s.font.size = Pt(tam)
@@ -161,15 +161,10 @@ class Manual:
             s.paragraph_format.keep_with_next = True
             s.paragraph_format.space_before = Pt(14 if nome == "Heading 1" else 8)
             s.paragraph_format.space_after = Pt(4)
-        st["Heading 2"].font.color.rgb = _cor(DESTAQUE)
-        borda_paragrafo(st["Heading 1"].element.get_or_add_pPr(), "bottom", DESTAQUE, 8, 3)
+        borda_paragrafo(st["Heading 1"].element.get_or_add_pPr(), "bottom", "D5DDE5", 6, 3)
         titulo = st["Title"]
-        titulo.font.color.rgb = _cor("FFFFFF")
-        titulo.paragraph_format.space_after = Pt(0)
-        tpPr = titulo.element.get_or_add_pPr()
-        for lado in ("top", "left", "bottom", "right"):  # borda da mesma cor do fundo: dá respiro à faixa
-            borda_paragrafo(tpPr, lado, AZUL, 24, 10)
-        sombra_paragrafo(tpPr, AZUL)
+        titulo.paragraph_format.space_after = Pt(2)
+        borda_paragrafo(titulo.element.get_or_add_pPr(), "bottom", AZUL, 12, 4)
         for nome in ("List Bullet", "List Number"):
             st[nome].font.name = FONTE
         if "Marcador PCMD" not in [s.name for s in st]:
@@ -212,16 +207,12 @@ class Manual:
         sec.header_distance = Cm(0.9)
         sec.footer_distance = Cm(0.8)
 
-    def destaque(self, texto, rotulo=None, cor=DESTAQUE, fundo="F4F7FA"):
-        """Quadro de destaque: barra lateral colorida e fundo suave."""
+    def destaque(self, texto):
+        """Regra importante: um único estilo (barra azul à esquerda e fundo cinza claro)."""
         par = self.doc.add_paragraph(style="Destaque PCMD")
         pPr = par._p.get_or_add_pPr()
-        borda_paragrafo(pPr, "left", cor, 24, 8)
-        sombra_paragrafo(pPr, fundo)
-        if rotulo:
-            r = par.add_run(rotulo + "  ")
-            r.bold = True
-            r.font.color.rgb = _cor(cor)
+        borda_paragrafo(pPr, "left", AZUL, 18, 8)
+        sombra_paragrafo(pPr, "F4F7FA")
         self._texto(par, texto, "parágrafo")
         return par
 
@@ -382,10 +373,11 @@ class Manual:
         return t
 
     def identificacao(self, resumo):
-        """Capa enxuta: faixa com o título, grade de identificação e aviso em quadro de destaque."""
+        """Abertura enxuta: título, resumo e grade de identificação. O aviso fica no rodapé de todas as páginas."""
         self.doc.add_paragraph(self.titulo, style="Title")
         p = self.doc.add_paragraph()
-        p.paragraph_format.space_before = Pt(6)
+        p.paragraph_format.space_before = Pt(4)
+        p.paragraph_format.space_after = Pt(10)
         r = p.add_run(f"{self.codigo}  ·  ")
         r.bold, r.font.color.rgb = True, _cor(DESTAQUE)
         r = p.add_run(resumo)
@@ -421,10 +413,10 @@ class Manual:
                     rr.font.size, rr.font.color.rgb, rr.bold = Pt(8), _cor("5B6875"), True
                 else:
                     self._texto(par, tx, "célula de tabela (identificação)", negrito=True)
-        self.doc.add_paragraph().paragraph_format.space_after = Pt(2)
-        self.destaque(AVISO, "AVISO", cor=DESTAQUE, fundo=AVISO_FUNDO)
-        self.nota("Aprovador: preencher somente após aprovação efetiva. Este modelo não registra nem presume aprovação. "
-                  f"Modelo PCM Direto {VERSAO_MODELO} ({dt.date.fromisoformat(DATA_MODELO):%d/%m/%Y}) · {AUTOR} · {CONTATO} · Licença {LICENCA}.")
+        p = self.doc.add_paragraph()
+        p.paragraph_format.space_before = Pt(4)
+        r = p.add_run(f"Modelo PCM Direto {VERSAO_MODELO} · {AUTOR} · {CONTATO} · Licença {LICENCA}")
+        r.font.size, r.font.color.rgb = Pt(8), _cor("8C96A0")
 
     def secao_paisagem(self):
         sec = self.doc.add_section(WD_SECTION.NEW_PAGE)
@@ -468,7 +460,7 @@ def referencias(m):
     m.h1("Referências e requisitos")
     m.p("Referencial adotado: {{organizacao.referencial}} (o inicial do PCM Direto é GERAL (sem norma)).")
     m.destaque("Cada referência começa Não verificado. Verificado exige fonte oficial HTTPS, versão e data; registra a conferência do responsável "
-               "e não certifica conformidade. Não cite número de norma sem essas informações.", "REGRA", cor=AZUL)
+               "e não certifica conformidade. Não cite número de norma sem essas informações.")
     m.regiao("requisitos", [5.2, 2.0, 2.3, 4.7, 2.8], "Referências registradas (PCMD-01, aba Requisitos)")
 
 
@@ -492,10 +484,8 @@ def manual_w1(valores=None, regioes=None):
     m.h1("Objetivo e escopo")
     m.p("Este manual descreve como {{organizacao.nome}} cadastra, identifica, classifica e mantém o histórico dos seus ativos de manutenção, "
         "com os registros do PCM Direto e os modelos PCMD.")
-    m.tabela(["Dentro do escopo", "Fora do escopo"], [
-        ("Cadastro e hierarquia, IDs e TAGs, setores, criticidade, responsáveis, histórico, requisitos e controle documental.",
-         "Procedimentos de execução, indicadores sem regra aprovada e qualquer declaração de conformidade legal."),
-    ], [8.5, 8.5], primeira_negrito=False)
+    m.p("Inclui cadastro e hierarquia, IDs e TAGs, setores, criticidade, responsáveis, histórico, requisitos e controle documental. "
+        "Não inclui procedimentos de execução, indicadores sem regra aprovada nem declaração de conformidade legal.")
 
     m.h1("Termos")
     m.tabela(["Termo", "Definição"], TERMOS, [4.5, 12.5])
@@ -534,8 +524,7 @@ def manual_w1(valores=None, regioes=None):
         (c, "A definir pelo mantenedor", "A definir pelo mantenedor", "A definir pelo mantenedor")
         for c in ("N1 Segurança", "N2 Qualidade", "N3 Produção", "N4 Frequência de falha", "N5 Custo/tempo de reparo")
     ], [4.4, 4.2, 4.2, 4.2], "Significado dos níveis (definido pelo responsável; o PCM Direto não define)")
-    m.destaque("A classe não altera frequências, tarefas nem proteções de segurança. Mudanças no plano são decisão registrada do profissional responsável.",
-               "IMPORTANTE", cor=SEGURANCA, fundo="FBE7EA")
+    m.destaque("A classe não altera frequências, tarefas nem proteções de segurança. Mudanças no plano são decisão registrada do profissional responsável.")
 
     m.h1("Histórico")
     m.tabela(["Situação", "O que acontece"], [
@@ -553,8 +542,7 @@ def manual_w1(valores=None, regioes=None):
         "Próxima revisão deste manual: {{documento.proxima_revisao}}.")
     m.tabela(["Código", "Documento"], [(c, t) for c, t, _ in E.DOCUMENTOS_PCMD], [3.0, 14.0])
     m.destaque("Ao usar um modelo do catálogo colaborativo, cria-se um ativo local; não há sincronização automática. Pessoas, organização, falhas e "
-               "execuções são locais e não devem ser publicadas. Este manual e as planilhas não consultam a internet nem enviam dados.",
-               "CATÁLOGO", cor=AZUL)
+               "execuções são locais e não devem ser publicadas. Este manual e as planilhas não consultam a internet nem enviam dados.")
 
     m.h1("Indicadores")
     m.tabela(["Indicador", "Regra explícita", "Meta"], [
@@ -592,7 +580,7 @@ def manual_w2(valores=None, regioes=None):
     m.p("Este manual descreve como {{organizacao.nome}} escolhe e revisa estratégias de manutenção, planeja, registra execuções e trata falhas, "
         "com os registros do PCM Direto e os modelos PCMD. Cadastro, criticidade e histórico seguem o Manual de Gestão de Ativos (PCMD-W1).")
     m.destaque("Estratégias, prazos por classe e metas são definidos pelo profissional responsável. Enquanto não forem, aparecem como A definir: "
-               "este manual não cria regras técnicas.", "IMPORTANTE", cor=AZUL)
+               "este manual não cria regras técnicas.")
 
     m.h1("Termos")
     m.tabela(["Termo", "Definição"], [
@@ -627,7 +615,7 @@ def manual_w2(valores=None, regioes=None):
         ("Confirmação", "Ao confirmar em manual do fabricante ou outra fonte, atualizar origem e versão."),
     ], [4.0, 13.0])
     m.destaque("Tarefa de segurança não pode ser excluída, desmarcada nem ter intervalo ampliado; só é permitido manter ou aumentar a frequência. "
-               "Validações de planilha ajudam, mas podem ser contornadas e não substituem as travas do app.", "SEGURANÇA", cor=SEGURANCA, fundo="FBE7EA")
+               "Validações de planilha ajudam, mas podem ser contornadas e não substituem as travas do app.")
 
     m.h1("Do plano ao registro")
     m.h2("Fluxo")

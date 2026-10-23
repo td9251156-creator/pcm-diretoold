@@ -36,7 +36,7 @@ Os números entre parênteses seguem a lista de testes de aceitação do pedido.
   outras funções que exigem prefixo `_xlfn`, fórmula de matriz ou referência a outro arquivo. **Cada planilha é independente.**
 - Nomes de abas e intervalos nomeados válidos. Nenhuma validação de dados aponta direto para outra aba.
 - Aviso exato visível na linha 3 de todas as abas e no rodapé (≤ 255 caracteres) de todas as abas.
-- DOCX: apenas campos PAGE e NUMPAGES; nenhum vínculo LINK/INCLUDE (o sumário automático foi retirado para deixar o manual mais enxuto).
+- DOCX: apenas campos PAGE e NUMPAGES; nenhum vínculo LINK/INCLUDE (sem sumário automático, para manter o manual enxuto).
 
 ### (3) Tipos de dados
 - Datas das execuções e ocorrências são datas reais do Excel com formato `dd/mm/aaaa`; horas são números; horas de parada `1,5`, vazio e `0`
@@ -57,26 +57,28 @@ ocorrência de janeiro → conta em janeiro.
 ### (6) Ano, diária, histórico e vazios
 Previsões em 2025 e 2027 com ano 2026 → 1 antes e 1 depois do ano; diária com 5 dias úteis → 5 ocorrências e 1,25 h (0,25 h × 5, sem multiplicar
 de novo); execução de ativo/tarefa fora do plano → "Fora do plano: histórico preservado" com a TAG gravada; horas de parada vazio × zero distinguidas
-(PCMD-05); sem meta → "A definir" no cartão do Cronograma e na aba Organização (PCMD-01).
+(PCMD-05); sem meta → "A definir" ao lado da meta no Cronograma e na aba Organização (PCMD-01).
 
 ### (7) Segurança e capacidade
 Segurança Mensal → Trimestral: `ERRO: intervalo ampliado...`; Mensal → Semanal: OK; segurança com Ativa = Não: `ERRO`. A aba Plano Mestre está
 protegida sem senha, com as colunas REFERÊNCIA bloqueadas e as de entrada liberadas.
 **Limite real da proteção offline:** qualquer pessoa pode desproteger a aba (não há senha), colar por cima de validações ou editar o arquivo em outro
 programa. O que não some com isso é a coluna Conferência, que recalcula e mostra o erro. Não é uma trava de segurança.
-Dado escrito abaixo da capacidade de Ativos e de Ocorrências gera alerta `ATENÇÃO` na linha 4 e no painel do Cronograma.
+Dado escrito abaixo da capacidade de Ativos e de Ocorrências gera alerta `ATENÇÃO` na linha 4 e no quadro Conferências do Cronograma.
 
 ### (8) Recálculo comparado com a lógica do app
 Os quatro exemplos foram recalculados no LibreOffice (sem usar valores em cache: o gerador não grava resultados). O PCMD-03/04 foi comparado com
 `resumoMensal()` e o PCMD-02 com `criticidadeAtivo()`, executados no Node sobre os mesmos dados fictícios: os 12 meses (previstas, concluídas, %, horas),
-o cartão "Previstas no ano", fora do ano, execuções sem vínculo e as 4 classes coincidiram. Nenhum `#VALOR!`, `#N/D` ou `Err:` nas tabelas,
-nos topos, cartões e painéis.
+o total do ano, fora do ano, execuções sem vínculo e as 4 classes coincidiram. Nenhum `#VALOR!`, `#N/D` ou `Err:` nas tabelas,
+nos topos, formulários e no Cronograma.
 
 ### (9) Impressão
-PDFs exportados pelo LibreOffice, em `previas/` (12 PDFs: exemplo do PCMD-03/04 com 89 páginas, por causa das 761 ocorrências; os demais de 3 a 13 páginas). O aviso completo foi encontrado no texto de **todas** as páginas de todos os PDFs.
+PDFs exportados pelo LibreOffice, em `previas/` (12 PDFs: exemplo do PCMD-03/04 com 53 páginas, por causa das 761 ocorrências; os demais de 2 a 11 páginas). O aviso completo foi encontrado no texto de **todas** as páginas de todos os PDFs.
 O cabeçalho da tabela se repete em todas as páginas de Ativos, Plano Mestre, Ocorrências, Execuções e Ficha de Falha. Nos templates Word, marcadores
 aparecem impressos no corpo, em células, no cabeçalho e no rodapé. Páginas também foram conferidas visualmente por imagem (amostras).
-Limite: o rodapé do Excel usa fonte 7 em duas linhas para caber o aviso inteiro; é legível, mas pequeno.
+As tabelas imprimem a partir do cabeçalho (título no cabeçalho da página, aviso no rodapé); colunas técnicas ocultas não são impressas.
+Limite: o rodapé do Excel usa fonte 7 em duas linhas para caber o aviso inteiro e, nas tabelas ajustadas à largura, o programa reduz a escala;
+é legível, mas pequeno.
 
 ### (10) Contrato e estrutura
 Em cada uma das quatro planilhas, modelo e exemplo têm as mesmas abas, nomes, cabeçalhos, validações e as mesmas fórmulas nas mesmas células.
@@ -88,8 +90,8 @@ continuou passando com a pasta nova.
 ## O que não foi testado
 
 - Microsoft Excel (2010 ou outra versão) e Microsoft Word: indisponíveis. Recomendado abrir os 12 arquivos no Excel/Word, conferir se não há pedido
-  de reparo, recalcular (Ctrl+Alt+F9) e visualizar a impressão. Atenção especial a: gráfico do Cronograma, barras de dados do % realizado,
-  escala de cores das notas e selos de classe (formatação condicional), que foram vistos só no LibreOffice.
+  de reparo, recalcular (Ctrl+Alt+F9) e visualizar a impressão. Atenção especial a: gráfico do Cronograma (eixo lido de uma coluna oculta),
+  barras de dados do % realizado e cores de classe e de conferência (formatação condicional), que foram vistos só no LibreOffice.
 - Comportamento em leitores de celular.
 - Digitação real em células validadas (testes conferem as regras gravadas, não um clique humano).
 - Integração com o app: não existe ainda; o contrato é proposto e o adaptador será testado depois.

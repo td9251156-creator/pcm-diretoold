@@ -98,7 +98,6 @@
           "nome": "Lista Mestra",
           "codigo": "PCMD-01",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 56,
@@ -113,6 +112,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Código PCMD do modelo (documental)",
               "situacao_origem": "manual",
               "destino": {
@@ -138,6 +138,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Título do documento (documental)",
               "situacao_origem": "manual",
               "destino": {
@@ -163,6 +164,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -191,6 +193,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -210,12 +213,13 @@
             },
             {
               "id": "documento.data",
-              "rotulo": "Data da revisão (dd/mm/aaaa)",
+              "rotulo": "Data da revisão",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "opcional",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -240,12 +244,13 @@
             },
             {
               "id": "documento.elaborador",
-              "rotulo": "Elaborador (nome)",
+              "rotulo": "Elaborador",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Sugestão: nome de gestao.pessoas[] cujo id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -265,12 +270,13 @@
             },
             {
               "id": "documento.aprovador",
-              "rotulo": "Aprovador (nome)",
+              "rotulo": "Aprovador",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Sugestão: nome de gestao.pessoas[] cujo id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -290,12 +296,13 @@
             },
             {
               "id": "documento.proxima_revisao",
-              "rotulo": "Próxima revisão (dd/mm/aaaa)",
+              "rotulo": "Próxima revisão",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "opcional",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental: não existe no app",
               "situacao_origem": "manual",
               "destino": {
@@ -326,6 +333,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -354,6 +362,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -379,6 +388,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -402,7 +412,6 @@
           "nome": "Revisões",
           "codigo": "PCMD-01",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 106,
@@ -411,12 +420,13 @@
           "colunas": [
             {
               "id": "revisao.documento",
-              "rotulo": "Documento (código)",
+              "rotulo": "Documento",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -442,6 +452,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -461,12 +472,13 @@
             },
             {
               "id": "revisao.data",
-              "rotulo": "Data (dd/mm/aaaa)",
+              "rotulo": "Data",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "obrigatório",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -497,6 +509,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -516,12 +529,13 @@
             },
             {
               "id": "revisao.responsavel",
-              "rotulo": "Responsável (nome)",
+              "rotulo": "Responsável",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Documental",
               "situacao_origem": "manual",
               "destino": {
@@ -545,7 +559,6 @@
           "nome": "Pessoas",
           "codigo": "PCMD-01",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 66,
@@ -560,6 +573,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.pessoas[].id — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -588,6 +602,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.pessoas[].nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -613,6 +628,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.pessoas[].funcao — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -638,6 +654,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.pessoas[].especialidade — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -663,6 +680,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.pessoas[].ativo (true → Sim) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -691,6 +709,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -714,7 +733,6 @@
           "nome": "Requisitos",
           "codigo": "PCMD-01",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 66,
@@ -729,6 +747,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.requisitos[].id — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -751,12 +770,13 @@
             },
             {
               "id": "requisito.referencia",
-              "rotulo": "Referência ou título",
+              "rotulo": "Referência",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.requisitos[].referencia — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -782,6 +802,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.requisitos[].versao — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -801,12 +822,13 @@
             },
             {
               "id": "requisito.data",
-              "rotulo": "Data da referência (dd/mm/aaaa)",
+              "rotulo": "Data",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "opcional",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.requisitos[].data ('' → vazio) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -831,12 +853,13 @@
             },
             {
               "id": "requisito.fonte",
-              "rotulo": "Fonte oficial (link HTTPS)",
+              "rotulo": "Fonte oficial (HTTPS)",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.requisitos[].fonte — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -859,12 +882,13 @@
             },
             {
               "id": "requisito.status",
-              "rotulo": "Status de verificação",
+              "rotulo": "Status",
               "tipo": "texto de lista fechada",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.requisitos[].status (nao_verificado | verificado) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -893,6 +917,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -1033,7 +1058,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
             "aba": "Início",
-            "celula": "C27",
+            "celula": "C20",
             "intervalo_nomeado": "pcmd_origem"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -1052,7 +1077,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
             "aba": "Início",
-            "celula": "C28",
+            "celula": "C21",
             "intervalo_nomeado": "pcmd_emissao"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -1104,11 +1129,11 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$28"
+          "referencia": "'Início'!$C$21"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$27"
+          "referencia": "'Início'!$C$20"
         }
       ],
       "listas": {
@@ -1150,7 +1175,6 @@
           "nome": "Ativos",
           "codigo": "PCMD-02",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 306,
@@ -1165,6 +1189,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].id",
               "situacao_origem": "main",
               "destino": {
@@ -1193,6 +1218,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].tag (SETOR-SIGLA-NNN, src/logica/tag.js)",
               "situacao_origem": "main",
               "destino": {
@@ -1212,12 +1238,13 @@
             },
             {
               "id": "ativo.descricao",
-              "rotulo": "Descrição do equipamento",
+              "rotulo": "Descrição",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].descricao",
               "situacao_origem": "main",
               "destino": {
@@ -1237,12 +1264,13 @@
             },
             {
               "id": "ativo.tipo_id",
-              "rotulo": "Tipo (ID)",
+              "rotulo": "Tipo",
               "tipo": "texto de lista fechada",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].tipo (id do tipo na biblioteca)",
               "situacao_origem": "main",
               "destino": {
@@ -1271,6 +1299,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula a partir de Listas (biblioteca.tipos[].nome)",
               "situacao_origem": "calculo",
               "destino": {
@@ -1296,6 +1325,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].fabricante",
               "situacao_origem": "main",
               "destino": {
@@ -1321,6 +1351,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].modelo",
               "situacao_origem": "main",
               "destino": {
@@ -1340,12 +1371,13 @@
             },
             {
               "id": "ativo.setor",
-              "rotulo": "Setor (sigla)",
+              "rotulo": "Setor",
               "tipo": "texto de lista fechada",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].setor",
               "situacao_origem": "main",
               "destino": {
@@ -1374,6 +1406,7 @@
               "formato_unidade": "inteiro 1–999",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "estado.equipamentos[].numero",
               "situacao_origem": "main",
               "destino": {
@@ -1398,12 +1431,13 @@
             },
             {
               "id": "ativo.tag_conferencia",
-              "rotulo": "Conferência da TAG",
+              "rotulo": "Conferência TAG",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula: SETOR-SIGLA-NNN",
               "situacao_origem": "calculo",
               "destino": {
@@ -1423,12 +1457,13 @@
             },
             {
               "id": "criticidade.nota_seguranca",
-              "rotulo": "N1 Segurança (1–3)",
+              "rotulo": "N1 Segurança",
               "tipo": "número inteiro",
               "obrigatorio": "condicional",
               "formato_unidade": "inteiro 1–3",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.criticidade.notas[ativo.id][0] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -1453,12 +1488,13 @@
             },
             {
               "id": "criticidade.nota_qualidade",
-              "rotulo": "N2 Qualidade (1–3)",
+              "rotulo": "N2 Qualidade",
               "tipo": "número inteiro",
               "obrigatorio": "condicional",
               "formato_unidade": "inteiro 1–3",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.criticidade.notas[ativo.id][1] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -1483,12 +1519,13 @@
             },
             {
               "id": "criticidade.nota_producao",
-              "rotulo": "N3 Produção (1–3)",
+              "rotulo": "N3 Produção",
               "tipo": "número inteiro",
               "obrigatorio": "condicional",
               "formato_unidade": "inteiro 1–3",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.criticidade.notas[ativo.id][2] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -1513,12 +1550,13 @@
             },
             {
               "id": "criticidade.nota_frequencia_falha",
-              "rotulo": "N4 Frequência de falha (1–3)",
+              "rotulo": "N4 Freq. de falha",
               "tipo": "número inteiro",
               "obrigatorio": "condicional",
               "formato_unidade": "inteiro 1–3",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.criticidade.notas[ativo.id][3] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -1543,12 +1581,13 @@
             },
             {
               "id": "criticidade.nota_custo_reparo",
-              "rotulo": "N5 Custo/tempo de reparo (1–3)",
+              "rotulo": "N5 Custo/tempo reparo",
               "tipo": "número inteiro",
               "obrigatorio": "condicional",
               "formato_unidade": "inteiro 1–3",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.criticidade.notas[ativo.id][4] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -1579,6 +1618,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -1598,12 +1638,13 @@
             },
             {
               "id": "criticidade.pontuacao",
-              "rotulo": "Pontuação (5–15)",
+              "rotulo": "Pontuação",
               "tipo": "número inteiro",
               "obrigatorio": "opcional",
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula (equivale a criticidadeAtivo().pontuacao)",
               "situacao_origem": "calculo",
               "destino": {
@@ -1629,6 +1670,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula (equivale a criticidadeAtivo().classe)",
               "situacao_origem": "calculo",
               "destino": {
@@ -1654,6 +1696,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -1677,7 +1720,6 @@
           "nome": "Setores",
           "codigo": "PCMD-02",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 36,
@@ -1686,12 +1728,13 @@
           "colunas": [
             {
               "id": "setor.sigla",
-              "rotulo": "Sigla do setor",
+              "rotulo": "Sigla",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.organizacao.setores[] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main; também estado.equipamentos[].setor (main)",
               "situacao_origem": "ramo",
               "destino": {
@@ -1711,12 +1754,13 @@
             },
             {
               "id": "setor.descricao",
-              "rotulo": "Descrição do setor",
+              "rotulo": "Descrição",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "manual",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Não existe no app (o app guarda só a sigla)",
               "situacao_origem": "manual",
               "destino": {
@@ -1742,6 +1786,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -1846,7 +1891,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
             "aba": "Início",
-            "celula": "C25",
+            "celula": "C18",
             "intervalo_nomeado": "pcmd_origem"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -1865,7 +1910,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
             "aba": "Início",
-            "celula": "C26",
+            "celula": "C19",
             "intervalo_nomeado": "pcmd_emissao"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -1917,11 +1962,11 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$26"
+          "referencia": "'Início'!$C$19"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$25"
+          "referencia": "'Início'!$C$18"
         }
       ],
       "listas": {
@@ -1946,7 +1991,6 @@
           "nome": "Plano Mestre",
           "codigo": "PCMD-03",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 2006,
@@ -1961,6 +2005,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].equipamentoId (gerarPlano, src/logica/plano.js)",
               "situacao_origem": "main",
               "destino": {
@@ -1989,6 +2034,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].tarefaId (biblioteca.tipos[].tarefas[].id)",
               "situacao_origem": "main",
               "destino": {
@@ -2017,6 +2063,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula: equipamentoId|tarefaId (chaveAjuste)",
               "situacao_origem": "calculo",
               "destino": {
@@ -2042,6 +2089,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].tag (TAG vigente do ativo)",
               "situacao_origem": "main",
               "destino": {
@@ -2067,6 +2115,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].descricao",
               "situacao_origem": "main",
               "destino": {
@@ -2092,6 +2141,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].origem",
               "situacao_origem": "main",
               "destino": {
@@ -2117,6 +2167,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].versao",
               "situacao_origem": "main",
               "destino": {
@@ -2136,12 +2187,13 @@
             },
             {
               "id": "tarefa.frequencia_referencia",
-              "rotulo": "Frequência de referência",
+              "rotulo": "Frequência referência",
               "tipo": "texto de lista fechada",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].periodicidadeOriginal",
               "situacao_origem": "main",
               "destino": {
@@ -2164,12 +2216,13 @@
             },
             {
               "id": "tarefa.seguranca",
-              "rotulo": "Segurança (referência)",
+              "rotulo": "Segurança",
               "tipo": "texto 'Sim' ou 'Não'",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].seguranca (true → Sim)",
               "situacao_origem": "main",
               "destino": {
@@ -2198,6 +2251,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].periodicidade (após ajustes válidos)",
               "situacao_origem": "main",
               "destino": {
@@ -2220,12 +2274,13 @@
             },
             {
               "id": "tarefa.vezes_ano",
-              "rotulo": "Execuções no ciclo de 52 semanas",
+              "rotulo": "Vezes/ano",
               "tipo": "número inteiro",
               "obrigatorio": "opcional",
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula (vezesPorAno)",
               "situacao_origem": "calculo",
               "destino": {
@@ -2251,6 +2306,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].especialidade",
               "situacao_origem": "main",
               "destino": {
@@ -2273,12 +2329,13 @@
             },
             {
               "id": "tarefa.duracao_horas",
-              "rotulo": "Duração estimada por execução (h)",
+              "rotulo": "Duração (h)",
               "tipo": "número decimal de horas",
               "obrigatorio": "obrigatório",
               "formato_unidade": "número decimal de horas",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].duracaoHoras (biblioteca duracao_horas)",
               "situacao_origem": "main",
               "destino": {
@@ -2302,12 +2359,13 @@
             },
             {
               "id": "tarefa.horas_ciclo",
-              "rotulo": "Horas estimadas no ciclo (h)",
+              "rotulo": "Horas/ano",
               "tipo": "número decimal de horas",
               "obrigatorio": "opcional",
               "formato_unidade": "número decimal de horas",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula: duração × execuções no ciclo",
               "situacao_origem": "calculo",
               "destino": {
@@ -2327,12 +2385,13 @@
             },
             {
               "id": "tarefa.ativa",
-              "rotulo": "Ativa no plano",
+              "rotulo": "Ativa",
               "tipo": "texto 'Sim' ou 'Não'",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].ativa (true → Sim)",
               "situacao_origem": "main",
               "destino": {
@@ -2361,6 +2420,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": true,
               "origem_proposta": "gestao.responsaveis['equipamentoId|tarefaId'] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -2383,12 +2443,13 @@
             },
             {
               "id": "tarefa.responsavel_nome",
-              "rotulo": "Responsável (nome)",
+              "rotulo": "Responsável",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "nome de gestao.pessoas[] com id = gestao.responsaveis['equipamentoId|tarefaId'] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -2408,12 +2469,13 @@
             },
             {
               "id": "tarefa.conferencia",
-              "rotulo": "Conferência de segurança e frequência",
+              "rotulo": "Conferência",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula (equivale a podeAlterar)",
               "situacao_origem": "calculo",
               "destino": {
@@ -2433,12 +2495,13 @@
             },
             {
               "id": "tarefa.observacao",
-              "rotulo": "Observação técnica",
+              "rotulo": "Observação",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "referencia",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "plano[].observacao",
               "situacao_origem": "main",
               "destino": {
@@ -2462,7 +2525,6 @@
           "nome": "Ocorrências",
           "codigo": "PCMD-04",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 5006,
@@ -2477,6 +2539,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "ocorrenciasPlanejadas(dados)[].equipamentoId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -2505,6 +2568,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "ocorrenciasPlanejadas(dados)[].tarefaId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -2527,12 +2591,13 @@
             },
             {
               "id": "ocorrencia.data_prevista",
-              "rotulo": "Data prevista (dd/mm/aaaa)",
+              "rotulo": "Data prevista",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "obrigatório",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "ocorrenciasPlanejadas(dados)[].dataPrevista (AAAA-MM-DD → data Excel) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -2557,12 +2622,13 @@
             },
             {
               "id": "ocorrencia.fonte",
-              "rotulo": "Fonte da data prevista",
+              "rotulo": "Fonte da data",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "Texto do adaptador ou de quem digitou",
               "situacao_origem": "manual",
               "destino": {
@@ -2588,6 +2654,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2613,6 +2680,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula (equivale a ocorrencia.chave do app)",
               "situacao_origem": "calculo",
               "destino": {
@@ -2638,6 +2706,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula: posição da chave no Plano Mestre",
               "situacao_origem": "calculo",
               "destino": {
@@ -2663,6 +2732,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula a partir do Plano Mestre",
               "situacao_origem": "calculo",
               "destino": {
@@ -2688,6 +2758,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula a partir do Plano Mestre",
               "situacao_origem": "calculo",
               "destino": {
@@ -2713,6 +2784,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula a partir do Plano Mestre",
               "situacao_origem": "calculo",
               "destino": {
@@ -2732,12 +2804,13 @@
             },
             {
               "id": "ocorrencia.horas_estimadas",
-              "rotulo": "Horas estimadas (h)",
+              "rotulo": "Horas (h)",
               "tipo": "número decimal de horas",
               "obrigatorio": "opcional",
               "formato_unidade": "número decimal de horas",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula: duração por execução do Plano Mestre",
               "situacao_origem": "calculo",
               "destino": {
@@ -2763,6 +2836,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2788,6 +2862,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2813,6 +2888,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2838,6 +2914,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2863,6 +2940,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2888,6 +2966,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula: CONT.SES em Execuções",
               "situacao_origem": "calculo",
               "destino": {
@@ -2907,12 +2986,13 @@
             },
             {
               "id": "ocorrencia.concluida",
-              "rotulo": "Concluída (1/0)",
+              "rotulo": "Concluída",
               "tipo": "número inteiro",
               "obrigatorio": "opcional",
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula: 1 se prevista válida com execução ativa",
               "situacao_origem": "calculo",
               "destino": {
@@ -2938,6 +3018,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -2961,7 +3042,6 @@
           "nome": "Execuções",
           "codigo": "PCMD-04",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 3006,
@@ -2976,6 +3056,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].id — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3004,6 +3085,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].equipamentoId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3032,6 +3114,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].tarefaId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3060,6 +3143,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -3079,12 +3163,13 @@
             },
             {
               "id": "execucao.tag",
-              "rotulo": "TAG preservada",
+              "rotulo": "TAG",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].tag — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3104,12 +3189,13 @@
             },
             {
               "id": "execucao.descricao",
-              "rotulo": "Descrição preservada",
+              "rotulo": "Descrição",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].descricao — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3129,12 +3215,13 @@
             },
             {
               "id": "execucao.data_prevista",
-              "rotulo": "Data prevista (opcional, dd/mm/aaaa)",
+              "rotulo": "Data prevista",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "opcional",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].dataPrevista ('' → vazio) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3159,12 +3246,13 @@
             },
             {
               "id": "execucao.data",
-              "rotulo": "Data realizada (dd/mm/aaaa)",
+              "rotulo": "Data realizada",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "obrigatório",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].data — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3195,6 +3283,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -3220,6 +3309,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].observacao — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3245,6 +3335,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": true,
               "origem_proposta": "gestao.historico[].responsavelId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3267,12 +3358,13 @@
             },
             {
               "id": "execucao.responsavel_nome",
-              "rotulo": "Responsável (nome)",
+              "rotulo": "Responsável",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "nome de gestao.pessoas[] com id = gestao.historico[].responsavelId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3292,12 +3384,13 @@
             },
             {
               "id": "execucao.origem",
-              "rotulo": "Origem do registro",
+              "rotulo": "Origem",
               "tipo": "texto de lista fechada",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].origem (app | legado) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3326,6 +3419,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.historico[].cancelada (true → Sim) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3354,6 +3448,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -3379,6 +3474,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -3398,12 +3494,13 @@
             },
             {
               "id": "execucao.situacao_plano",
-              "rotulo": "Tarefa no plano atual?",
+              "rotulo": "No plano?",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula: chave da tarefa no Plano Mestre",
               "situacao_origem": "calculo",
               "destino": {
@@ -3429,6 +3526,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -3454,6 +3552,7 @@
               "formato_unidade": "número decimal de horas",
               "papel": "futuro",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": true,
               "origem_proposta": "Não existe no histórico atual do app",
               "situacao_origem": "futuro",
               "destino": {
@@ -3562,7 +3661,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
             "aba": "Início",
-            "celula": "C29",
+            "celula": "C20",
             "intervalo_nomeado": "pcmd_origem"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -3581,7 +3680,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
             "aba": "Início",
-            "celula": "C30",
+            "celula": "C21",
             "intervalo_nomeado": "pcmd_emissao"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -3677,11 +3776,11 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$30"
+          "referencia": "'Início'!$C$21"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$29"
+          "referencia": "'Início'!$C$20"
         },
         {
           "nome": "pl_ativa",
@@ -3746,18 +3845,18 @@
       },
       "cronograma_resumo": {
         "descricao": "Resumo mensal por ocorrência (equivale a resumoMensal do ramo de gestão). Somente cálculo; o adaptador não escreve aqui.",
-        "cartoes": "linha 14: previstas (A), concluídas (C), % realizado (D), meta (E), situação frente à meta (G)",
-        "meses": "linhas 18 a 29; total na linha 30",
+        "parametros": "C7 ano, C8 início do ciclo, C9 fonte, C10 conferência do ano, C11 meta; E11 situação frente à meta (A definir, Na meta ou Abaixo da meta)",
+        "meses": "linhas 15 a 26; total na linha 27. Colunas ocultas: A = número do mês (critério das somas), G = mês abreviado (eixo do gráfico)",
         "colunas": {
           "C": "previstas distintas = SUMIFS(oc_conta, oc_ano, crono_ano, oc_mes, mês)",
           "D": "concluídas distintas = SUMIFS(oc_concluida, oc_ano, crono_ano, oc_mes, mês)",
           "E": "% = D/C; 'Sem previsão' quando C = 0 (app: percentual null; app usa escala 0–100, aqui fração 0–1)",
           "F": "horas estimadas = SUMIFS(oc_horas, oc_conta, 1, oc_ano, crono_ano, oc_mes, mês)"
         },
-        "grafico": "colunas previstas × concluídas por mês, ancorado em A33",
-        "fora_do_ano": "linhas 53 (Antes do ano) e 54 (Depois do ano)",
-        "sem_vinculo": "linhas 58 a 60: sem vínculo, previsão não encontrada, canceladas",
-        "conferencias": "linhas 64 a 67"
+        "grafico": "colunas previstas × concluídas por mês, ancorado em B30",
+        "fora_do_ano": "linhas 48 (Antes do ano) e 49 (Depois do ano)",
+        "sem_vinculo": "linhas 53 a 55: sem vínculo, previsão não encontrada, canceladas",
+        "conferencias": "linhas 59 a 62"
       }
     },
     {
@@ -3774,7 +3873,6 @@
           "nome": "Ficha de Falha",
           "codigo": "PCMD-05",
           "tipo_regiao": "tabela de linhas repetíveis",
-          "linha_papel": 5,
           "linha_cabecalho": 6,
           "primeira_linha": 7,
           "ultima_linha_com_formulas": 1006,
@@ -3789,6 +3887,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].id — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3817,6 +3916,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "id",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].equipamentoId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3839,12 +3939,13 @@
             },
             {
               "id": "falha.data",
-              "rotulo": "Data da falha (dd/mm/aaaa)",
+              "rotulo": "Data",
               "tipo": "data do Excel (número de série)",
               "obrigatorio": "obrigatório",
               "formato_unidade": "data dd/mm/aaaa",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].data — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3869,12 +3970,13 @@
             },
             {
               "id": "falha.tag",
-              "rotulo": "TAG preservada",
+              "rotulo": "TAG",
               "tipo": "texto",
               "obrigatorio": "obrigatório",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].tag — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3900,6 +4002,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].sintoma — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3925,6 +4028,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].causa — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3950,6 +4054,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].acao — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -3969,12 +4074,13 @@
             },
             {
               "id": "falha.horas_parada",
-              "rotulo": "Horas de parada (h, opcional)",
+              "rotulo": "Parada (h)",
               "tipo": "número decimal de horas",
               "obrigatorio": "opcional",
               "formato_unidade": "número decimal de horas",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].horasParada (null → vazio) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -4004,6 +4110,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "gestao.falhas[].peca — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -4029,6 +4136,7 @@
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": true,
               "origem_proposta": "gestao.falhas[].responsavelId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -4051,12 +4159,13 @@
             },
             {
               "id": "falha.responsavel_nome",
-              "rotulo": "Responsável (nome)",
+              "rotulo": "Responsável",
               "tipo": "texto",
               "obrigatorio": "opcional",
               "formato_unidade": "texto (célula com formato Texto)",
               "papel": "entrada",
               "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
               "origem_proposta": "nome de gestao.pessoas[] com id = gestao.falhas[].responsavelId — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
               "situacao_origem": "ramo",
               "destino": {
@@ -4082,6 +4191,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": true,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -4107,6 +4217,7 @@
               "formato_unidade": "texto",
               "papel": "calculo",
               "entrada_ou_calculo": "cálculo",
+              "coluna_oculta": false,
               "origem_proposta": "Fórmula",
               "situacao_origem": "calculo",
               "destino": {
@@ -4139,7 +4250,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
             "aba": "Início",
-            "celula": "C22",
+            "celula": "C15",
             "intervalo_nomeado": "pcmd_origem"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -4158,7 +4269,7 @@
           "destino": {
             "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
             "aba": "Início",
-            "celula": "C23",
+            "celula": "C16",
             "intervalo_nomeado": "pcmd_emissao"
           },
           "regra_vazio": "Vazio = não informado.",
@@ -4178,11 +4289,11 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$23"
+          "referencia": "'Início'!$C$16"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$22"
+          "referencia": "'Início'!$C$15"
         }
       ],
       "listas": {}
@@ -4360,7 +4471,7 @@
         {
           "regiao": "pessoas",
           "descricao": "Pessoas e funções",
-          "tabela_indice_no_corpo": 4,
+          "tabela_indice_no_corpo": 3,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4376,7 +4487,7 @@
         {
           "regiao": "setores",
           "descricao": "Setores",
-          "tabela_indice_no_corpo": 6,
+          "tabela_indice_no_corpo": 5,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4390,7 +4501,7 @@
         {
           "regiao": "requisitos",
           "descricao": "Requisitos e referências",
-          "tabela_indice_no_corpo": 10,
+          "tabela_indice_no_corpo": 9,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4407,7 +4518,7 @@
         {
           "regiao": "revisoes",
           "descricao": "Histórico de revisão do documento",
-          "tabela_indice_no_corpo": 14,
+          "tabela_indice_no_corpo": 13,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4423,7 +4534,7 @@
         {
           "regiao": "ativos",
           "descricao": "Ativos e criticidade",
-          "tabela_indice_no_corpo": 15,
+          "tabela_indice_no_corpo": 14,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -5145,25 +5256,25 @@
       {
         "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
         "aba": "Início",
-        "celula": "C27",
+        "celula": "C20",
         "intervalo_nomeado": "pcmd_origem"
       },
       {
         "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
         "aba": "Início",
-        "celula": "C25",
+        "celula": "C18",
         "intervalo_nomeado": "pcmd_origem"
       },
       {
         "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
         "aba": "Início",
-        "celula": "C29",
+        "celula": "C20",
         "intervalo_nomeado": "pcmd_origem"
       },
       {
         "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
         "aba": "Início",
-        "celula": "C22",
+        "celula": "C15",
         "intervalo_nomeado": "pcmd_origem"
       }
     ],
@@ -5171,25 +5282,25 @@
       {
         "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
         "aba": "Início",
-        "celula": "C28",
+        "celula": "C21",
         "intervalo_nomeado": "pcmd_emissao"
       },
       {
         "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
         "aba": "Início",
-        "celula": "C26",
+        "celula": "C19",
         "intervalo_nomeado": "pcmd_emissao"
       },
       {
         "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
         "aba": "Início",
-        "celula": "C30",
+        "celula": "C21",
         "intervalo_nomeado": "pcmd_emissao"
       },
       {
         "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
         "aba": "Início",
-        "celula": "C23",
+        "celula": "C16",
         "intervalo_nomeado": "pcmd_emissao"
       }
     ],

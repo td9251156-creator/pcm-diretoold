@@ -20,6 +20,7 @@ def campo_coluna(col, arquivo, aba, indice, l1, l2):
         ("id", col.id), ("rotulo", col.cabecalho), ("tipo", TIPOS.get(col.tipo, col.tipo)), ("obrigatorio", col.obrigatorio),
         ("formato_unidade", col.formato if col.formato != "texto" else ("texto (célula com formato Texto)" if col.papel != "calculo" else "texto")),
         ("papel", col.papel), ("entrada_ou_calculo", "cálculo" if col.papel == "calculo" else "entrada"),
+        ("coluna_oculta", col.oculta),
         ("origem_proposta", col.origem), ("situacao_origem", col.origem_status),
         ("destino", {"arquivo": arquivo, "aba": aba, "coluna": L, "cabecalho_linha": E.LINHA_CAB, "intervalo_dados": f"{L}{l1}:{L}{l2}",
                      "intervalo_nomeado": col.nome}),
@@ -56,7 +57,7 @@ def gerar(destino_json, destino_md, xlsx, docs):
             for c in cols:
                 registrar(c)
             abas.append(OrderedDict([("nome", aba.nome), ("codigo", aba.codigo), ("tipo_regiao", "tabela de linhas repetíveis"),
-                                     ("linha_papel", E.LINHA_TIPO), ("linha_cabecalho", E.LINHA_CAB), ("primeira_linha", l1),
+                                     ("linha_cabecalho", E.LINHA_CAB), ("primeira_linha", l1),
                                      ("ultima_linha_com_formulas", l2), ("capacidade_linhas", aba.capacidade), ("protegida_sem_senha", aba.protegida),
                                      ("colunas", cols)]))
         celulas = []
@@ -86,13 +87,15 @@ def gerar(destino_json, destino_md, xlsx, docs):
             cr = E.CRONO
             item["cronograma_resumo"] = OrderedDict([
                 ("descricao", "Resumo mensal por ocorrência (equivale a resumoMensal do ramo de gestão). Somente cálculo; o adaptador não escreve aqui."),
-                ("cartoes", f"linha {cr['cartao']}: previstas (A), concluídas (C), % realizado (D), meta (E), situação frente à meta (G)"),
-                ("meses", f"linhas {cr['jan']} a {cr['jan'] + 11}; total na linha {cr['total']}"),
+                ("parametros", f"{cr['ano']} ano, {cr['inicio']} início do ciclo, {cr['fonte']} fonte, {cr['conf_ano']} conferência do ano, "
+                               f"{cr['meta']} meta; {cr['card_meta']} situação frente à meta (A definir, Na meta ou Abaixo da meta)"),
+                ("meses", f"linhas {cr['jan']} a {cr['jan'] + 11}; total na linha {cr['total']}. Colunas ocultas: A = número do mês (critério das somas), "
+                          "G = mês abreviado (eixo do gráfico)"),
                 ("colunas", {"C": "previstas distintas = SUMIFS(oc_conta, oc_ano, crono_ano, oc_mes, mês)",
                              "D": "concluídas distintas = SUMIFS(oc_concluida, oc_ano, crono_ano, oc_mes, mês)",
                              "E": "% = D/C; 'Sem previsão' quando C = 0 (app: percentual null; app usa escala 0–100, aqui fração 0–1)",
                              "F": "horas estimadas = SUMIFS(oc_horas, oc_conta, 1, oc_ano, crono_ano, oc_mes, mês)"}),
-                ("grafico", f"colunas previstas × concluídas por mês, ancorado em A{cr['grafico']}"),
+                ("grafico", f"colunas previstas × concluídas por mês, ancorado em B{cr['grafico']}"),
                 ("fora_do_ano", f"linhas {cr['fora_cab'] + 1} (Antes do ano) e {cr['fora_cab'] + 2} (Depois do ano)"),
                 ("sem_vinculo", f"linhas {cr['semv_cab'] + 1} a {cr['semv_cab'] + 3}: sem vínculo, previsão não encontrada, canceladas"),
                 ("conferencias", f"linhas {cr['conf_cab'] + 1} a {cr['conf_cab'] + 4}"),
@@ -186,7 +189,7 @@ def escrever_dicionario(destino, xlsx, docx):
          "**Situação do mapeamento: proposto, ainda não validado.** A coluna Origem indica de onde o futuro adaptador poderia ler cada dado. "
          f"Campos marcados como *ramo de gestão* existem apenas no ramo `{RAMO_GESTAO}`. O app ainda não preenche estes arquivos.", "",
          "Papéis: PREENCHER (entrada ou manual), ID (identificador técnico), REFERÊNCIA (protegida no Plano Mestre), AUTOMÁTICO (fórmula; não escrever), "
-         "FUTURO (manter vazio).", ""]
+         "FUTURO (manter vazio). Colunas marcadas *oculta* são técnicas: ficam ocultas na planilha e continuam calculando.", ""]
     for x in xlsx:
         L += [f"# {x['arquivo']}", "", f"{x['codigo']} · {x['titulo']}. Abas: {', '.join(x['abas'])}. Versão com dados fictícios: `{x['exemplo']}`.", ""]
         for a in x["abas_tabela"]:
@@ -196,7 +199,8 @@ def escrever_dicionario(destino, xlsx, docx):
                   "| Col. | Campo | Cabeçalho | Papel | Tipo / formato | Obrig. | Origem proposta | Situação | Vazio | Validação |",
                   "|---|---|---|---|---|---|---|---|---|---|"]
             for c in a["colunas"]:
-                L.append(f"| {c['destino']['coluna']} | `{c['id']}` | {_esc(c['rotulo'])} | {E.PAPEIS[c['papel']][0]} | {_esc(c['formato_unidade'])} | "
+                papel = E.PAPEIS[c['papel']][0] + (" · oculta" if c["coluna_oculta"] else "")
+                L.append(f"| {c['destino']['coluna']} | `{c['id']}` | {_esc(c['rotulo'])} | {papel} | {_esc(c['formato_unidade'])} | "
                          f"{c['obrigatorio']} | {_esc(c['origem_proposta'])} | {rot_sit[c['situacao_origem']]} | {_esc(c['regra_vazio'])} | {_esc(c['validacao'])} |")
             L.append("")
         L += ["## Células únicas", "", "| Aba!Célula | Campo | Rótulo | Papel | Origem proposta | Situação | Vazio | Validação |", "|---|---|---|---|---|---|---|---|"]

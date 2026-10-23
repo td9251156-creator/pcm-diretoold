@@ -13,7 +13,7 @@ Cada arquivo é independente: baixe só o que for usar. Todos têm uma versão *
 |---|---|---|
 | `planilhas/PCMD-01-Controle-Documental.xlsx` | Lista mestra, revisões, organização, pessoas e requisitos | Início, Lista Mestra, Revisões, Organização, Pessoas, Requisitos, Listas |
 | `planilhas/PCMD-02-Ativos-Criticidade.xlsx` | Inventário de ativos e classe A/B/C/Pendente | Início, Ativos, Critérios, Setores, Listas |
-| `planilhas/PCMD-03-04-Plano-Cronograma.xlsx` | Plano mestre, ocorrências, execuções e painel mensal com gráfico | Início, Plano Mestre, Cronograma, Ocorrências, Execuções, Listas |
+| `planilhas/PCMD-03-04-Plano-Cronograma.xlsx` | Plano mestre, ocorrências, execuções e resumo mensal com gráfico | Início, Plano Mestre, Cronograma, Ocorrências, Execuções, Listas |
 | `planilhas/PCMD-05-Ficha-Falha.xlsx` | Registro de falhas | Início, Ficha de Falha |
 | `manuais/PCMD-W1-Manual-Gestao-Ativos.docx` | Manual de Gestão de Ativos, com marcadores `{{...}}` | — |
 | `manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx` | Manual de Estratégia de Manutenção, com marcadores | — |
@@ -25,12 +25,13 @@ Nada aqui altera o app, seus dados, exportações, backups ou workflows. O PCM D
 
 ## Planilhas: o básico
 
-- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). A aba **Início** lista as abas, os passos e a legenda; informe ali a origem dos
+- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). A aba **Início** lista as abas e os passos; informe ali a origem dos
   dados e a data de emissão.
-- A cor do cabeçalho diz o que fazer: **azul** = preencher; **laranja** = referência da biblioteca; **cinza** = automático (fórmula, não
-  digite). Acima do cabeçalho, um rótulo curto repete isso (PREENCHER, ID, REFERÊNCIA, AUTOMÁTICO, FUTURO).
-- Ao preencher, a linha ganha listras e as colunas automáticas ficam cinza. Conferências usam texto e cor: `ERRO` (vermelho),
-  `Pendente`/`Verificar` (âmbar) e `OK` (verde).
+- Cabeçalho **azul** = preencher; cabeçalho **cinza** = automático (fórmula, não digite). No Plano Mestre, as colunas de referência da
+  biblioteca ficam bloqueadas.
+- Colunas técnicas (chaves, ano, mês, contadores) ficam **ocultas**: continuam calculando e podem ser reexibidas, mas não devem ser
+  editadas. A lista completa está no `DICIONARIO-DE-DADOS.md` (campo `coluna_oculta` no contrato).
+- Só o que pede ação tem cor: `ERRO` em vermelho e `Pendente`/`Verificar` em amarelo. `OK` fica em cinza.
 - Cálculos em branco? Recalcule: Excel `Ctrl+Alt+F9`; LibreOffice `Ctrl+Shift+F9`. Prévias de e-mail ou celular podem não calcular fórmulas.
 - Como os arquivos são independentes, nomes de pessoas e TAGs são gravados como texto ao lado do ID. O vínculo é sempre o ID.
 
@@ -67,8 +68,8 @@ HTTPS e não certifica conformidade. Metas vazias ficam A definir. Não há cál
 | PCMD-03/04 · Plano Mestre / Ocorrências / Execuções | 2.000 / 5.000 / 3.000 |
 | PCMD-05 · Ficha de Falha | 1.000 |
 
-Todas as tabelas começam na linha 7. A linha 4 mostra quantas linhas estão preenchidas (e quantas têm `ERRO`) e muda para **ATENÇÃO** se houver
-dados abaixo da capacidade; o painel do Cronograma também confere Ocorrências e Execuções. Para ampliar:
+Todas as tabelas começam na linha 7. A linha 4 fica vazia enquanto está tudo certo; ela mostra **ATENÇÃO** se houver dados abaixo da
+capacidade e avisa quantas linhas têm `ERRO`. O quadro Conferências do Cronograma também confere Ocorrências e Execuções. Para ampliar:
 
 1. No Plano Mestre, desproteja a aba.
 2. Copie a última linha da tabela inteira e cole nas linhas de baixo: fórmulas, formatos e validações vão juntos.
@@ -83,11 +84,14 @@ As fórmulas ficam gravadas no padrão do formato (inglês) e o Excel em portugu
 ISNUMBER = ÉNÚM, IFERROR = SEERRO, COUNTIF(S) = CONT.SE(S), COUNTA = CONT.VALORES, SUMIFS = SOMASES, INDEX = ÍNDICE, MATCH = CORRESP,
 YEAR = ANO, MONTH = MÊS, DAY = DIA, LEFT = ESQUERDA, RIGHT = DIREITA, LEN = NÚM.CARACT, FIND = PROCURAR.
 
-Impressão: A4, ajustada à largura (tabelas largas em duas páginas, repetindo as colunas de identificação), cabeçalho da tabela repetido
-e o aviso completo no rodapé de cada página.
+Impressão: A4, ajustada à largura. As tabelas imprimem a partir do cabeçalho (o nome do arquivo e da aba vão no cabeçalho da página);
+Ativos, Plano Mestre e Execuções usam duas páginas de largura, repetindo as colunas de identificação. O cabeçalho da tabela se repete
+e o aviso completo fica no rodapé de cada página.
 
 ## Manuais Word
 
+- Layout único: título, grade de identificação, seções numeradas, tabelas com cabeçalho azul e um só estilo de destaque para regras.
+  O aviso fica no rodapé de todas as páginas.
 - Marcadores visíveis (laranja e negrito), como `{{organizacao.nome}}` e `{{documento.revisao}}`, no corpo, em células, no cabeçalho e no rodapé.
   Substitua à mão ou, no futuro, pelo adaptador. Lista completa e locais no contrato.
 - Tabelas com *região repetível «nome»* têm uma linha modelo: repita a linha para cada registro.
