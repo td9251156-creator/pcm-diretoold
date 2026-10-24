@@ -285,10 +285,6 @@ class Manual:
         r = p.add_run(self.titulo.upper())
         r.font.size, r.font.color.rgb = Pt(12), _cor("000000")
         fonte_run(r, FONTE_TITULO)
-        p2 = c_tit.add_paragraph()
-        p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r = p2.add_run(self.codigo)
-        r.font.size, r.bold, r.font.color.rgb = Pt(8.5), True, _cor(DESTAQUE)
         p = c_rev.paragraphs[0]
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         n0 = len(p.runs)

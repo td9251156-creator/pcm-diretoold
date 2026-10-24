@@ -97,10 +97,12 @@ def verificar_xlsx_estrutura(caminho):
         bruto = z_rodape(caminho, ws.title)
         if len(bruto) > 255 or AVISO not in bruto.replace("\n", " "):
             rod_ruins.append((ws.title, len(bruto)))
-        if not any(str(c.value or "").endswith(AVISO) for c in ws[3]):
+        titulos = [c.value for c in ws[1] if isinstance(c.value, str) and not c.value.startswith("=")]
+        if len(titulos) not in (1, 2) or any(t.startswith("PCMD") for t in titulos) or any(AVISO in str(c.value or "") for c in ws[3]):
             aviso_ruins.append(ws.title)
     check(g, f"{caminho.name}: rodapé com aviso completo e ≤255 caracteres em todas as abas", not rod_ruins, rod_ruins)
-    check(g, f"{caminho.name}: aviso exato visível na linha 3 de todas as abas", not aviso_ruins, aviso_ruins)
+    check(g, f"{caminho.name}: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+          not aviso_ruins, aviso_ruins)
     ext = [f for f in formulas if re.search(r"\[\d+\]|\.xlsx", f)]
     check(g, f"{caminho.name}: nenhuma fórmula aponta para outro arquivo", not ext, ext[:3])
     check(g, f"{caminho.name}: recálculo completo ao abrir (fullCalcOnLoad)", bool(wb.calculation.fullCalcOnLoad))

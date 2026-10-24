@@ -35,7 +35,8 @@ Os números entre parênteses seguem a lista de testes de aceitação do pedido.
 - Todas as fórmulas dos 8 XLSX examinadas no XML: nenhuma usa PROCX/XLOOKUP, FILTRO, ÚNICO, CLASSIFICAR, SEQUÊNCIA, LET, LAMBDA,
   outras funções que exigem prefixo `_xlfn`, fórmula de matriz ou referência a outro arquivo. **Cada planilha é independente.**
 - Nomes de abas e intervalos nomeados válidos. Nenhuma validação de dados aponta direto para outra aba.
-- Aviso exato visível na linha 3 de todas as abas e no rodapé (≤ 255 caracteres) de todas as abas.
+- Aviso exato no rodapé impresso (≤ 255 caracteres) de todas as abas. A pedido do autor (24/10/2026), a linha de aviso saiu da área da
+  planilha; o cabeçalho de cada aba tem título em texto simples, sem o código colado (o código fica no cabeçalho da página).
 - DOCX: apenas campos PAGE e NUMPAGES; nenhum vínculo LINK/INCLUDE (sem sumário automático, para manter o manual enxuto).
 
 ### (3) Tipos de dados

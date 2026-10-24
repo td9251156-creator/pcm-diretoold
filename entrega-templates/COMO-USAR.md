@@ -25,8 +25,8 @@ Nada aqui altera o app, seus dados, exportações, backups ou workflows. O PCM D
 
 ## Planilhas: o básico
 
-- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). Todas as abas seguem o **modelo padrão PCM Direto**: no topo, logo, código e
-  título, e à direita a revisão, a data e "Elaborado / Aprovado"; abaixo, o aviso e a faixa azul com os grupos de colunas.
+- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). Todas as abas seguem o **modelo padrão PCM Direto**: no topo, logo,
+  título, e à direita a revisão, a data e "Elaborado / Aprovado"; abaixo, a faixa azul com os grupos de colunas.
 - A aba **Config** traz o "como usar", os parâmetros do documento (Elaborado por, Aprovado por, origem dos dados e data de emissão) e as
   conferências (linhas preenchidas, linhas com ERRO e capacidade). O cabeçalho de todas as abas lê esses valores; vazio aparece como *A definir*.
 - A revisão e a data do cabeçalho vêm sozinhas da última linha da aba **Revisões** (no PCMD-01, da linha PCMD-01 da Lista Mestra).

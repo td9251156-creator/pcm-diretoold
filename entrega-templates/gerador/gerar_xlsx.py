@@ -9,7 +9,6 @@ import json
 import math
 
 from openpyxl import Workbook
-from openpyxl.cell.rich_text import CellRichText, TextBlock
 from openpyxl.cell.text import InlineFont
 from openpyxl.chart import BarChart, Reference
 from openpyxl.formatting.rule import DataBarRule, FormulaRule
@@ -148,27 +147,39 @@ def configurar_impressao(ws, paisagem, ultima_col, ultima_linha, codigo, titulos
 # ------------------------------------------------------------------ bloco de cabeçalho, aviso, faixa e cabeçalho da tabela
 F_REV = ('="Rev. "&IF(cfg_revisao="","—",cfg_revisao)&IF(ISNUMBER(cfg_data_revisao),"   ·   "&RIGHT("0"&DAY(cfg_data_revisao),2)&"/"'
          '&RIGHT("0"&MONTH(cfg_data_revisao),2)&"/"&YEAR(cfg_data_revisao),"")')
-F_ELAB = '="Elaborado: "&IF(cfg_elaborado="","A definir",cfg_elaborado)&"   ·   Aprovado: "&IF(cfg_aprovado="","A definir",cfg_aprovado)'
+F_ELAB = '="Elaborado: "&IF(cfg_elaborado="","A definir",cfg_elaborado)&CHAR(10)&"Aprovado: "&IF(cfg_aprovado="","A definir",cfg_aprovado)'
 
 
-def partes_bloco(ws, c1, c2, logo_fim=None):
-    """Colunas do logo, do título e da revisão dentro de c1..c2 (larguras visíveis)."""
-    if logo_fim is None:
-        acc, logo_fim = 0, c1
-        for c in range(c1, c2 + 1):
-            acc += largura(ws, c)
-            logo_fim = c
-            if acc >= 22:
-                break
-    acc, dir_ini = 0, c2
-    for c in range(c2, logo_fim, -1):
-        acc += largura(ws, c)
-        dir_ini = c
-        if acc >= 22:
-            break
-    if dir_ini <= logo_fim + 1 or largura_total(ws, logo_fim + 1, dir_ini - 1) < 12:
-        dir_ini = c2 + 1  # pouco espaço: sem bloco de revisão
-    return logo_fim, dir_ini
+def partes_bloco(ws, c1, c2, logo_fim=None, larg_logo=None):
+    """Colunas do logo, do título e da revisão em c1..c2. Cabeçalho simétrico: o bloco da revisão fica com
+    largura o mais próxima possível da do logo (como no modelo padrão: 3 | 6 | 3 colunas)."""
+    LADO, TITULO = 22, 20
+    if logo_fim is not None:
+        candidatos = [logo_fim]
+    else:
+        candidatos = [c for c in range(c1, c2 + 1) if largura_total(ws, c1, c) >= LADO][:4]
+    melhor = None
+    for lf in candidatos:
+        L = larg_logo if larg_logo is not None else largura_total(ws, c1, lf)
+        for di in range(c2, lf + 1, -1):
+            R, T = largura_total(ws, di, c2), largura_total(ws, lf + 1, di - 1)
+            if R < LADO or T < TITULO:
+                continue
+            nota = abs(L - R) + 0.15 * (L + R)  # simetria primeiro; depois blocos laterais enxutos
+            if melhor is None or nota < melhor[0]:
+                melhor = (nota, lf, di)
+    if melhor:
+        return melhor[1], melhor[2]
+    lf = candidatos[0] if candidatos else c1
+    return lf, c2 + 1  # pouco espaço: sem bloco de revisão
+
+
+def tamanho_titulo(titulo, larg):
+    """Maior corpo (Arial Black) que cabe em uma linha na largura do título."""
+    for sz in (16, 14, 12, 11):
+        if len(titulo) * sz * 0.105 <= larg - 2:
+            return sz
+    return 10
 
 
 def logo(ws, c1, c2):
@@ -195,13 +206,14 @@ def logo(ws, c1, c2):
     ws.add_image(img)
 
 
-def bloco(ws, codigo, titulo, c1, c2, logo_fim=None, continuacao=False):
-    """Linhas 1-2: logo | código e título | revisão e elaborado/aprovado (lidos da aba Config)."""
+def bloco(ws, codigo, titulo, c1, c2, logo_fim=None, continuacao=False, larg_logo=None):
+    """Linhas 1-2: logo | título | revisão e elaborado/aprovado (lidos da aba Config). O código fica no cabeçalho da página."""
     ws.row_dimensions[1].height = ws.row_dimensions[2].height = 33
     azul = Side(style="thin", color=AZUL)
     base = Side(style="medium", color=AZUL)
-    if continuacao:
-        logo_fim, dir_ini = c1 - 1, c2 + 1
+    if continuacao:  # o logo da 2ª parte é o das colunas repetidas
+        _, dir_ini = partes_bloco(ws, c1 - 1, c2, logo_fim=c1 - 1, larg_logo=larg_logo)
+        logo_fim = c1 - 1
     else:
         logo_fim, dir_ini = partes_bloco(ws, c1, c2, logo_fim)
         mesclar(ws, 1, c1, logo_fim, 2)
@@ -210,16 +222,16 @@ def bloco(ws, codigo, titulo, c1, c2, logo_fim=None, continuacao=False):
     t1, t2 = logo_fim + 1, dir_ini - 1
     mesclar(ws, 1, t1, t2, 2)
     c = ws.cell(1, t1)
-    partes = [TextBlock(InlineFont(rFont=FONTE, sz=10, b=True, color=DESTAQUE), f"{codigo}   ")] if codigo else []
-    partes.append(TextBlock(InlineFont(rFont=FONTE_TITULO, sz=16, color="000000"), titulo + ("  (continuação)" if continuacao else "")))
-    c.value = CellRichText(*partes)
-    c.alignment = CENTRO
+    texto(c, titulo + (" (continuação)" if continuacao else ""))
+    c.font = fonte(tamanho_titulo(c.value, largura_total(ws, t1, t2)), "000000", nome_fonte=FONTE_TITULO)
+    c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
     contorno(ws, 1, t1, 2, t2, azul, base)
     if dir_ini <= c2:
         mesclar(ws, 1, dir_ini, c2)
         mesclar(ws, 2, dir_ini, c2)
         r = ws.cell(1, dir_ini, F_REV)
-        r.font, r.alignment = fonte(11, "000000", nome_fonte=FONTE_TITULO), Alignment(horizontal="center", vertical="bottom")
+        r.font = fonte(11 if largura_total(ws, dir_ini, c2) >= 28 else 9.5, "000000", nome_fonte=FONTE_TITULO)
+        r.alignment = Alignment(horizontal="center", vertical="bottom", shrink_to_fit=True)
         r = ws.cell(2, dir_ini, F_ELAB)
         r.font, r.alignment = fonte(8, CINZA, True, nome_fonte=FONTE_ESTREITA), Alignment(horizontal="center", vertical="top", wrap_text=True)
         contorno(ws, 1, dir_ini, 2, c2, azul, base)
@@ -227,12 +239,8 @@ def bloco(ws, codigo, titulo, c1, c2, logo_fim=None, continuacao=False):
 
 
 def linha_aviso(ws, c1, c2):
-    mesclar(ws, 3, c1, c2)
-    c = ws.cell(3, c1)
-    c.value = CellRichText(TextBlock(InlineFont(rFont=FONTE, sz=7.5, b=True, color=CINZA), "Aviso: "),
-                           TextBlock(InlineFont(rFont=FONTE, sz=7.5, i=True, color=CINZA), AVISO))
-    c.alignment = Alignment(vertical="center", wrap_text=True)
-    ws.row_dimensions[3].height = max(ws.row_dimensions[3].height or 0, altura_texto("Aviso: " + AVISO, largura_total(ws, c1, c2) - 2, 7.5, 14))
+    """Espaço entre o cabeçalho e a faixa azul. O aviso fica só no rodapé impresso (pedido do autor em 24/10/2026)."""
+    ws.row_dimensions[3].height = 4
     ws.row_dimensions[4].height = 4
 
 
@@ -386,7 +394,7 @@ def montar_aba_tabela(wb, aba, linhas, versao_exemplo, arq):
     if quebra:  # duas partes na impressão: cada parte tem seu topo; o logo fica nas colunas repetidas
         t1 = bloco(ws, codigo, titulo, 1, quebra - 1, logo_fim=rep_fim)
         linha_aviso(ws, t1, quebra - 1)
-        bloco(ws, codigo, titulo, quebra, n, continuacao=True)
+        bloco(ws, codigo, titulo, quebra, n, continuacao=True, larg_logo=largura_total(ws, 1, rep_fim))
         linha_aviso(ws, quebra, n)
     else:
         t1 = bloco(ws, codigo, titulo, 1, n)
@@ -593,10 +601,11 @@ def montar_listas(wb, biblioteca, chaves, codigo):
         if col0 - 1 > ultima:
             ws.column_dimensions[letra(col0 - 1)].width = 2
     ncols = ultima
-    falta = 86 - largura_total(ws, 1, ultima)
-    if falta > 0:  # poucas listas: uma coluna vazia ao fim dá largura ao bloco de cabeçalho
-        ncols = ultima + 2 if ultima + 1 == col0 - 1 else ultima + 1
-        ws.column_dimensions[letra(ncols)].width = max(falta - (2 if ncols > ultima + 1 else 0), 8)
+    falta = 110 - largura_total(ws, 1, ultima)
+    if falta > 0:  # poucas listas: duas colunas vazias ao fim dão espaço ao título e ao bloco da revisão
+        ncols = col0 + 1
+        ws.column_dimensions[letra(col0)].width = max(falta - 2 - 26, 24)
+        ws.column_dimensions[letra(ncols)].width = 26
     topo(ws, codigo, "Listas", ncols, "VALORES DAS LISTAS SUSPENSAS")
     for col0, k in posicoes:
         titulos, valores, nomes, larguras = todos[k]

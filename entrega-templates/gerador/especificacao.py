@@ -8,8 +8,8 @@ from dataclasses import dataclass, field
 
 from comum import RAMO_GESTAO
 
-# Padrão visual PCM Direto: linhas 1-2 = bloco de cabeçalho (logo, título, revisão), linha 3 = aviso,
-# linha 4 = respiro, linha 5 = faixa azul (grupos de colunas), linha 6 = cabeçalho da tabela.
+# Padrão visual PCM Direto: linhas 1-2 = bloco de cabeçalho (logo, título, revisão), linhas 3-4 = espaço (o aviso fica no rodapé),
+# linha 5 = faixa azul (grupos de colunas), linha 6 = cabeçalho da tabela.
 LINHA_TIPO = 5      # faixa azul com os grupos de colunas
 LINHA_CAB = 6       # cabeçalho da tabela
 PRIMEIRA = 7        # primeira linha de dados

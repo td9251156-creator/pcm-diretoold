@@ -1,5 +1,5 @@
 {
-  "executado_em": "2026-10-24T06:29:19",
+  "executado_em": "2026-10-24T06:51:10",
   "libreoffice": "LibreOffice 24.2.7.2 420(Build:2)",
   "total": 276,
   "falhas": 0,
@@ -150,7 +150,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-01-Controle-Documental.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -246,7 +246,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -306,7 +306,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma fórmula proibida (1854 fórmulas)",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma fórmula proibida (1858 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -342,7 +342,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -402,7 +402,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma fórmula proibida (1854 fórmulas)",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma fórmula proibida (1858 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -438,7 +438,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -498,7 +498,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma fórmula proibida (101100 fórmulas)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma fórmula proibida (101104 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -534,7 +534,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -594,7 +594,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma fórmula proibida (101100 fórmulas)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma fórmula proibida (101104 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -630,7 +630,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -726,7 +726,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-05-Ficha-Falha.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -822,7 +822,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: aviso exato visível na linha 3 de todas as abas",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1422,7 +1422,7 @@
     },
     {
       "grupo": "10 · Contrato e estrutura",
-      "verificacao": "PCMD-02-Ativos-Criticidade: mesmas fórmulas nas mesmas células (1854)",
+      "verificacao": "PCMD-02-Ativos-Criticidade: mesmas fórmulas nas mesmas células (1858)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1434,7 +1434,7 @@
     },
     {
       "grupo": "10 · Contrato e estrutura",
-      "verificacao": "PCMD-03-04-Plano-Cronograma: mesmas fórmulas nas mesmas células (101094)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma: mesmas fórmulas nas mesmas células (101098)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1554,7 +1554,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: aviso completo em todas as 15 páginas",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: aviso completo em todas as 14 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1566,7 +1566,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 2 páginas de Ocorrências",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 1 páginas de Ocorrências",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1578,7 +1578,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: aviso completo em todas as 60 páginas",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: aviso completo em todas as 57 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1590,7 +1590,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 47 páginas de Ocorrências",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 44 páginas de Ocorrências",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
