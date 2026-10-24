@@ -10,7 +10,7 @@ Papéis: PREENCHER (entrada ou manual), ID (identificador técnico), REFERÊNCIA
 
 # planilhas/PCMD-01-Controle-Documental.xlsx
 
-PCMD-01 · Controle documental. Abas: Início, Lista Mestra, Revisões, Organização, Pessoas, Requisitos, Listas. Versão com dados fictícios: `planilhas/PCMD-01-Controle-Documental-Exemplo.xlsx`.
+PCMD-01 · Controle documental. Abas: Lista Mestra, Revisões, Organização, Pessoas, Requisitos, Config, Listas. Versão com dados fictícios: `planilhas/PCMD-01-Controle-Documental-Exemplo.xlsx`.
 
 ## Lista Mestra
 
@@ -79,8 +79,12 @@ Cabeçalho na linha 6; dados de 7 a 66 (capacidade 60 linhas).
 | Organização!B10 | `organizacao.elaborador_id` | Elaborador padrão (ID) | PREENCHER | gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio = não informado. | Lista cad_pessoa_id. |
 | Organização!B11 | `organizacao.aprovador_id` | Aprovador padrão (ID) | PREENCHER | gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio = não informado; não presumir aprovação. | Lista cad_pessoa_id. |
 | Organização!B12 | `metas.disponibilidade` | Meta de disponibilidade (%) | PREENCHER | gestao.metas.disponibilidade (0–100 no app → dividir por 100) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio = A definir (null no app). | 0% a 100%. |
-| Início!C20 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado. | Texto. |
-| Início!C21 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado. | Data válida. |
+| Config!C21 | `documento_arquivo.elaborado_por` | Elaborado por | PREENCHER | Nome de quem elaborou o arquivo | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C22 | `documento_arquivo.aprovado_por` | Aprovado por | PREENCHER | Nome de quem aprovou, só após aprovação efetiva | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C23 | `documento_arquivo.revisao` | Revisão atual | AUTOMÁTICO | Fórmula: Lista Mestra, linha do código PCMD-01 | cálculo | Vazio enquanto não houver revisão. | Texto. |
+| Config!C24 | `documento_arquivo.data_revisao` | Data da revisão | AUTOMÁTICO | Fórmula: Lista Mestra, linha do código PCMD-01 | cálculo | Vazio enquanto não houver revisão. | Data válida. |
+| Config!C25 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C26 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Data válida. |
 
 ## Intervalos nomeados
 
@@ -92,16 +96,20 @@ Cabeçalho na linha 6; dados de 7 a 66 (capacidade 60 linhas).
 | `cad_pessoa_nome` | `'Pessoas'!$B$7:$B$66` |
 | `cad_prefixo` | `'Organização'!$B$9` |
 | `cad_referencial` | `'Organização'!$B$8` |
+| `cfg_aprovado` | `'Config'!$C$22` |
+| `cfg_data_revisao` | `'Config'!$C$24` |
+| `cfg_elaborado` | `'Config'!$C$21` |
+| `cfg_revisao` | `'Config'!$C$23` |
 | `lst_sim_nao` | `'Listas'!$E$7:$E$8` |
 | `lst_situacao_documento` | `'Listas'!$C$7:$C$16` |
 | `lst_status_requisito` | `'Listas'!$G$7:$G$8` |
 | `lst_tipo_documento` | `'Listas'!$A$7:$A$16` |
-| `pcmd_emissao` | `'Início'!$C$21` |
-| `pcmd_origem` | `'Início'!$C$20` |
+| `pcmd_emissao` | `'Config'!$C$26` |
+| `pcmd_origem` | `'Config'!$C$25` |
 
 # planilhas/PCMD-02-Ativos-Criticidade.xlsx
 
-PCMD-02 · Ativos e criticidade. Abas: Início, Ativos, Critérios, Setores, Listas. Versão com dados fictícios: `planilhas/PCMD-02-Ativos-Criticidade-Exemplo.xlsx`.
+PCMD-02 · Ativos e criticidade. Abas: Ativos, Critérios, Setores, Revisões, Config, Listas. Versão com dados fictícios: `planilhas/PCMD-02-Ativos-Criticidade-Exemplo.xlsx`.
 
 ## Ativos
 
@@ -139,6 +147,18 @@ Cabeçalho na linha 6; dados de 7 a 36 (capacidade 30 linhas).
 | B | `setor.descricao` | Descrição | PREENCHER | texto (célula com formato Texto) | opcional | Não existe no app (o app guarda só a sigla) | manual | Vazio = não informado. | — |
 | C | `setor.conferencia` | Conferência | AUTOMÁTICO | texto | opcional | Fórmula | cálculo | Vazio = não informado. | — |
 
+## Revisões
+
+Cabeçalho na linha 6; dados de 7 a 36 (capacidade 30 linhas).
+
+| Col. | Campo | Cabeçalho | Papel | Tipo / formato | Obrig. | Origem proposta | Situação | Vazio | Validação |
+|---|---|---|---|---|---|---|---|---|---|
+| A | `arquivo.revisao` | Revisão | PREENCHER | texto (célula com formato Texto) | obrigatório | Documental | manual | Vazio = não informado. | — |
+| B | `arquivo.data` | Data | PREENCHER | data dd/mm/aaaa | obrigatório | Documental | manual | Vazio = não informado. | date |
+| C | `arquivo.descricao` | Descrição da alteração | PREENCHER | texto (célula com formato Texto) | obrigatório | Documental | manual | Vazio = não informado. | — |
+| D | `arquivo.revisado_por` | Revisado por | PREENCHER | texto (célula com formato Texto) | opcional | Documental | manual | Vazio = não informado. | — |
+| E | `arquivo.aprovado_por` | Aprovado por | PREENCHER | texto (célula com formato Texto) | opcional | Documental | manual | Vazio = aprovação não registrada; nunca presumir. | — |
+
 ## Células únicas
 
 | Aba!Célula | Campo | Rótulo | Papel | Origem proposta | Situação | Vazio | Validação |
@@ -147,8 +167,12 @@ Cabeçalho na linha 6; dados de 7 a 36 (capacidade 30 linhas).
 | Critérios!B8 | `criticidade.limite_b` | Limite B | PREENCHER | gestao.criticidade.limites.b — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Padrão 9. | Inteiro; 5 ≤ B < A ≤ 15. |
 | Critérios!B9 | `criticidade.limites_ok` | Limites válidos? | AUTOMÁTICO | Fórmula | cálculo | — | VERDADEIRO/FALSO. |
 | Critérios!B13:D17 | `criticidade.niveis` | Significado dos níveis 1/2/3 por critério | PREENCHER | Definição do mantenedor; não existe no app | manual | Vazio = A definir pelo mantenedor. | Texto livre. |
-| Início!C18 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado. | Texto. |
-| Início!C19 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado. | Data válida. |
+| Config!C20 | `documento_arquivo.elaborado_por` | Elaborado por | PREENCHER | Nome de quem elaborou o arquivo | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C21 | `documento_arquivo.aprovado_por` | Aprovado por | PREENCHER | Nome de quem aprovou, só após aprovação efetiva | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C22 | `documento_arquivo.revisao` | Revisão atual | AUTOMÁTICO | Fórmula: última linha preenchida da aba Revisões | cálculo | Vazio enquanto não houver revisão. | Texto. |
+| Config!C23 | `documento_arquivo.data_revisao` | Data da revisão | AUTOMÁTICO | Fórmula: última linha preenchida da aba Revisões | cálculo | Vazio enquanto não houver revisão. | Data válida. |
+| Config!C24 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C25 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Data válida. |
 
 ## Intervalos nomeados
 
@@ -161,15 +185,21 @@ Cabeçalho na linha 6; dados de 7 a 36 (capacidade 30 linhas).
 | `cad_limite_b` | `'Critérios'!$B$8` |
 | `cad_limites_ok` | `'Critérios'!$B$9` |
 | `cad_setor` | `'Setores'!$A$7:$A$36` |
+| `cfg_aprovado` | `'Config'!$C$21` |
+| `cfg_data_revisao` | `'Config'!$C$23` |
+| `cfg_elaborado` | `'Config'!$C$20` |
+| `cfg_revisao` | `'Config'!$C$22` |
 | `lst_tipo_id` | `'Listas'!$A$7:$A$36` |
 | `lst_tipo_nome` | `'Listas'!$B$7:$B$36` |
 | `lst_tipo_sigla` | `'Listas'!$C$7:$C$36` |
-| `pcmd_emissao` | `'Início'!$C$19` |
-| `pcmd_origem` | `'Início'!$C$18` |
+| `pcmd_emissao` | `'Config'!$C$25` |
+| `pcmd_origem` | `'Config'!$C$24` |
+| `rv_data` | `'Revisões'!$B$7:$B$36` |
+| `rv_revisao` | `'Revisões'!$A$7:$A$36` |
 
 # planilhas/PCMD-03-04-Plano-Cronograma.xlsx
 
-PCMD-03/04 · Plano mestre e cronograma. Abas: Início, Plano Mestre, Cronograma, Ocorrências, Execuções, Listas. Versão com dados fictícios: `planilhas/PCMD-03-04-Plano-Cronograma-Exemplo.xlsx`.
+PCMD-03/04 · Plano mestre e cronograma. Abas: Plano Mestre, Cronograma, Ocorrências, Execuções, Revisões, Config, Listas. Versão com dados fictícios: `planilhas/PCMD-03-04-Plano-Cronograma-Exemplo.xlsx`.
 
 ## Plano Mestre
 
@@ -249,6 +279,18 @@ Cabeçalho na linha 6; dados de 7 a 3006 (capacidade 3000 linhas).
 | R | `execucao.conferencia` | Conferência | AUTOMÁTICO | texto | opcional | Fórmula | cálculo | Vazio = não informado. | — |
 | S | `execucao.duracao_real_horas` | Duração real (h) — FUTURO, não integrado | FUTURO · oculta | número decimal de horas | opcional | Não existe no histórico atual do app | futuro | Manter vazio. Não é somado em nenhuma fórmula. | decimal |
 
+## Revisões
+
+Cabeçalho na linha 6; dados de 7 a 36 (capacidade 30 linhas).
+
+| Col. | Campo | Cabeçalho | Papel | Tipo / formato | Obrig. | Origem proposta | Situação | Vazio | Validação |
+|---|---|---|---|---|---|---|---|---|---|
+| A | `arquivo.revisao` | Revisão | PREENCHER | texto (célula com formato Texto) | obrigatório | Documental | manual | Vazio = não informado. | — |
+| B | `arquivo.data` | Data | PREENCHER | data dd/mm/aaaa | obrigatório | Documental | manual | Vazio = não informado. | date |
+| C | `arquivo.descricao` | Descrição da alteração | PREENCHER | texto (célula com formato Texto) | obrigatório | Documental | manual | Vazio = não informado. | — |
+| D | `arquivo.revisado_por` | Revisado por | PREENCHER | texto (célula com formato Texto) | opcional | Documental | manual | Vazio = não informado. | — |
+| E | `arquivo.aprovado_por` | Aprovado por | PREENCHER | texto (célula com formato Texto) | opcional | Documental | manual | Vazio = aprovação não registrada; nunca presumir. | — |
+
 ## Células únicas
 
 | Aba!Célula | Campo | Rótulo | Papel | Origem proposta | Situação | Vazio | Validação |
@@ -257,13 +299,21 @@ Cabeçalho na linha 6; dados de 7 a 3006 (capacidade 3000 linhas).
 | Cronograma!C8 | `cronograma.inicio` | Início do ciclo (semana 1) | PREENCHER | estado.inicio (AAAA-MM-DD, main) | app (main) | Vazio = não informado. | Data válida. |
 | Cronograma!C9 | `cronograma.fonte` | Fonte das ocorrências | PREENCHER | Texto do adaptador ou de quem preenche | futuro | Vazio = não informado. | Texto. |
 | Cronograma!C11 | `metas.aderencia` | Meta de aderência preventiva (%) | PREENCHER | gestao.metas.aderencia (0–100 no app → dividir por 100) — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio = A definir (null no app). | 0% a 100%. |
-| Início!C20 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado. | Texto. |
-| Início!C21 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado. | Data válida. |
+| Config!C21 | `documento_arquivo.elaborado_por` | Elaborado por | PREENCHER | Nome de quem elaborou o arquivo | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C22 | `documento_arquivo.aprovado_por` | Aprovado por | PREENCHER | Nome de quem aprovou, só após aprovação efetiva | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C23 | `documento_arquivo.revisao` | Revisão atual | AUTOMÁTICO | Fórmula: última linha preenchida da aba Revisões | cálculo | Vazio enquanto não houver revisão. | Texto. |
+| Config!C24 | `documento_arquivo.data_revisao` | Data da revisão | AUTOMÁTICO | Fórmula: última linha preenchida da aba Revisões | cálculo | Vazio enquanto não houver revisão. | Data válida. |
+| Config!C25 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C26 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Data válida. |
 
 ## Intervalos nomeados
 
 | Nome | Referência |
 |---|---|
+| `cfg_aprovado` | `'Config'!$C$22` |
+| `cfg_data_revisao` | `'Config'!$C$24` |
+| `cfg_elaborado` | `'Config'!$C$21` |
+| `cfg_revisao` | `'Config'!$C$23` |
 | `crono_ano` | `'Cronograma'!$C$7` |
 | `crono_inicio` | `'Cronograma'!$C$8` |
 | `crono_meta_aderencia` | `'Cronograma'!$C$11` |
@@ -285,8 +335,8 @@ Cabeçalho na linha 6; dados de 7 a 3006 (capacidade 3000 linhas).
 | `oc_horas` | `'Ocorrências'!$K$7:$K$5006` |
 | `oc_mes` | `'Ocorrências'!$M$7:$M$5006` |
 | `oc_posicao` | `'Ocorrências'!$N$7:$N$5006` |
-| `pcmd_emissao` | `'Início'!$C$21` |
-| `pcmd_origem` | `'Início'!$C$20` |
+| `pcmd_emissao` | `'Config'!$C$26` |
+| `pcmd_origem` | `'Config'!$C$25` |
 | `pl_ativa` | `'Plano Mestre'!$O$7:$O$2006` |
 | `pl_atividade` | `'Plano Mestre'!$E$7:$E$2006` |
 | `pl_chave` | `'Plano Mestre'!$C$7:$C$2006` |
@@ -295,10 +345,12 @@ Cabeçalho na linha 6; dados de 7 a 3006 (capacidade 3000 linhas).
 | `pl_seguranca` | `'Plano Mestre'!$I$7:$I$2006` |
 | `pl_tag` | `'Plano Mestre'!$D$7:$D$2006` |
 | `pl_vezes` | `'Plano Mestre'!$K$7:$K$2006` |
+| `rv_data` | `'Revisões'!$B$7:$B$36` |
+| `rv_revisao` | `'Revisões'!$A$7:$A$36` |
 
 # planilhas/PCMD-05-Ficha-Falha.xlsx
 
-PCMD-05 · Ficha de falha. Abas: Início, Ficha de Falha. Versão com dados fictícios: `planilhas/PCMD-05-Ficha-Falha-Exemplo.xlsx`.
+PCMD-05 · Ficha de falha. Abas: Ficha de Falha, Revisões, Config. Versão com dados fictícios: `planilhas/PCMD-05-Ficha-Falha-Exemplo.xlsx`.
 
 ## Ficha de Falha
 
@@ -320,21 +372,43 @@ Cabeçalho na linha 6; dados de 7 a 1006 (capacidade 1000 linhas).
 | L | `falha.parada_situacao` | Parada informada? | AUTOMÁTICO · oculta | texto | opcional | Fórmula | cálculo | Vazio = não informado. | — |
 | M | `falha.conferencia` | Conferência | AUTOMÁTICO | texto | opcional | Fórmula | cálculo | Vazio = não informado. | — |
 
+## Revisões
+
+Cabeçalho na linha 6; dados de 7 a 36 (capacidade 30 linhas).
+
+| Col. | Campo | Cabeçalho | Papel | Tipo / formato | Obrig. | Origem proposta | Situação | Vazio | Validação |
+|---|---|---|---|---|---|---|---|---|---|
+| A | `arquivo.revisao` | Revisão | PREENCHER | texto (célula com formato Texto) | obrigatório | Documental | manual | Vazio = não informado. | — |
+| B | `arquivo.data` | Data | PREENCHER | data dd/mm/aaaa | obrigatório | Documental | manual | Vazio = não informado. | date |
+| C | `arquivo.descricao` | Descrição da alteração | PREENCHER | texto (célula com formato Texto) | obrigatório | Documental | manual | Vazio = não informado. | — |
+| D | `arquivo.revisado_por` | Revisado por | PREENCHER | texto (célula com formato Texto) | opcional | Documental | manual | Vazio = não informado. | — |
+| E | `arquivo.aprovado_por` | Aprovado por | PREENCHER | texto (célula com formato Texto) | opcional | Documental | manual | Vazio = aprovação não registrada; nunca presumir. | — |
+
 ## Células únicas
 
 | Aba!Célula | Campo | Rótulo | Papel | Origem proposta | Situação | Vazio | Validação |
 |---|---|---|---|---|---|---|---|
-| Início!C15 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado. | Texto. |
-| Início!C16 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado. | Data válida. |
+| Config!C17 | `documento_arquivo.elaborado_por` | Elaborado por | PREENCHER | Nome de quem elaborou o arquivo | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C18 | `documento_arquivo.aprovado_por` | Aprovado por | PREENCHER | Nome de quem aprovou, só após aprovação efetiva | manual | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C19 | `documento_arquivo.revisao` | Revisão atual | AUTOMÁTICO | Fórmula: última linha preenchida da aba Revisões | cálculo | Vazio enquanto não houver revisão. | Texto. |
+| Config!C20 | `documento_arquivo.data_revisao` | Data da revisão | AUTOMÁTICO | Fórmula: última linha preenchida da aba Revisões | cálculo | Vazio enquanto não houver revisão. | Data válida. |
+| Config!C21 | `emissao.origem_dados` | Origem dos dados | PREENCHER | Texto curto do adaptador ou de quem preenche | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Texto. |
+| Config!C22 | `emissao.data` | Data de emissão | PREENCHER | Data em que o arquivo é gerado/preenchido | futuro | Vazio = não informado; no cabeçalho aparece "A definir". | Data válida. |
 
 ## Intervalos nomeados
 
 | Nome | Referência |
 |---|---|
+| `cfg_aprovado` | `'Config'!$C$18` |
+| `cfg_data_revisao` | `'Config'!$C$20` |
+| `cfg_elaborado` | `'Config'!$C$17` |
+| `cfg_revisao` | `'Config'!$C$19` |
 | `fa_id` | `'Ficha de Falha'!$A$7:$A$1006` |
 | `fa_parada` | `'Ficha de Falha'!$L$7:$L$1006` |
-| `pcmd_emissao` | `'Início'!$C$16` |
-| `pcmd_origem` | `'Início'!$C$15` |
+| `pcmd_emissao` | `'Config'!$C$22` |
+| `pcmd_origem` | `'Config'!$C$21` |
+| `rv_data` | `'Revisões'!$B$7:$B$36` |
+| `rv_revisao` | `'Revisões'!$A$7:$A$36` |
 
 # manuais/PCMD-W1-Manual-Gestao-Ativos.docx
 
@@ -342,29 +416,29 @@ Cabeçalho na linha 6; dados de 7 a 1006 (capacidade 1000 linhas).
 
 | Marcador | Descrição | Locais | Origem proposta | Situação | Vazio |
 |---|---|---|---|---|---|
-| `{{organizacao.nome}}` | Nome da organização | cabeçalho, célula de tabela (identificação), parágrafo | gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
-| `{{documento.revisao}}` | Revisão do documento | célula de tabela (identificação), rodapé | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
-| `{{organizacao.referencial}}` | Referencial adotado | célula de tabela (identificação), parágrafo | gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Padrão 'GERAL (sem norma)'. |
-| `{{documento.data}}` | Data da revisão (dd/mm/aaaa) | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
-| `{{documento.elaborador}}` | Nome do elaborador | célula de tabela, célula de tabela (identificação) | nome de gestao.pessoas[] com id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
-| `{{documento.aprovador}}` | Nome do aprovador | célula de tabela, célula de tabela (identificação) | nome de gestao.pessoas[] com id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação. |
-| `{{documento.proxima_revisao}}` | Próxima revisão (dd/mm/aaaa) | célula de tabela (identificação), parágrafo | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
-| `{{documento.situacao}}` | Situação do documento | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'Em elaboração'. |
-| `{{origem.dados}}` | Origem dos dados | célula de tabela (identificação) | Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa) | futuro | Vazio → 'Não informada'. |
-| `{{emissao.data}}` | Data de emissão do arquivo (dd/mm/aaaa) | célula de tabela (identificação) | Data em que o adaptador gera o arquivo | futuro | Vazio → 'A definir'. |
+| `{{documento.revisao}}` | Revisão do documento | cabeçalho, rodapé | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
+| `{{documento.data}}` | Data da revisão (dd/mm/aaaa) | cabeçalho | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
+| `{{documento.elaborador}}` | Nome do elaborador | cabeçalho, célula de tabela | nome de gestao.pessoas[] com id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
+| `{{documento.aprovador}}` | Nome do aprovador | cabeçalho, célula de tabela | nome de gestao.pessoas[] com id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação. |
+| `{{organizacao.nome}}` | Nome da organização | cabeçalho, parágrafo | gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
+| `{{organizacao.referencial}}` | Referencial adotado | parágrafo | gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Padrão 'GERAL (sem norma)'. |
 | `{{criticidade.limite_a}}` | Limite A da criticidade | célula de tabela | gestao.criticidade.limites.a — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
 | `{{criticidade.limite_b}}` | Limite B da criticidade | célula de tabela | gestao.criticidade.limites.b — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
 | `{{metas.disponibilidade}}` | Meta de disponibilidade | célula de tabela | gestao.metas.disponibilidade — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | null → 'A definir'. |
+| `{{documento.situacao}}` | Situação do documento | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'Em elaboração'. |
+| `{{documento.proxima_revisao}}` | Próxima revisão (dd/mm/aaaa) | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
+| `{{origem.dados}}` | Origem dos dados | célula de tabela (identificação) | Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa) | futuro | Vazio → 'Não informada'. |
+| `{{emissao.data}}` | Data de emissão do arquivo (dd/mm/aaaa) | célula de tabela (identificação) | Data em que o adaptador gera o arquivo | futuro | Vazio → 'A definir'. |
 
 ### Regiões repetíveis
 
 | Região | Tabela nº (corpo, a partir de 0) | Linha modelo | Marcadores da linha |
 |---|---|---|---|
+| `requisitos` | 0 | 1 | `{{requisito.referencia}}` `{{requisito.versao}}` `{{requisito.data}}` `{{requisito.fonte}}` `{{requisito.status}}` |
 | `pessoas` | 3 | 1 | `{{pessoa.nome}}` `{{pessoa.funcao}}` `{{pessoa.especialidade}}` `{{pessoa.responsabilidade}}` |
 | `setores` | 5 | 1 | `{{setor.sigla}}` `{{setor.descricao}}` |
-| `requisitos` | 9 | 1 | `{{requisito.referencia}}` `{{requisito.versao}}` `{{requisito.data}}` `{{requisito.fonte}}` `{{requisito.status}}` |
-| `revisoes` | 13 | 1 | `{{revisao.numero}}` `{{revisao.data}}` `{{revisao.descricao}}` `{{revisao.responsavel}}` |
-| `ativos` | 14 | 1 | `{{ativo.tag}}` `{{ativo.descricao}}` `{{ativo.setor}}` `{{ativo.tipo_nome}}` `{{criticidade.nota_seguranca}}` `{{criticidade.nota_qualidade}}` `{{criticidade.nota_producao}}` `{{criticidade.nota_frequencia_falha}}` `{{criticidade.nota_custo_reparo}}` `{{criticidade.pontuacao}}` `{{criticidade.classe}}` |
+| `revisoes` | 14 | 1 | `{{revisao.numero}}` `{{revisao.data}}` `{{revisao.descricao}}` `{{revisao.responsavel}}` |
+| `ativos` | 15 | 1 | `{{ativo.tag}}` `{{ativo.descricao}}` `{{ativo.setor}}` `{{ativo.tipo_nome}}` `{{criticidade.nota_seguranca}}` `{{criticidade.nota_qualidade}}` `{{criticidade.nota_producao}}` `{{criticidade.nota_frequencia_falha}}` `{{criticidade.nota_custo_reparo}}` `{{criticidade.pontuacao}}` `{{criticidade.classe}}` |
 
 # manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx
 
@@ -372,16 +446,12 @@ Cabeçalho na linha 6; dados de 7 a 1006 (capacidade 1000 linhas).
 
 | Marcador | Descrição | Locais | Origem proposta | Situação | Vazio |
 |---|---|---|---|---|---|
-| `{{organizacao.nome}}` | Nome da organização | cabeçalho, célula de tabela (identificação), parágrafo | gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
-| `{{documento.revisao}}` | Revisão do documento | célula de tabela (identificação), rodapé | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
-| `{{organizacao.referencial}}` | Referencial adotado | célula de tabela (identificação), parágrafo | gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Padrão 'GERAL (sem norma)'. |
-| `{{documento.data}}` | Data da revisão (dd/mm/aaaa) | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
-| `{{documento.elaborador}}` | Nome do elaborador | célula de tabela, célula de tabela (identificação) | nome de gestao.pessoas[] com id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
-| `{{documento.aprovador}}` | Nome do aprovador | célula de tabela, célula de tabela (identificação) | nome de gestao.pessoas[] com id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação. |
-| `{{documento.proxima_revisao}}` | Próxima revisão (dd/mm/aaaa) | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
-| `{{documento.situacao}}` | Situação do documento | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'Em elaboração'. |
-| `{{origem.dados}}` | Origem dos dados | célula de tabela (identificação) | Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa) | futuro | Vazio → 'Não informada'. |
-| `{{emissao.data}}` | Data de emissão do arquivo (dd/mm/aaaa) | célula de tabela (identificação) | Data em que o adaptador gera o arquivo | futuro | Vazio → 'A definir'. |
+| `{{documento.revisao}}` | Revisão do documento | cabeçalho, rodapé | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
+| `{{documento.data}}` | Data da revisão (dd/mm/aaaa) | cabeçalho | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
+| `{{documento.elaborador}}` | Nome do elaborador | cabeçalho, célula de tabela | nome de gestao.pessoas[] com id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
+| `{{documento.aprovador}}` | Nome do aprovador | cabeçalho, célula de tabela | nome de gestao.pessoas[] com id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação. |
+| `{{organizacao.nome}}` | Nome da organização | cabeçalho, parágrafo | gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Vazio → 'A definir'. |
+| `{{organizacao.referencial}}` | Referencial adotado | parágrafo | gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | Padrão 'GERAL (sem norma)'. |
 | `{{estrategia.responsavel}}` | Profissional responsável pela estratégia | célula de tabela, parágrafo | Manual: não existe no app | manual | Vazio → 'A definir'. |
 | `{{estrategia.classe_a.estrategia}}` | Estratégia predominante para a classe A | célula de tabela | Manual: definição do profissional responsável | manual | Vazio → 'A definir'. |
 | `{{estrategia.classe_a.prazo}}` | Prazo de atendimento para a classe A | célula de tabela | Manual: definição do profissional responsável | manual | Vazio → 'A definir'. |
@@ -395,12 +465,16 @@ Cabeçalho na linha 6; dados de 7 a 1006 (capacidade 1000 linhas).
 | `{{estrategia.periodicidade_revisao}}` | Periodicidade de revisão da estratégia | parágrafo | Manual: definição do mantenedor | manual | Vazio → 'A definir'. |
 | `{{metas.aderencia}}` | Meta de aderência preventiva | célula de tabela | gestao.metas.aderencia — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | null → 'A definir'. |
 | `{{metas.disponibilidade}}` | Meta de disponibilidade | célula de tabela | gestao.metas.disponibilidade — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main | app (ramo de gestão, não integrado) | null → 'A definir'. |
+| `{{documento.situacao}}` | Situação do documento | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'Em elaboração'. |
+| `{{documento.proxima_revisao}}` | Próxima revisão (dd/mm/aaaa) | célula de tabela (identificação) | PCMD-01, aba Lista Mestra (manual) | manual | Vazio → 'A definir'. |
+| `{{origem.dados}}` | Origem dos dados | célula de tabela (identificação) | Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa) | futuro | Vazio → 'Não informada'. |
+| `{{emissao.data}}` | Data de emissão do arquivo (dd/mm/aaaa) | célula de tabela (identificação) | Data em que o adaptador gera o arquivo | futuro | Vazio → 'A definir'. |
 
 ### Regiões repetíveis
 
 | Região | Tabela nº (corpo, a partir de 0) | Linha modelo | Marcadores da linha |
 |---|---|---|---|
+| `requisitos` | 0 | 1 | `{{requisito.referencia}}` `{{requisito.versao}}` `{{requisito.data}}` `{{requisito.fonte}}` `{{requisito.status}}` |
 | `pessoas` | 3 | 1 | `{{pessoa.nome}}` `{{pessoa.funcao}}` `{{pessoa.especialidade}}` `{{pessoa.responsabilidade}}` |
-| `requisitos` | 8 | 1 | `{{requisito.referencia}}` `{{requisito.versao}}` `{{requisito.data}}` `{{requisito.fonte}}` `{{requisito.status}}` |
-| `revisoes` | 10 | 1 | `{{revisao.numero}}` `{{revisao.data}}` `{{revisao.descricao}}` `{{revisao.responsavel}}` |
-| `tarefas` | 11 | 1 | `{{tarefa.tag}}` `{{tarefa.id}}` `{{tarefa.atividade}}` `{{tarefa.frequencia_vigente}}` `{{tarefa.especialidade}}` `{{tarefa.duracao_horas}}` `{{tarefa.seguranca}}` `{{tarefa.origem_versao}}` `{{tarefa.responsavel_nome}}` |
+| `revisoes` | 11 | 1 | `{{revisao.numero}}` `{{revisao.data}}` `{{revisao.descricao}}` `{{revisao.responsavel}}` |
+| `tarefas` | 12 | 1 | `{{tarefa.tag}}` `{{tarefa.id}}` `{{tarefa.atividade}}` `{{tarefa.frequencia_vigente}}` `{{tarefa.especialidade}}` `{{tarefa.duracao_horas}}` `{{tarefa.seguranca}}` `{{tarefa.origem_versao}}` `{{tarefa.responsavel_nome}}` |

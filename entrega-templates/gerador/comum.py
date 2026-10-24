@@ -39,6 +39,22 @@ BRANCO = "FFFFFF"
 FONTE = "Arial"
 
 LOGO_PNG = RAIZ_REPO / "public" / "icones" / "icone-512.png"
+# Assinatura com slogan do Guia Visual PCM Direto (versão 01), a mesma dos modelos padrão de planilha e de documento.
+LOGO_MARCA = RAIZ_ENTREGA / "gerador" / "recursos" / "logo-pcm-direto.png"
+
+# Padrão visual (Guia Visual versão 01 e modelos padrão de planilha/documento)
+LARANJA = "D97030"       # laranja do símbolo
+CINZA_APOIO = "64717D"   # cinza de apoio
+TEXTO = "1F2937"         # texto principal dos modelos padrão
+CAB_FUNDO = "DCE6F5"     # cabeçalho de tabela
+SECAO_FUNDO = "EEF2F8"   # título de seção
+SECAO_BORDA = "B8C4D8"
+GRADE = "9FB0C9"         # grade das tabelas
+ZEBRA_PADRAO = "F6F8FC"
+ENTRADA_FUNDO = "EAF1F8" # campo a preencher
+ENTRADA_TEXTO = "3B6E9C"
+FONTE_TITULO = "Arial Black"
+FONTE_ESTREITA = "Arial Narrow"
 LOGO_SVG = RAIZ_REPO / "public" / "icones" / "logo.svg"
 
 RAMO_GESTAO = "interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main"

@@ -8,7 +8,9 @@ from dataclasses import dataclass, field
 
 from comum import RAMO_GESTAO
 
-LINHA_TIPO = 5      # linha de respiro entre o topo e o cabeçalho (alertas ficam na linha 4)
+# Padrão visual PCM Direto: linhas 1-2 = bloco de cabeçalho (logo, título, revisão), linha 3 = aviso,
+# linha 4 = respiro, linha 5 = faixa azul (grupos de colunas), linha 6 = cabeçalho da tabela.
+LINHA_TIPO = 5      # faixa azul com os grupos de colunas
 LINHA_CAB = 6       # cabeçalho da tabela
 PRIMEIRA = 7        # primeira linha de dados
 
@@ -179,8 +181,8 @@ ATIVOS = Aba(
                validacao="Lista lst_tipo_id."),
         Coluna("ativo.tipo_nome", "Tipo (nome)", "calculo", "texto", "Fórmula a partir de Listas (biblioteca.tipos[].nome)", CALCULO, largura=16,
                formula='=IF(D{r}="","",IFERROR(INDEX(lst_tipo_nome,MATCH(D{r},lst_tipo_id,0)),"Tipo não cadastrado em Listas"))'),
-        Coluna("ativo.fabricante", "Fabricante", "entrada", "texto", "estado.equipamentos[].fabricante", MAIN, largura=16, privacidade=PRIV_ORG),
-        Coluna("ativo.modelo", "Modelo", "entrada", "texto", "estado.equipamentos[].modelo", MAIN, largura=16, privacidade=PRIV_ORG),
+        Coluna("ativo.fabricante", "Fabricante", "entrada", "texto", "estado.equipamentos[].fabricante", MAIN, largura=20, privacidade=PRIV_ORG),
+        Coluna("ativo.modelo", "Modelo", "entrada", "texto", "estado.equipamentos[].modelo", MAIN, largura=20, privacidade=PRIV_ORG),
         Coluna("ativo.setor", "Setor (sigla)", "entrada", "lista", "estado.equipamentos[].setor", MAIN, "obrigatório", largura=9,
                dv={"type": "list", "formula1": "=cad_setor", "error": "Cadastre o setor em Cadastros (bloco Setores).", "prompt": "Sigla do setor (2 a 4 letras/números)."},
                validacao="Lista cad_setor."),
@@ -378,12 +380,28 @@ REVISOES = Aba(
     instrucao="Uma linha por revisão documental: documento, revisão, data, mudança e responsável.",
     capacidade=100, paisagem=False, linhas_impressao_modelo=20,
     colunas=[
-        Coluna("revisao.documento", "Documento (código)", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=14),
+        Coluna("revisao.documento", "Documento (código)", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=16),
         Coluna("revisao.numero", "Revisão", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=9),
         Coluna("revisao.data", "Data (dd/mm/aaaa)", "manual", "data", "Documental", MANUAL, "obrigatório", formato="data dd/mm/aaaa", largura=12,
                dv=DATA_DV, numero="dd/mm/yyyy"),
-        Coluna("revisao.descricao", "Descrição da mudança", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=46, privacidade=PRIV_LIVRE),
-        Coluna("revisao.responsavel", "Responsável (nome)", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=18, privacidade=PRIV_NOME),
+        Coluna("revisao.descricao", "Descrição da mudança", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=40, privacidade=PRIV_LIVRE),
+        Coluna("revisao.responsavel", "Responsável (nome)", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=22, privacidade=PRIV_NOME),
+    ],
+)
+
+# Revisões do próprio arquivo (padrão PCM Direto): PCMD-02, PCMD-03/04 e PCMD-05. No PCMD-01 a revisão vem da Lista Mestra.
+REVISOES_ARQ = Aba(
+    nome="Revisões", codigo="", titulo="Histórico de revisões",
+    instrucao="Uma linha por revisão deste arquivo. A última linha preenchida aparece no cabeçalho de todas as abas.",
+    capacidade=30, paisagem=False, linhas_impressao_modelo=15,
+    colunas=[
+        Coluna("arquivo.revisao", "Revisão", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=10, nome="rv_revisao"),
+        Coluna("arquivo.data", "Data", "manual", "data", "Documental", MANUAL, "obrigatório", formato="data dd/mm/aaaa", largura=13,
+               dv=DATA_DV, numero="dd/mm/yyyy", nome="rv_data"),
+        Coluna("arquivo.descricao", "Descrição da alteração", "manual", "texto", "Documental", MANUAL, "obrigatório", largura=50, privacidade=PRIV_LIVRE),
+        Coluna("arquivo.revisado_por", "Revisado por", "manual", "texto", "Documental", MANUAL, largura=18, privacidade=PRIV_NOME),
+        Coluna("arquivo.aprovado_por", "Aprovado por", "manual", "texto", "Documental", MANUAL, largura=18, privacidade=PRIV_NOME,
+               vazio="Vazio = aprovação não registrada; nunca presumir."),
     ],
 )
 
@@ -394,9 +412,9 @@ SETORES = Aba(
     capacidade=30, paisagem=False, linhas_impressao_modelo=12,
     colunas=[
         Coluna("setor.sigla", "Sigla do setor", "entrada", "texto", _r("gestao.organizacao.setores[]") + "; também estado.equipamentos[].setor (main)", RAMO,
-               "obrigatório", largura=12, nome="cad_setor", validacao="2 a 4 letras maiúsculas/números (normalizarSetor)."),
-        Coluna("setor.descricao", "Descrição do setor", "manual", "texto", "Não existe no app (o app guarda só a sigla)", MANUAL, largura=40, privacidade=PRIV_ORG),
-        Coluna("setor.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=30,
+               "obrigatório", largura=24, nome="cad_setor", validacao="2 a 4 letras maiúsculas/números (normalizarSetor)."),
+        Coluna("setor.descricao", "Descrição do setor", "manual", "texto", "Não existe no app (o app guarda só a sigla)", MANUAL, largura=30, privacidade=PRIV_ORG),
+        Coluna("setor.conferencia", "Conferência", "calculo", "texto", "Fórmula", CALCULO, largura=28,
                formula='=IF(A{r}="","",IF(OR(LEN(A{r})<2,LEN(A{r})>4),"ERRO: use 2 a 4 caracteres",IF(COUNTIF(cad_setor,A{r})>1,"ERRO: sigla repetida","OK")))'),
     ],
 )
@@ -437,7 +455,7 @@ REQUISITOS = Aba(
     ],
 )
 
-ABAS_TABELA = [LISTA_MESTRA, REVISOES, PESSOAS, REQUISITOS, ATIVOS, SETORES, PLANO, OCORRENCIAS, EXECUCOES, FALHAS]
+ABAS_TABELA = [LISTA_MESTRA, REVISOES, PESSOAS, REQUISITOS, ATIVOS, SETORES, PLANO, OCORRENCIAS, EXECUCOES, FALHAS, REVISOES_ARQ]
 
 # ---------------------------------------------------------------- Apresentação
 # Cabeçalhos curtos (o significado completo fica no contrato e no dicionário) e colunas técnicas ocultas.
@@ -488,6 +506,25 @@ for _aba in ABAS_TABELA:
     for _c in _aba.colunas:
         _c.largura = LARGURAS.get(_c.id, _c.largura)
 
+# Faixa azul (linha 5): grupos de colunas, como no modelo padrão. Cada grupo começa na coluna indicada.
+# Nas abas largas, a segunda página da impressão começa no grupo marcado em QUEBRA.
+GRUPOS = {
+    "Lista Mestra": [("Documento", "documento.codigo"), ("Revisão", "documento.revisao"), ("Situação", "documento.situacao")],
+    "Revisões": [("Histórico de revisões", None)],
+    "Pessoas": [("Pessoas", None)],
+    "Requisitos": [("Referência", "requisito.id"), ("Verificação", "requisito.status")],
+    "Ativos": [("Identificação", "ativo.id"), ("Cadastro do ativo", "ativo.descricao"), ("Criticidade", "criticidade.nota_seguranca")],
+    "Setores": [("Setores", None)],
+    "Plano Mestre": [("Identificação", "tarefa.ativo_id"), ("Tarefa", "tarefa.atividade"), ("Frequência", "tarefa.frequencia_referencia"), ("Execução", "tarefa.especialidade"),
+                     ("Conferência", "tarefa.conferencia")],
+    "Ocorrências": [("Ocorrência prevista", "ocorrencia.ativo_id"), ("Tarefa", "ocorrencia.tag"), ("Situação", "ocorrencia.concluida")],
+    "Execuções": [("Identificação", "execucao.id"), ("Registro", "execucao.chave_tarefa"), ("Execução", "execucao.data_prevista"), ("Situação", "execucao.responsavel_id")],
+    "Ficha de Falha": [("Registro", "falha.id"), ("Análise", "falha.sintoma"), ("Parada e responsável", "falha.horas_parada")],
+}
+QUEBRA = {"Ativos": "criticidade.nota_seguranca", "Plano Mestre": "tarefa.especialidade", "Execuções": "execucao.responsavel_id"}
+PLANO.colunas_repetidas = "A:D"
+EXECUCOES.colunas_repetidas = "A:C"
+
 # ---------------------------------------------------------------- Células únicas (formulários)
 # Abas Organização (PCMD-01) e Critérios (PCMD-02): cabeçalho na linha 6, campos a partir da linha 7.
 CAMPOS_CELULAS = [
@@ -527,8 +564,8 @@ CAMPOS_CELULAS += [
 ]
 
 # ---------------------------------------------------------------- Arquivos XLSX
-# Cada arquivo é independente (sem fórmula que dependa de outro arquivo). A aba Início de cada um
-# guarda origem e data de emissão (pcmd_origem e pcmd_emissao).
+# Cada arquivo é independente (sem fórmula que dependa de outro arquivo). A aba Config de cada um guarda
+# elaborado/aprovado (cfg_elaborado, cfg_aprovado), a revisão atual (cfg_revisao, cfg_data_revisao) e a emissão (pcmd_origem, pcmd_emissao).
 @dataclass
 class Arquivo:
     chave: str
@@ -545,48 +582,54 @@ class Arquivo:
 ARQUIVOS = [
     Arquivo("01", "PCMD-01-Controle-Documental", "PCMD-01", "Controle documental",
             "Lista mestra, histórico de revisões, organização, pessoas e requisitos.",
-            [("Lista Mestra", "Documentos PCMD com revisão, datas, elaborador, aprovador e situação."),
-             ("Revisões", "Histórico de cada revisão documental."),
+            [("Lista Mestra", "Um documento por linha: revisão, datas, elaborador, aprovador e situação."),
+             ("Revisões", "Uma linha por revisão de cada documento."),
              ("Organização", "Nome, referencial, prefixo, elaborador/aprovador padrão e meta de disponibilidade."),
              ("Pessoas", "Pessoas e funções (dado pessoal mínimo, local)."),
-             ("Requisitos", "Referências com fonte, versão, data e status de verificação."),
+             ("Requisitos", "Tudo começa Não verificado; Verificado exige versão, data e fonte HTTPS."),
+             ("Config", "Elaborado, aprovado, origem e data de emissão; conferências do arquivo."),
              ("Listas", "Valores aceitos nas listas suspensas.")],
             ["Preencha a aba Organização e cadastre as Pessoas.",
              "Registre as referências em Requisitos (começam Não verificado).",
-             "Mantenha a Lista Mestra e o histórico de Revisões a cada mudança."],
+             "Mantenha a Lista Mestra e as Revisões a cada mudança. A revisão do PCMD-01 na Lista Mestra aparece no cabeçalho."],
             [LISTA_MESTRA, REVISOES, PESSOAS, REQUISITOS],
             ["tipo_documento", "situacao_documento", "sim_nao", "status_requisito"]),
     Arquivo("02", "PCMD-02-Ativos-Criticidade", "PCMD-02", "Ativos e criticidade",
             "Inventário de ativos com TAG e classificação de criticidade A, B, C ou Pendente.",
-            [("Ativos", "Um ativo por linha, com as cinco notas e a classe calculada."),
+            [("Ativos", "Um ativo por linha. Notas inteiras de 1 a 3; nota vazia deixa a classe Pendente."),
              ("Critérios", "Limites A/B e significado dos níveis 1, 2 e 3 de cada critério."),
              ("Setores", "Siglas de setor usadas na TAG."),
+             ("Revisões", "Uma linha por revisão deste arquivo."),
+             ("Config", "Elaborado, aprovado, origem e data de emissão; conferências do arquivo."),
              ("Listas", "Tipos de equipamento da biblioteca.")],
             ["Cadastre os Setores e confira os limites em Critérios.",
-             "Lance um ativo por linha em Ativos, com ID e TAG.",
-             "Dê as cinco notas de 1 a 3; a classe aparece sozinha."],
-            [ATIVOS, SETORES],
+             "Lance um ativo por linha em Ativos, com ID e TAG, e dê as cinco notas de 1 a 3.",
+             "Registre cada revisão em Revisões: a última aparece no cabeçalho."],
+            [ATIVOS, SETORES, REVISOES_ARQ],
             ["tipos"]),
     Arquivo("03", "PCMD-03-04-Plano-Cronograma", "PCMD-03/04", "Plano mestre e cronograma",
             "Plano mestre, ocorrências previstas, execuções e resumo mensal de % realizado.",
-            [("Plano Mestre", "Tarefas por ativo, frequência vigente e conferência de segurança."),
-             ("Cronograma", "Resumo mensal do ano, gráfico e conferências."),
-             ("Ocorrências", "Uma linha por ativo + tarefa + data prevista."),
-             ("Execuções", "Realizações vinculadas às ocorrências; canceladas ficam no histórico."),
+            [("Plano Mestre", "Uma linha por tarefa. Referência protegida (sem senha); segurança só mantém ou aumenta a frequência."),
+             ("Cronograma", "Informe o ano: resumo mensal, gráfico e conferências."),
+             ("Ocorrências", "Uma linha por ativo + tarefa + data prevista. Diária = uma linha por dia útil."),
+             ("Execuções", "Cada realização informa a data prevista que atendeu; canceladas ficam no histórico."),
+             ("Revisões", "Uma linha por revisão deste arquivo."),
+             ("Config", "Elaborado, aprovado, origem e data de emissão; conferências do arquivo."),
              ("Listas", "Frequências, especialidades e valores aceitos.")],
-            ["Lance as tarefas no Plano Mestre (referências da biblioteca).",
-             "Liste as datas previstas em Ocorrências, com a fonte.",
+            ["Lance as tarefas no Plano Mestre e as datas previstas em Ocorrências.",
              "Registre cada realização em Execuções, com a data prevista.",
-             "Informe o ano no Cronograma e acompanhe o resumo mensal."],
-            [PLANO, OCORRENCIAS, EXECUCOES],
+             "Informe o ano no Cronograma. Registre cada revisão em Revisões."],
+            [PLANO, OCORRENCIAS, EXECUCOES, REVISOES_ARQ],
             ["frequencias", "especialidades", "sim_nao", "origem_execucao", "tipos_tarefa"]),
     Arquivo("05", "PCMD-05-Ficha-Falha", "PCMD-05", "Ficha de falha",
             "Registro de falhas com sintoma, causa, ação, horas de parada e responsável.",
-            [("Ficha de Falha", "Um registro por falha; horas de parada são opcionais.")],
+            [("Ficha de Falha", "Um registro por falha. Horas de parada vazias = não informadas (não viram zero)."),
+             ("Revisões", "Uma linha por revisão deste arquivo."),
+             ("Config", "Elaborado, aprovado, origem e data de emissão; conferências do arquivo.")],
             ["Registre cada falha com ID, ativo, data e sintoma.",
              "Complete causa, ação, peça e responsável quando souber.",
-             "Deixe horas de parada vazias se não foram medidas."],
-            [FALHAS]),
+             "Registre cada revisão em Revisões: a última aparece no cabeçalho."],
+            [FALHAS, REVISOES_ARQ]),
 ]
 
 # ---------------------------------------------------------------- Word

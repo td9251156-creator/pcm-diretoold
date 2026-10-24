@@ -2,7 +2,7 @@
 
 > **Aviso:** O material apoia a organização do PCM e não substitui a avaliação de profissional habilitado nem o texto oficial das normas. As periodicidades são base genérica e devem ser confirmadas com o manual do fabricante.
 
-Data da execução: 23/10/2026 · Script: `testes/verificar_entrega.py` · Resultado bruto: `testes/resultado-testes.json`
+Data da execução: 24/10/2026 · Script: `testes/verificar_entrega.py` · Resultado bruto: `testes/resultado-testes.json`
 
 **Resultado da última execução: 276 verificações, 0 falhas.**
 
@@ -31,7 +31,7 @@ Os números entre parênteses seguem a lista de testes de aceitação do pedido.
 
 ### (2) Estrutura e itens proibidos
 - ZIP íntegro; nenhum `vbaProject.bin`, `externalLinks`, `connections.xml`, relação `TargetMode="External"` ou tipo `macroEnabled`.
-  Os atalhos da aba Início são vínculos internos (atributo `location`), sem relação externa.
+  Os atalhos da aba Config são vínculos internos (atributo `location`), sem relação externa.
 - Todas as fórmulas dos 8 XLSX examinadas no XML: nenhuma usa PROCX/XLOOKUP, FILTRO, ÚNICO, CLASSIFICAR, SEQUÊNCIA, LET, LAMBDA,
   outras funções que exigem prefixo `_xlfn`, fórmula de matriz ou referência a outro arquivo. **Cada planilha é independente.**
 - Nomes de abas e intervalos nomeados válidos. Nenhuma validação de dados aponta direto para outra aba.
@@ -73,10 +73,14 @@ o total do ano, fora do ano, execuções sem vínculo e as 4 classes coincidiram
 nos topos, formulários e no Cronograma.
 
 ### (9) Impressão
-PDFs exportados pelo LibreOffice, em `previas/` (12 PDFs: exemplo do PCMD-03/04 com 53 páginas, por causa das 761 ocorrências; os demais de 2 a 11 páginas). O aviso completo foi encontrado no texto de **todas** as páginas de todos os PDFs.
+PDFs exportados pelo LibreOffice, em `previas/` (12 PDFs: exemplo do PCMD-03/04 com 60 páginas, por causa das 761 ocorrências; os demais de 2 a 11 páginas). O aviso completo foi encontrado no texto de **todas** as páginas de todos os PDFs.
 O cabeçalho da tabela se repete em todas as páginas de Ativos, Plano Mestre, Ocorrências, Execuções e Ficha de Falha. Nos templates Word, marcadores
 aparecem impressos no corpo, em células, no cabeçalho e no rodapé. Páginas também foram conferidas visualmente por imagem (amostras).
-As tabelas imprimem a partir do cabeçalho (título no cabeçalho da página, aviso no rodapé); colunas técnicas ocultas não são impressas.
+Todas as abas seguem o modelo padrão PCM Direto enviado pelo autor (guia visual, `Modelo_Base_Padrao_81.xlsx` e `Modelo Padrão de Documento.docx`):
+bloco de cabeçalho com logo, código, título, revisão e Elaborado/Aprovado repetido em todas as páginas; tabelas largas imprimem em duas partes,
+com as colunas de identificação e o bloco "(continuação)" na segunda. Colunas técnicas ocultas não são impressas.
+Limite: o contêiner não tem as fontes Arial Black e Arial Narrow do modelo; o LibreOffice as trocou por outra fonte nas prévias. No Excel/Word
+com essas fontes instaladas (padrão no Windows) a aparência segue o modelo.
 Limite: o rodapé do Excel usa fonte 7 em duas linhas para caber o aviso inteiro e, nas tabelas ajustadas à largura, o programa reduz a escala;
 é legível, mas pequeno.
 

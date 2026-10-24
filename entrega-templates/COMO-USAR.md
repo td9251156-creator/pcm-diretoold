@@ -11,10 +11,10 @@ Cada arquivo é independente: baixe só o que for usar. Todos têm uma versão *
 
 | Arquivo | O que tem | Abas |
 |---|---|---|
-| `planilhas/PCMD-01-Controle-Documental.xlsx` | Lista mestra, revisões, organização, pessoas e requisitos | Início, Lista Mestra, Revisões, Organização, Pessoas, Requisitos, Listas |
-| `planilhas/PCMD-02-Ativos-Criticidade.xlsx` | Inventário de ativos e classe A/B/C/Pendente | Início, Ativos, Critérios, Setores, Listas |
-| `planilhas/PCMD-03-04-Plano-Cronograma.xlsx` | Plano mestre, ocorrências, execuções e resumo mensal com gráfico | Início, Plano Mestre, Cronograma, Ocorrências, Execuções, Listas |
-| `planilhas/PCMD-05-Ficha-Falha.xlsx` | Registro de falhas | Início, Ficha de Falha |
+| `planilhas/PCMD-01-Controle-Documental.xlsx` | Lista mestra, revisões, organização, pessoas e requisitos | Lista Mestra, Revisões, Organização, Pessoas, Requisitos, Config, Listas |
+| `planilhas/PCMD-02-Ativos-Criticidade.xlsx` | Inventário de ativos e classe A/B/C/Pendente | Ativos, Critérios, Setores, Revisões, Config, Listas |
+| `planilhas/PCMD-03-04-Plano-Cronograma.xlsx` | Plano mestre, ocorrências, execuções e resumo mensal com gráfico | Plano Mestre, Cronograma, Ocorrências, Execuções, Revisões, Config, Listas |
+| `planilhas/PCMD-05-Ficha-Falha.xlsx` | Registro de falhas | Ficha de Falha, Revisões, Config |
 | `manuais/PCMD-W1-Manual-Gestao-Ativos.docx` | Manual de Gestão de Ativos, com marcadores `{{...}}` | — |
 | `manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx` | Manual de Estratégia de Manutenção, com marcadores | — |
 
@@ -25,8 +25,12 @@ Nada aqui altera o app, seus dados, exportações, backups ou workflows. O PCM D
 
 ## Planilhas: o básico
 
-- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). A aba **Início** lista as abas e os passos; informe ali a origem dos
-  dados e a data de emissão.
+- Abra no Excel 2010 ou posterior (ou LibreOffice Calc). Todas as abas seguem o **modelo padrão PCM Direto**: no topo, logo, código e
+  título, e à direita a revisão, a data e "Elaborado / Aprovado"; abaixo, o aviso e a faixa azul com os grupos de colunas.
+- A aba **Config** traz o "como usar", os parâmetros do documento (Elaborado por, Aprovado por, origem dos dados e data de emissão) e as
+  conferências (linhas preenchidas, linhas com ERRO e capacidade). O cabeçalho de todas as abas lê esses valores; vazio aparece como *A definir*.
+- A revisão e a data do cabeçalho vêm sozinhas da última linha da aba **Revisões** (no PCMD-01, da linha PCMD-01 da Lista Mestra).
+  Registre ali cada revisão do arquivo.
 - Cabeçalho **azul** = preencher; cabeçalho **cinza** = automático (fórmula, não digite). No Plano Mestre, as colunas de referência da
   biblioteca ficam bloqueadas.
 - Colunas técnicas (chaves, ano, mês, contadores) ficam **ocultas**: continuam calculando e podem ser reexibidas, mas não devem ser

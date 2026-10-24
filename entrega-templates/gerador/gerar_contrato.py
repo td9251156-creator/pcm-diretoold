@@ -70,13 +70,25 @@ def gerar(destino_json, destino_md, xlsx, docs):
                              ("validacao", val), ("privacidade", priv), ("observacoes", obs)])
             celulas.append(d)
             registrar(d)
-        for cid, rot, nm, tipo in (("emissao.origem_dados", "Origem dos dados", "pcmd_origem", "texto"), ("emissao.data", "Data de emissão", "pcmd_emissao", "data")):
+        rev_origem = ("Lista Mestra, linha do código PCMD-01" if arq.chave == "01" else "última linha preenchida da aba Revisões")
+        config = (  # id, rótulo, nome, tipo, papel, origem proposta, situação, privacidade
+            ("documento_arquivo.elaborado_por", "Elaborado por", "cfg_elaborado", "texto", "entrada", "Nome de quem elaborou o arquivo", E.MANUAL, E.PRIV_NOME),
+            ("documento_arquivo.aprovado_por", "Aprovado por", "cfg_aprovado", "texto", "entrada", "Nome de quem aprovou, só após aprovação efetiva",
+             E.MANUAL, E.PRIV_NOME),
+            ("documento_arquivo.revisao", "Revisão atual", "cfg_revisao", "texto", "calculo", f"Fórmula: {rev_origem}", E.CALCULO, E.PRIV_NENHUM),
+            ("documento_arquivo.data_revisao", "Data da revisão", "cfg_data_revisao", "data", "calculo", f"Fórmula: {rev_origem}", E.CALCULO, E.PRIV_NENHUM),
+            ("emissao.origem_dados", "Origem dos dados", "pcmd_origem", "texto", "entrada", "Texto curto do adaptador ou de quem preenche", E.FUTURO,
+             E.PRIV_NENHUM),
+            ("emissao.data", "Data de emissão", "pcmd_emissao", "data", "entrada", "Data em que o arquivo é gerado/preenchido", E.FUTURO, E.PRIV_NENHUM),
+        )
+        for cid, rot, nm, tipo, papel, origem, sit, priv in config:
             cel = wb.defined_names[nm].attr_text.split("!")[1].replace("$", "")
-            d = OrderedDict([("id", cid), ("rotulo", rot), ("tipo", TIPOS[tipo]), ("papel", "entrada"), ("entrada_ou_calculo", "entrada"),
-                             ("origem_proposta", "Texto curto do adaptador ou de quem preenche" if tipo == "texto" else "Data em que o arquivo é gerado/preenchido"),
-                             ("situacao_origem", E.FUTURO), ("destino", {"arquivo": nome_arq, "aba": "Início", "celula": cel, "intervalo_nomeado": nm}),
-                             ("regra_vazio", "Vazio = não informado."), ("validacao", "Texto." if tipo == "texto" else "Data válida."),
-                             ("privacidade", E.PRIV_NENHUM), ("observacoes", "Existe em cada arquivo XLSX.")])
+            d = OrderedDict([("id", cid), ("rotulo", rot), ("tipo", TIPOS[tipo]), ("papel", papel),
+                             ("entrada_ou_calculo", "cálculo" if papel == "calculo" else "entrada"), ("origem_proposta", origem),
+                             ("situacao_origem", sit), ("destino", {"arquivo": nome_arq, "aba": "Config", "celula": cel, "intervalo_nomeado": nm}),
+                             ("regra_vazio", "Vazio = não informado; no cabeçalho aparece \"A definir\"." if papel == "entrada" else "Vazio enquanto não houver revisão."),
+                             ("validacao", "Texto." if tipo == "texto" else "Data válida."), ("privacidade", priv),
+                             ("observacoes", "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor.")])
             celulas.append(d)
             registrar(d)
         listas = OrderedDict((LISTAS[k][0] or k, LISTAS[k][1]) for k in arq.listas)

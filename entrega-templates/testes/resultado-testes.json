@@ -1,5 +1,5 @@
 {
-  "executado_em": "2026-10-23T06:17:47",
+  "executado_em": "2026-10-24T06:29:19",
   "libreoffice": "LibreOffice 24.2.7.2 420(Build:2)",
   "total": 276,
   "falhas": 0,
@@ -114,7 +114,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-01-Controle-Documental.xlsx: nenhuma fórmula proibida (177 fórmulas)",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: nenhuma fórmula proibida (198 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -132,7 +132,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-01-Controle-Documental.xlsx: intervalos nomeados válidos (12)",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: intervalos nomeados válidos (16)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -210,7 +210,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: nenhuma fórmula proibida (177 fórmulas)",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: nenhuma fórmula proibida (198 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -228,7 +228,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: intervalos nomeados válidos (12)",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: intervalos nomeados válidos (16)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -306,7 +306,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma fórmula proibida (1839 fórmulas)",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma fórmula proibida (1854 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -324,7 +324,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: intervalos nomeados válidos (12)",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: intervalos nomeados válidos (18)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -402,7 +402,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma fórmula proibida (1839 fórmulas)",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma fórmula proibida (1854 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -420,7 +420,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: intervalos nomeados válidos (12)",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: intervalos nomeados válidos (18)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -498,7 +498,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma fórmula proibida (101078 fórmulas)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma fórmula proibida (101100 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -516,7 +516,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: intervalos nomeados válidos (31)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: intervalos nomeados válidos (37)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -594,7 +594,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma fórmula proibida (101078 fórmulas)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma fórmula proibida (101100 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -612,7 +612,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: intervalos nomeados válidos (31)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: intervalos nomeados válidos (37)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -690,7 +690,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-05-Ficha-Falha.xlsx: nenhuma fórmula proibida (2001 fórmulas)",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: nenhuma fórmula proibida (2011 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -708,7 +708,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-05-Ficha-Falha.xlsx: intervalos nomeados válidos (4)",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: intervalos nomeados válidos (10)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -786,7 +786,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: nenhuma fórmula proibida (2001 fórmulas)",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: nenhuma fórmula proibida (2011 fórmulas)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -804,7 +804,7 @@
     },
     {
       "grupo": "2 · Estrutura XLSX",
-      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: intervalos nomeados válidos (4)",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: intervalos nomeados válidos (10)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -894,7 +894,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: usa estilos reais de título (Title, Heading 1, Heading 2)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: usa estilos reais de título (Heading 1, Heading 2)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -906,7 +906,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: tabelas com linha de cabeçalho repetida (14 de 15; a grade de identificação não tem cabeçalho)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: tabelas com linha de cabeçalho repetida (15 de 16; a grade de identificação não tem cabeçalho)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -960,7 +960,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: usa estilos reais de título (Title, Heading 1, Heading 2)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: usa estilos reais de título (Heading 1, Heading 2)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -972,7 +972,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: tabelas com linha de cabeçalho repetida (11 de 12; a grade de identificação não tem cabeçalho)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: tabelas com linha de cabeçalho repetida (12 de 13; a grade de identificação não tem cabeçalho)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -1026,7 +1026,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: usa estilos reais de título (Title, Heading 1, Heading 2)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: usa estilos reais de título (Heading 1, Heading 2)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -1038,7 +1038,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: tabelas com linha de cabeçalho repetida (14 de 15; a grade de identificação não tem cabeçalho)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: tabelas com linha de cabeçalho repetida (15 de 16; a grade de identificação não tem cabeçalho)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -1104,7 +1104,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: usa estilos reais de título (Title, Heading 1, Heading 2)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: usa estilos reais de título (Heading 1, Heading 2)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -1116,7 +1116,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: tabelas com linha de cabeçalho repetida (11 de 12; a grade de identificação não tem cabeçalho)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: tabelas com linha de cabeçalho repetida (12 de 13; a grade de identificação não tem cabeçalho)",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -1134,7 +1134,7 @@
     },
     {
       "grupo": "1/9 · DOCX",
-      "verificacao": "logo original (public/icones/icone-512.png) no cabeçalho dos quatro DOCX",
+      "verificacao": "logo do modelo padrão PCM Direto no cabeçalho dos quatro DOCX",
       "resultado": "PASSOU",
       "detalhe": ""
     },
@@ -1392,9 +1392,9 @@
     },
     {
       "grupo": "7 · Segurança e capacidade",
-      "verificacao": "dado abaixo da capacidade de Ativos gera alerta ATENÇÃO (não falha em silêncio)",
+      "verificacao": "dado abaixo da capacidade de Ativos gera alerta ATENÇÃO nas Conferências da aba Config (não falha em silêncio)",
       "resultado": "PASSOU",
-      "detalhe": "ATENÇÃO: há dados além da linha 306; estenda fórmulas e nomes (COMO-USAR)"
+      "detalhe": "ATENÇÃO: há dados além da linha 306; estenda fórmulas e nomes"
     },
     {
       "grupo": "7 · Segurança e capacidade",
@@ -1410,7 +1410,7 @@
     },
     {
       "grupo": "10 · Contrato e estrutura",
-      "verificacao": "PCMD-01-Controle-Documental: mesmas fórmulas nas mesmas células (177)",
+      "verificacao": "PCMD-01-Controle-Documental: mesmas fórmulas nas mesmas células (198)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1422,7 +1422,7 @@
     },
     {
       "grupo": "10 · Contrato e estrutura",
-      "verificacao": "PCMD-02-Ativos-Criticidade: mesmas fórmulas nas mesmas células (1839)",
+      "verificacao": "PCMD-02-Ativos-Criticidade: mesmas fórmulas nas mesmas células (1854)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1434,7 +1434,7 @@
     },
     {
       "grupo": "10 · Contrato e estrutura",
-      "verificacao": "PCMD-03-04-Plano-Cronograma: mesmas fórmulas nas mesmas células (101072)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma: mesmas fórmulas nas mesmas células (101094)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1446,7 +1446,7 @@
     },
     {
       "grupo": "10 · Contrato e estrutura",
-      "verificacao": "PCMD-05-Ficha-Falha: mesmas fórmulas nas mesmas células (2001)",
+      "verificacao": "PCMD-05-Ficha-Falha: mesmas fórmulas nas mesmas células (2011)",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1530,19 +1530,19 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-02-Ativos-Criticidade.pdf: aviso completo em todas as 6 páginas",
+      "verificacao": "PCMD-02-Ativos-Criticidade.pdf: aviso completo em todas as 9 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-02-Ativos-Criticidade.pdf: cabeçalho da tabela repetido em todas as 2 páginas de Ativos",
+      "verificacao": "PCMD-02-Ativos-Criticidade.pdf: cabeçalho da tabela repetido em todas as 4 páginas de Ativos",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.pdf: aviso completo em todas as 6 páginas",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.pdf: aviso completo em todas as 7 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1554,19 +1554,19 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: aviso completo em todas as 11 páginas",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: aviso completo em todas as 15 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 2 páginas de Plano Mestre",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 4 páginas de Plano Mestre",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 1 páginas de Ocorrências",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 2 páginas de Ocorrências",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1578,7 +1578,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: aviso completo em todas as 53 páginas",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: aviso completo em todas as 60 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1590,7 +1590,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 41 páginas de Ocorrências",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 47 páginas de Ocorrências",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1602,7 +1602,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-05-Ficha-Falha.pdf: aviso completo em todas as 2 páginas",
+      "verificacao": "PCMD-05-Ficha-Falha.pdf: aviso completo em todas as 3 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },
@@ -1614,7 +1614,7 @@
     },
     {
       "grupo": "9 · Impressão (PDF do LibreOffice)",
-      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.pdf: aviso completo em todas as 2 páginas",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.pdf: aviso completo em todas as 3 páginas",
       "resultado": "PASSOU",
       "detalhe": "[]"
     },

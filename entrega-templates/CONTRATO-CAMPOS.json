@@ -85,12 +85,12 @@
       "codigo": "PCMD-01",
       "titulo": "Controle documental",
       "abas": [
-        "Início",
         "Lista Mestra",
         "Revisões",
         "Organização",
         "Pessoas",
         "Requisitos",
+        "Config",
         "Listas"
       ],
       "abas_tabela": [
@@ -1048,6 +1048,82 @@
           "observacoes": "Intervalo cad_meta_disponibilidade. Disponibilidade não é calculada."
         },
         {
+          "id": "documento_arquivo.elaborado_por",
+          "rotulo": "Elaborado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem elaborou o arquivo",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+            "aba": "Config",
+            "celula": "C21",
+            "intervalo_nomeado": "cfg_elaborado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.aprovado_por",
+          "rotulo": "Aprovado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem aprovou, só após aprovação efetiva",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+            "aba": "Config",
+            "celula": "C22",
+            "intervalo_nomeado": "cfg_aprovado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.revisao",
+          "rotulo": "Revisão atual",
+          "tipo": "texto",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: Lista Mestra, linha do código PCMD-01",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+            "aba": "Config",
+            "celula": "C23",
+            "intervalo_nomeado": "cfg_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Texto.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.data_revisao",
+          "rotulo": "Data da revisão",
+          "tipo": "data do Excel (número de série)",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: Lista Mestra, linha do código PCMD-01",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+            "aba": "Config",
+            "celula": "C24",
+            "intervalo_nomeado": "cfg_data_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Data válida.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
           "id": "emissao.origem_dados",
           "rotulo": "Origem dos dados",
           "tipo": "texto",
@@ -1057,14 +1133,14 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
-            "aba": "Início",
-            "celula": "C20",
+            "aba": "Config",
+            "celula": "C25",
             "intervalo_nomeado": "pcmd_origem"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Texto.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         },
         {
           "id": "emissao.data",
@@ -1076,14 +1152,14 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
-            "aba": "Início",
-            "celula": "C21",
+            "aba": "Config",
+            "celula": "C26",
             "intervalo_nomeado": "pcmd_emissao"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Data válida.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         }
       ],
       "intervalos_nomeados": [
@@ -1112,6 +1188,22 @@
           "referencia": "'Organização'!$B$8"
         },
         {
+          "nome": "cfg_aprovado",
+          "referencia": "'Config'!$C$22"
+        },
+        {
+          "nome": "cfg_data_revisao",
+          "referencia": "'Config'!$C$24"
+        },
+        {
+          "nome": "cfg_elaborado",
+          "referencia": "'Config'!$C$21"
+        },
+        {
+          "nome": "cfg_revisao",
+          "referencia": "'Config'!$C$23"
+        },
+        {
           "nome": "lst_sim_nao",
           "referencia": "'Listas'!$E$7:$E$8"
         },
@@ -1129,11 +1221,11 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$21"
+          "referencia": "'Config'!$C$26"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$20"
+          "referencia": "'Config'!$C$25"
         }
       ],
       "listas": {
@@ -1164,10 +1256,11 @@
       "codigo": "PCMD-02",
       "titulo": "Ativos e criticidade",
       "abas": [
-        "Início",
         "Ativos",
         "Critérios",
         "Setores",
+        "Revisões",
+        "Config",
         "Listas"
       ],
       "abas_tabela": [
@@ -1805,6 +1898,153 @@
               "observacoes": ""
             }
           ]
+        },
+        {
+          "nome": "Revisões",
+          "codigo": "",
+          "tipo_regiao": "tabela de linhas repetíveis",
+          "linha_cabecalho": 6,
+          "primeira_linha": 7,
+          "ultima_linha_com_formulas": 36,
+          "capacidade_linhas": 30,
+          "protegida_sem_senha": false,
+          "colunas": [
+            {
+              "id": "arquivo.revisao",
+              "rotulo": "Revisão",
+              "tipo": "texto",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+                "aba": "Revisões",
+                "coluna": "A",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "A7:A36",
+                "intervalo_nomeado": "rv_revisao"
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "sem dado pessoal",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.data",
+              "rotulo": "Data",
+              "tipo": "data do Excel (número de série)",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "data dd/mm/aaaa",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+                "aba": "Revisões",
+                "coluna": "B",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "B7:B36",
+                "intervalo_nomeado": "rv_data"
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "date",
+              "validacao_excel": {
+                "type": "date",
+                "operator": "between",
+                "formula1": "1",
+                "formula2": "2958465"
+              },
+              "formula_modelo": null,
+              "privacidade": "sem dado pessoal",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.descricao",
+              "rotulo": "Descrição da alteração",
+              "tipo": "texto",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+                "aba": "Revisões",
+                "coluna": "C",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "C7:C36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "texto livre: pode conter dado pessoal ou da organização; manter local, não publicar",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.revisado_por",
+              "rotulo": "Revisado por",
+              "tipo": "texto",
+              "obrigatorio": "opcional",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+                "aba": "Revisões",
+                "coluna": "D",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "D7:D36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.aprovado_por",
+              "rotulo": "Aprovado por",
+              "tipo": "texto",
+              "obrigatorio": "opcional",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+                "aba": "Revisões",
+                "coluna": "E",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "E7:E36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = aprovação não registrada; nunca presumir.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+              "observacoes": ""
+            }
+          ]
         }
       ],
       "celulas_unicas": [
@@ -1881,6 +2121,82 @@
           "observacoes": "Situação em E13:E17 (cálculo)."
         },
         {
+          "id": "documento_arquivo.elaborado_por",
+          "rotulo": "Elaborado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem elaborou o arquivo",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+            "aba": "Config",
+            "celula": "C20",
+            "intervalo_nomeado": "cfg_elaborado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.aprovado_por",
+          "rotulo": "Aprovado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem aprovou, só após aprovação efetiva",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+            "aba": "Config",
+            "celula": "C21",
+            "intervalo_nomeado": "cfg_aprovado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.revisao",
+          "rotulo": "Revisão atual",
+          "tipo": "texto",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: última linha preenchida da aba Revisões",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+            "aba": "Config",
+            "celula": "C22",
+            "intervalo_nomeado": "cfg_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Texto.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.data_revisao",
+          "rotulo": "Data da revisão",
+          "tipo": "data do Excel (número de série)",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: última linha preenchida da aba Revisões",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+            "aba": "Config",
+            "celula": "C23",
+            "intervalo_nomeado": "cfg_data_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Data válida.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
           "id": "emissao.origem_dados",
           "rotulo": "Origem dos dados",
           "tipo": "texto",
@@ -1890,14 +2206,14 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
-            "aba": "Início",
-            "celula": "C18",
+            "aba": "Config",
+            "celula": "C24",
             "intervalo_nomeado": "pcmd_origem"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Texto.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         },
         {
           "id": "emissao.data",
@@ -1909,14 +2225,14 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
-            "aba": "Início",
-            "celula": "C19",
+            "aba": "Config",
+            "celula": "C25",
             "intervalo_nomeado": "pcmd_emissao"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Data válida.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         }
       ],
       "intervalos_nomeados": [
@@ -1949,6 +2265,22 @@
           "referencia": "'Setores'!$A$7:$A$36"
         },
         {
+          "nome": "cfg_aprovado",
+          "referencia": "'Config'!$C$21"
+        },
+        {
+          "nome": "cfg_data_revisao",
+          "referencia": "'Config'!$C$23"
+        },
+        {
+          "nome": "cfg_elaborado",
+          "referencia": "'Config'!$C$20"
+        },
+        {
+          "nome": "cfg_revisao",
+          "referencia": "'Config'!$C$22"
+        },
+        {
           "nome": "lst_tipo_id",
           "referencia": "'Listas'!$A$7:$A$36"
         },
@@ -1962,11 +2294,19 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$19"
+          "referencia": "'Config'!$C$25"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$18"
+          "referencia": "'Config'!$C$24"
+        },
+        {
+          "nome": "rv_data",
+          "referencia": "'Revisões'!$B$7:$B$36"
+        },
+        {
+          "nome": "rv_revisao",
+          "referencia": "'Revisões'!$A$7:$A$36"
         }
       ],
       "listas": {
@@ -1979,11 +2319,12 @@
       "codigo": "PCMD-03/04",
       "titulo": "Plano mestre e cronograma",
       "abas": [
-        "Início",
         "Plano Mestre",
         "Cronograma",
         "Ocorrências",
         "Execuções",
+        "Revisões",
+        "Config",
         "Listas"
       ],
       "abas_tabela": [
@@ -3575,6 +3916,153 @@
               "observacoes": "Horas estimadas do plano não são horas trabalhadas."
             }
           ]
+        },
+        {
+          "nome": "Revisões",
+          "codigo": "",
+          "tipo_regiao": "tabela de linhas repetíveis",
+          "linha_cabecalho": 6,
+          "primeira_linha": 7,
+          "ultima_linha_com_formulas": 36,
+          "capacidade_linhas": 30,
+          "protegida_sem_senha": false,
+          "colunas": [
+            {
+              "id": "arquivo.revisao",
+              "rotulo": "Revisão",
+              "tipo": "texto",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+                "aba": "Revisões",
+                "coluna": "A",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "A7:A36",
+                "intervalo_nomeado": "rv_revisao"
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "sem dado pessoal",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.data",
+              "rotulo": "Data",
+              "tipo": "data do Excel (número de série)",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "data dd/mm/aaaa",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+                "aba": "Revisões",
+                "coluna": "B",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "B7:B36",
+                "intervalo_nomeado": "rv_data"
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "date",
+              "validacao_excel": {
+                "type": "date",
+                "operator": "between",
+                "formula1": "1",
+                "formula2": "2958465"
+              },
+              "formula_modelo": null,
+              "privacidade": "sem dado pessoal",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.descricao",
+              "rotulo": "Descrição da alteração",
+              "tipo": "texto",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+                "aba": "Revisões",
+                "coluna": "C",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "C7:C36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "texto livre: pode conter dado pessoal ou da organização; manter local, não publicar",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.revisado_por",
+              "rotulo": "Revisado por",
+              "tipo": "texto",
+              "obrigatorio": "opcional",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+                "aba": "Revisões",
+                "coluna": "D",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "D7:D36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.aprovado_por",
+              "rotulo": "Aprovado por",
+              "tipo": "texto",
+              "obrigatorio": "opcional",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+                "aba": "Revisões",
+                "coluna": "E",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "E7:E36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = aprovação não registrada; nunca presumir.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+              "observacoes": ""
+            }
+          ]
         }
       ],
       "celulas_unicas": [
@@ -3651,6 +4139,82 @@
           "observacoes": "Intervalo crono_meta_aderencia."
         },
         {
+          "id": "documento_arquivo.elaborado_por",
+          "rotulo": "Elaborado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem elaborou o arquivo",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+            "aba": "Config",
+            "celula": "C21",
+            "intervalo_nomeado": "cfg_elaborado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.aprovado_por",
+          "rotulo": "Aprovado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem aprovou, só após aprovação efetiva",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+            "aba": "Config",
+            "celula": "C22",
+            "intervalo_nomeado": "cfg_aprovado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.revisao",
+          "rotulo": "Revisão atual",
+          "tipo": "texto",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: última linha preenchida da aba Revisões",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+            "aba": "Config",
+            "celula": "C23",
+            "intervalo_nomeado": "cfg_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Texto.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.data_revisao",
+          "rotulo": "Data da revisão",
+          "tipo": "data do Excel (número de série)",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: última linha preenchida da aba Revisões",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+            "aba": "Config",
+            "celula": "C24",
+            "intervalo_nomeado": "cfg_data_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Data válida.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
           "id": "emissao.origem_dados",
           "rotulo": "Origem dos dados",
           "tipo": "texto",
@@ -3660,14 +4224,14 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
-            "aba": "Início",
-            "celula": "C20",
+            "aba": "Config",
+            "celula": "C25",
             "intervalo_nomeado": "pcmd_origem"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Texto.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         },
         {
           "id": "emissao.data",
@@ -3679,17 +4243,33 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
-            "aba": "Início",
-            "celula": "C21",
+            "aba": "Config",
+            "celula": "C26",
             "intervalo_nomeado": "pcmd_emissao"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Data válida.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         }
       ],
       "intervalos_nomeados": [
+        {
+          "nome": "cfg_aprovado",
+          "referencia": "'Config'!$C$22"
+        },
+        {
+          "nome": "cfg_data_revisao",
+          "referencia": "'Config'!$C$24"
+        },
+        {
+          "nome": "cfg_elaborado",
+          "referencia": "'Config'!$C$21"
+        },
+        {
+          "nome": "cfg_revisao",
+          "referencia": "'Config'!$C$23"
+        },
         {
           "nome": "crono_ano",
           "referencia": "'Cronograma'!$C$7"
@@ -3776,11 +4356,11 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$21"
+          "referencia": "'Config'!$C$26"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$20"
+          "referencia": "'Config'!$C$25"
         },
         {
           "nome": "pl_ativa",
@@ -3813,6 +4393,14 @@
         {
           "nome": "pl_vezes",
           "referencia": "'Plano Mestre'!$K$7:$K$2006"
+        },
+        {
+          "nome": "rv_data",
+          "referencia": "'Revisões'!$B$7:$B$36"
+        },
+        {
+          "nome": "rv_revisao",
+          "referencia": "'Revisões'!$A$7:$A$36"
         }
       ],
       "listas": {
@@ -3865,8 +4453,9 @@
       "codigo": "PCMD-05",
       "titulo": "Ficha de falha",
       "abas": [
-        "Início",
-        "Ficha de Falha"
+        "Ficha de Falha",
+        "Revisões",
+        "Config"
       ],
       "abas_tabela": [
         {
@@ -4236,9 +4825,232 @@
               "observacoes": ""
             }
           ]
+        },
+        {
+          "nome": "Revisões",
+          "codigo": "",
+          "tipo_regiao": "tabela de linhas repetíveis",
+          "linha_cabecalho": 6,
+          "primeira_linha": 7,
+          "ultima_linha_com_formulas": 36,
+          "capacidade_linhas": 30,
+          "protegida_sem_senha": false,
+          "colunas": [
+            {
+              "id": "arquivo.revisao",
+              "rotulo": "Revisão",
+              "tipo": "texto",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+                "aba": "Revisões",
+                "coluna": "A",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "A7:A36",
+                "intervalo_nomeado": "rv_revisao"
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "sem dado pessoal",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.data",
+              "rotulo": "Data",
+              "tipo": "data do Excel (número de série)",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "data dd/mm/aaaa",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+                "aba": "Revisões",
+                "coluna": "B",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "B7:B36",
+                "intervalo_nomeado": "rv_data"
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "date",
+              "validacao_excel": {
+                "type": "date",
+                "operator": "between",
+                "formula1": "1",
+                "formula2": "2958465"
+              },
+              "formula_modelo": null,
+              "privacidade": "sem dado pessoal",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.descricao",
+              "rotulo": "Descrição da alteração",
+              "tipo": "texto",
+              "obrigatorio": "obrigatório",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+                "aba": "Revisões",
+                "coluna": "C",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "C7:C36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "texto livre: pode conter dado pessoal ou da organização; manter local, não publicar",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.revisado_por",
+              "rotulo": "Revisado por",
+              "tipo": "texto",
+              "obrigatorio": "opcional",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+                "aba": "Revisões",
+                "coluna": "D",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "D7:D36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = não informado.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+              "observacoes": ""
+            },
+            {
+              "id": "arquivo.aprovado_por",
+              "rotulo": "Aprovado por",
+              "tipo": "texto",
+              "obrigatorio": "opcional",
+              "formato_unidade": "texto (célula com formato Texto)",
+              "papel": "manual",
+              "entrada_ou_calculo": "entrada",
+              "coluna_oculta": false,
+              "origem_proposta": "Documental",
+              "situacao_origem": "manual",
+              "destino": {
+                "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+                "aba": "Revisões",
+                "coluna": "E",
+                "cabecalho_linha": 6,
+                "intervalo_dados": "E7:E36",
+                "intervalo_nomeado": null
+              },
+              "regra_vazio": "Vazio = aprovação não registrada; nunca presumir.",
+              "validacao": "—",
+              "validacao_excel": null,
+              "formula_modelo": null,
+              "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+              "observacoes": ""
+            }
+          ]
         }
       ],
       "celulas_unicas": [
+        {
+          "id": "documento_arquivo.elaborado_por",
+          "rotulo": "Elaborado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem elaborou o arquivo",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+            "aba": "Config",
+            "celula": "C17",
+            "intervalo_nomeado": "cfg_elaborado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.aprovado_por",
+          "rotulo": "Aprovado por",
+          "tipo": "texto",
+          "papel": "entrada",
+          "entrada_ou_calculo": "entrada",
+          "origem_proposta": "Nome de quem aprovou, só após aprovação efetiva",
+          "situacao_origem": "manual",
+          "destino": {
+            "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+            "aba": "Config",
+            "celula": "C18",
+            "intervalo_nomeado": "cfg_aprovado"
+          },
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
+          "validacao": "Texto.",
+          "privacidade": "dado pessoal mínimo (nome de pessoa); manter local",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.revisao",
+          "rotulo": "Revisão atual",
+          "tipo": "texto",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: última linha preenchida da aba Revisões",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+            "aba": "Config",
+            "celula": "C19",
+            "intervalo_nomeado": "cfg_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Texto.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
+        {
+          "id": "documento_arquivo.data_revisao",
+          "rotulo": "Data da revisão",
+          "tipo": "data do Excel (número de série)",
+          "papel": "calculo",
+          "entrada_ou_calculo": "cálculo",
+          "origem_proposta": "Fórmula: última linha preenchida da aba Revisões",
+          "situacao_origem": "calculo",
+          "destino": {
+            "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+            "aba": "Config",
+            "celula": "C20",
+            "intervalo_nomeado": "cfg_data_revisao"
+          },
+          "regra_vazio": "Vazio enquanto não houver revisão.",
+          "validacao": "Data válida.",
+          "privacidade": "sem dado pessoal",
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
+        },
         {
           "id": "emissao.origem_dados",
           "rotulo": "Origem dos dados",
@@ -4249,14 +5061,14 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
-            "aba": "Início",
-            "celula": "C15",
+            "aba": "Config",
+            "celula": "C21",
             "intervalo_nomeado": "pcmd_origem"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Texto.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         },
         {
           "id": "emissao.data",
@@ -4268,17 +5080,33 @@
           "situacao_origem": "futuro",
           "destino": {
             "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
-            "aba": "Início",
-            "celula": "C16",
+            "aba": "Config",
+            "celula": "C22",
             "intervalo_nomeado": "pcmd_emissao"
           },
-          "regra_vazio": "Vazio = não informado.",
+          "regra_vazio": "Vazio = não informado; no cabeçalho aparece \"A definir\".",
           "validacao": "Data válida.",
           "privacidade": "sem dado pessoal",
-          "observacoes": "Existe em cada arquivo XLSX."
+          "observacoes": "Existe em cada arquivo XLSX; o cabeçalho de todas as abas lê este valor."
         }
       ],
       "intervalos_nomeados": [
+        {
+          "nome": "cfg_aprovado",
+          "referencia": "'Config'!$C$18"
+        },
+        {
+          "nome": "cfg_data_revisao",
+          "referencia": "'Config'!$C$20"
+        },
+        {
+          "nome": "cfg_elaborado",
+          "referencia": "'Config'!$C$17"
+        },
+        {
+          "nome": "cfg_revisao",
+          "referencia": "'Config'!$C$19"
+        },
         {
           "nome": "fa_id",
           "referencia": "'Ficha de Falha'!$A$7:$A$1006"
@@ -4289,11 +5117,19 @@
         },
         {
           "nome": "pcmd_emissao",
-          "referencia": "'Início'!$C$16"
+          "referencia": "'Config'!$C$22"
         },
         {
           "nome": "pcmd_origem",
-          "referencia": "'Início'!$C$15"
+          "referencia": "'Config'!$C$21"
+        },
+        {
+          "nome": "rv_data",
+          "referencia": "'Revisões'!$B$7:$B$36"
+        },
+        {
+          "nome": "rv_revisao",
+          "referencia": "'Revisões'!$A$7:$A$36"
         }
       ],
       "listas": {}
@@ -4304,26 +5140,12 @@
       "titulo": "Manual de Gestão de Ativos",
       "marcadores": [
         {
-          "marcador": "{{organizacao.nome}}",
-          "id": "organizacao.nome",
-          "descricao": "Nome da organização",
-          "tipo": "texto",
-          "locais": [
-            "cabeçalho",
-            "célula de tabela (identificação)",
-            "parágrafo"
-          ],
-          "origem_proposta": "gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
-          "situacao_origem": "ramo",
-          "regra_vazio": "Vazio → 'A definir'."
-        },
-        {
           "marcador": "{{documento.revisao}}",
           "id": "documento.revisao",
           "descricao": "Revisão do documento",
           "tipo": "texto",
           "locais": [
-            "célula de tabela (identificação)",
+            "cabeçalho",
             "rodapé"
           ],
           "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
@@ -4331,25 +5153,12 @@
           "regra_vazio": "Vazio → 'A definir'."
         },
         {
-          "marcador": "{{organizacao.referencial}}",
-          "id": "organizacao.referencial",
-          "descricao": "Referencial adotado",
-          "tipo": "texto",
-          "locais": [
-            "célula de tabela (identificação)",
-            "parágrafo"
-          ],
-          "origem_proposta": "gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
-          "situacao_origem": "ramo",
-          "regra_vazio": "Padrão 'GERAL (sem norma)'."
-        },
-        {
           "marcador": "{{documento.data}}",
           "id": "documento.data",
           "descricao": "Data da revisão (dd/mm/aaaa)",
           "tipo": "data do Excel (número de série)",
           "locais": [
-            "célula de tabela (identificação)"
+            "cabeçalho"
           ],
           "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
           "situacao_origem": "manual",
@@ -4361,8 +5170,8 @@
           "descricao": "Nome do elaborador",
           "tipo": "texto",
           "locais": [
-            "célula de tabela",
-            "célula de tabela (identificação)"
+            "cabeçalho",
+            "célula de tabela"
           ],
           "origem_proposta": "nome de gestao.pessoas[] com id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
           "situacao_origem": "ramo",
@@ -4374,61 +5183,37 @@
           "descricao": "Nome do aprovador",
           "tipo": "texto",
           "locais": [
-            "célula de tabela",
-            "célula de tabela (identificação)"
+            "cabeçalho",
+            "célula de tabela"
           ],
           "origem_proposta": "nome de gestao.pessoas[] com id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
           "situacao_origem": "ramo",
           "regra_vazio": "Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação."
         },
         {
-          "marcador": "{{documento.proxima_revisao}}",
-          "id": "documento.proxima_revisao",
-          "descricao": "Próxima revisão (dd/mm/aaaa)",
-          "tipo": "data do Excel (número de série)",
+          "marcador": "{{organizacao.nome}}",
+          "id": "organizacao.nome",
+          "descricao": "Nome da organização",
+          "tipo": "texto",
           "locais": [
-            "célula de tabela (identificação)",
+            "cabeçalho",
             "parágrafo"
           ],
-          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
-          "situacao_origem": "manual",
+          "origem_proposta": "gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
+          "situacao_origem": "ramo",
           "regra_vazio": "Vazio → 'A definir'."
         },
         {
-          "marcador": "{{documento.situacao}}",
-          "id": "documento.situacao",
-          "descricao": "Situação do documento",
+          "marcador": "{{organizacao.referencial}}",
+          "id": "organizacao.referencial",
+          "descricao": "Referencial adotado",
           "tipo": "texto",
           "locais": [
-            "célula de tabela (identificação)"
+            "parágrafo"
           ],
-          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
-          "situacao_origem": "manual",
-          "regra_vazio": "Vazio → 'Em elaboração'."
-        },
-        {
-          "marcador": "{{origem.dados}}",
-          "id": "origem.dados",
-          "descricao": "Origem dos dados",
-          "tipo": "texto",
-          "locais": [
-            "célula de tabela (identificação)"
-          ],
-          "origem_proposta": "Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa)",
-          "situacao_origem": "futuro",
-          "regra_vazio": "Vazio → 'Não informada'."
-        },
-        {
-          "marcador": "{{emissao.data}}",
-          "id": "emissao.data",
-          "descricao": "Data de emissão do arquivo (dd/mm/aaaa)",
-          "tipo": "data do Excel (número de série)",
-          "locais": [
-            "célula de tabela (identificação)"
-          ],
-          "origem_proposta": "Data em que o adaptador gera o arquivo",
-          "situacao_origem": "futuro",
-          "regra_vazio": "Vazio → 'A definir'."
+          "origem_proposta": "gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
+          "situacao_origem": "ramo",
+          "regra_vazio": "Padrão 'GERAL (sem norma)'."
         },
         {
           "marcador": "{{criticidade.limite_a}}",
@@ -4465,9 +5250,74 @@
           "origem_proposta": "gestao.metas.disponibilidade — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
           "situacao_origem": "ramo",
           "regra_vazio": "null → 'A definir'."
+        },
+        {
+          "marcador": "{{documento.situacao}}",
+          "id": "documento.situacao",
+          "descricao": "Situação do documento",
+          "tipo": "texto",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
+          "situacao_origem": "manual",
+          "regra_vazio": "Vazio → 'Em elaboração'."
+        },
+        {
+          "marcador": "{{documento.proxima_revisao}}",
+          "id": "documento.proxima_revisao",
+          "descricao": "Próxima revisão (dd/mm/aaaa)",
+          "tipo": "data do Excel (número de série)",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
+          "situacao_origem": "manual",
+          "regra_vazio": "Vazio → 'A definir'."
+        },
+        {
+          "marcador": "{{origem.dados}}",
+          "id": "origem.dados",
+          "descricao": "Origem dos dados",
+          "tipo": "texto",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa)",
+          "situacao_origem": "futuro",
+          "regra_vazio": "Vazio → 'Não informada'."
+        },
+        {
+          "marcador": "{{emissao.data}}",
+          "id": "emissao.data",
+          "descricao": "Data de emissão do arquivo (dd/mm/aaaa)",
+          "tipo": "data do Excel (número de série)",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "Data em que o adaptador gera o arquivo",
+          "situacao_origem": "futuro",
+          "regra_vazio": "Vazio → 'A definir'."
         }
       ],
       "regioes_repetiveis": [
+        {
+          "regiao": "requisitos",
+          "descricao": "Requisitos e referências",
+          "tabela_indice_no_corpo": 0,
+          "linha_cabecalho": 0,
+          "linha_modelo": 1,
+          "marcadores_da_linha": [
+            "{{requisito.referencia}}",
+            "{{requisito.versao}}",
+            "{{requisito.data}}",
+            "{{requisito.fonte}}",
+            "{{requisito.status}}"
+          ],
+          "origem_proposta": "gestao.requisitos[] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
+          "situacao_origem": "ramo",
+          "regra": "Repetir a linha modelo uma vez por registro; sem registros, escrever 'Nenhum registro' na primeira célula."
+        },
         {
           "regiao": "pessoas",
           "descricao": "Pessoas e funções",
@@ -4499,26 +5349,9 @@
           "regra": "Repetir a linha modelo uma vez por registro; sem registros, escrever 'Nenhum registro' na primeira célula."
         },
         {
-          "regiao": "requisitos",
-          "descricao": "Requisitos e referências",
-          "tabela_indice_no_corpo": 9,
-          "linha_cabecalho": 0,
-          "linha_modelo": 1,
-          "marcadores_da_linha": [
-            "{{requisito.referencia}}",
-            "{{requisito.versao}}",
-            "{{requisito.data}}",
-            "{{requisito.fonte}}",
-            "{{requisito.status}}"
-          ],
-          "origem_proposta": "gestao.requisitos[] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
-          "situacao_origem": "ramo",
-          "regra": "Repetir a linha modelo uma vez por registro; sem registros, escrever 'Nenhum registro' na primeira célula."
-        },
-        {
           "regiao": "revisoes",
           "descricao": "Histórico de revisão do documento",
-          "tabela_indice_no_corpo": 13,
+          "tabela_indice_no_corpo": 14,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4534,7 +5367,7 @@
         {
           "regiao": "ativos",
           "descricao": "Ativos e criticidade",
-          "tabela_indice_no_corpo": 14,
+          "tabela_indice_no_corpo": 15,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4562,26 +5395,12 @@
       "titulo": "Manual de Estratégia de Manutenção",
       "marcadores": [
         {
-          "marcador": "{{organizacao.nome}}",
-          "id": "organizacao.nome",
-          "descricao": "Nome da organização",
-          "tipo": "texto",
-          "locais": [
-            "cabeçalho",
-            "célula de tabela (identificação)",
-            "parágrafo"
-          ],
-          "origem_proposta": "gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
-          "situacao_origem": "ramo",
-          "regra_vazio": "Vazio → 'A definir'."
-        },
-        {
           "marcador": "{{documento.revisao}}",
           "id": "documento.revisao",
           "descricao": "Revisão do documento",
           "tipo": "texto",
           "locais": [
-            "célula de tabela (identificação)",
+            "cabeçalho",
             "rodapé"
           ],
           "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
@@ -4589,25 +5408,12 @@
           "regra_vazio": "Vazio → 'A definir'."
         },
         {
-          "marcador": "{{organizacao.referencial}}",
-          "id": "organizacao.referencial",
-          "descricao": "Referencial adotado",
-          "tipo": "texto",
-          "locais": [
-            "célula de tabela (identificação)",
-            "parágrafo"
-          ],
-          "origem_proposta": "gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
-          "situacao_origem": "ramo",
-          "regra_vazio": "Padrão 'GERAL (sem norma)'."
-        },
-        {
           "marcador": "{{documento.data}}",
           "id": "documento.data",
           "descricao": "Data da revisão (dd/mm/aaaa)",
           "tipo": "data do Excel (número de série)",
           "locais": [
-            "célula de tabela (identificação)"
+            "cabeçalho"
           ],
           "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
           "situacao_origem": "manual",
@@ -4619,8 +5425,8 @@
           "descricao": "Nome do elaborador",
           "tipo": "texto",
           "locais": [
-            "célula de tabela",
-            "célula de tabela (identificação)"
+            "cabeçalho",
+            "célula de tabela"
           ],
           "origem_proposta": "nome de gestao.pessoas[] com id = gestao.organizacao.elaborador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
           "situacao_origem": "ramo",
@@ -4632,60 +5438,37 @@
           "descricao": "Nome do aprovador",
           "tipo": "texto",
           "locais": [
-            "célula de tabela",
-            "célula de tabela (identificação)"
+            "cabeçalho",
+            "célula de tabela"
           ],
           "origem_proposta": "nome de gestao.pessoas[] com id = gestao.organizacao.aprovador — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
           "situacao_origem": "ramo",
           "regra_vazio": "Vazio → 'A definir (aprovação não registrada)'. Nunca presumir aprovação."
         },
         {
-          "marcador": "{{documento.proxima_revisao}}",
-          "id": "documento.proxima_revisao",
-          "descricao": "Próxima revisão (dd/mm/aaaa)",
-          "tipo": "data do Excel (número de série)",
+          "marcador": "{{organizacao.nome}}",
+          "id": "organizacao.nome",
+          "descricao": "Nome da organização",
+          "tipo": "texto",
           "locais": [
-            "célula de tabela (identificação)"
+            "cabeçalho",
+            "parágrafo"
           ],
-          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
-          "situacao_origem": "manual",
+          "origem_proposta": "gestao.organizacao.nome — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
+          "situacao_origem": "ramo",
           "regra_vazio": "Vazio → 'A definir'."
         },
         {
-          "marcador": "{{documento.situacao}}",
-          "id": "documento.situacao",
-          "descricao": "Situação do documento",
+          "marcador": "{{organizacao.referencial}}",
+          "id": "organizacao.referencial",
+          "descricao": "Referencial adotado",
           "tipo": "texto",
           "locais": [
-            "célula de tabela (identificação)"
+            "parágrafo"
           ],
-          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
-          "situacao_origem": "manual",
-          "regra_vazio": "Vazio → 'Em elaboração'."
-        },
-        {
-          "marcador": "{{origem.dados}}",
-          "id": "origem.dados",
-          "descricao": "Origem dos dados",
-          "tipo": "texto",
-          "locais": [
-            "célula de tabela (identificação)"
-          ],
-          "origem_proposta": "Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa)",
-          "situacao_origem": "futuro",
-          "regra_vazio": "Vazio → 'Não informada'."
-        },
-        {
-          "marcador": "{{emissao.data}}",
-          "id": "emissao.data",
-          "descricao": "Data de emissão do arquivo (dd/mm/aaaa)",
-          "tipo": "data do Excel (número de série)",
-          "locais": [
-            "célula de tabela (identificação)"
-          ],
-          "origem_proposta": "Data em que o adaptador gera o arquivo",
-          "situacao_origem": "futuro",
-          "regra_vazio": "Vazio → 'A definir'."
+          "origem_proposta": "gestao.organizacao.referencial — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
+          "situacao_origem": "ramo",
+          "regra_vazio": "Padrão 'GERAL (sem norma)'."
         },
         {
           "marcador": "{{estrategia.responsavel}}",
@@ -4843,9 +5626,74 @@
           "origem_proposta": "gestao.metas.disponibilidade — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
           "situacao_origem": "ramo",
           "regra_vazio": "null → 'A definir'."
+        },
+        {
+          "marcador": "{{documento.situacao}}",
+          "id": "documento.situacao",
+          "descricao": "Situação do documento",
+          "tipo": "texto",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
+          "situacao_origem": "manual",
+          "regra_vazio": "Vazio → 'Em elaboração'."
+        },
+        {
+          "marcador": "{{documento.proxima_revisao}}",
+          "id": "documento.proxima_revisao",
+          "descricao": "Próxima revisão (dd/mm/aaaa)",
+          "tipo": "data do Excel (número de série)",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "PCMD-01, aba Lista Mestra (manual)",
+          "situacao_origem": "manual",
+          "regra_vazio": "Vazio → 'A definir'."
+        },
+        {
+          "marcador": "{{origem.dados}}",
+          "id": "origem.dados",
+          "descricao": "Origem dos dados",
+          "tipo": "texto",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "Texto curto do adaptador (ex.: PCM Direto, backup local de dd/mm/aaaa)",
+          "situacao_origem": "futuro",
+          "regra_vazio": "Vazio → 'Não informada'."
+        },
+        {
+          "marcador": "{{emissao.data}}",
+          "id": "emissao.data",
+          "descricao": "Data de emissão do arquivo (dd/mm/aaaa)",
+          "tipo": "data do Excel (número de série)",
+          "locais": [
+            "célula de tabela (identificação)"
+          ],
+          "origem_proposta": "Data em que o adaptador gera o arquivo",
+          "situacao_origem": "futuro",
+          "regra_vazio": "Vazio → 'A definir'."
         }
       ],
       "regioes_repetiveis": [
+        {
+          "regiao": "requisitos",
+          "descricao": "Requisitos e referências",
+          "tabela_indice_no_corpo": 0,
+          "linha_cabecalho": 0,
+          "linha_modelo": 1,
+          "marcadores_da_linha": [
+            "{{requisito.referencia}}",
+            "{{requisito.versao}}",
+            "{{requisito.data}}",
+            "{{requisito.fonte}}",
+            "{{requisito.status}}"
+          ],
+          "origem_proposta": "gestao.requisitos[] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
+          "situacao_origem": "ramo",
+          "regra": "Repetir a linha modelo uma vez por registro; sem registros, escrever 'Nenhum registro' na primeira célula."
+        },
         {
           "regiao": "pessoas",
           "descricao": "Pessoas e funções",
@@ -4863,26 +5711,9 @@
           "regra": "Repetir a linha modelo uma vez por registro; sem registros, escrever 'Nenhum registro' na primeira célula."
         },
         {
-          "regiao": "requisitos",
-          "descricao": "Requisitos e referências",
-          "tabela_indice_no_corpo": 8,
-          "linha_cabecalho": 0,
-          "linha_modelo": 1,
-          "marcadores_da_linha": [
-            "{{requisito.referencia}}",
-            "{{requisito.versao}}",
-            "{{requisito.data}}",
-            "{{requisito.fonte}}",
-            "{{requisito.status}}"
-          ],
-          "origem_proposta": "gestao.requisitos[] — ramo interface/cadastros-operacao-sem-templates (commit 81ec337), ainda não integrado na main",
-          "situacao_origem": "ramo",
-          "regra": "Repetir a linha modelo uma vez por registro; sem registros, escrever 'Nenhum registro' na primeira célula."
-        },
-        {
           "regiao": "revisoes",
           "descricao": "Histórico de revisão do documento",
-          "tabela_indice_no_corpo": 10,
+          "tabela_indice_no_corpo": 11,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -4898,7 +5729,7 @@
         {
           "regiao": "tarefas",
           "descricao": "Plano mestre (resumo)",
-          "tabela_indice_no_corpo": 11,
+          "tabela_indice_no_corpo": 12,
           "linha_cabecalho": 0,
           "linha_modelo": 1,
           "marcadores_da_linha": [
@@ -5252,55 +6083,159 @@
         "celula": "B12"
       }
     ],
+    "documento_arquivo.elaborado_por": [
+      {
+        "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+        "aba": "Config",
+        "celula": "C21",
+        "intervalo_nomeado": "cfg_elaborado"
+      },
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Config",
+        "celula": "C20",
+        "intervalo_nomeado": "cfg_elaborado"
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Config",
+        "celula": "C21",
+        "intervalo_nomeado": "cfg_elaborado"
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Config",
+        "celula": "C17",
+        "intervalo_nomeado": "cfg_elaborado"
+      }
+    ],
+    "documento_arquivo.aprovado_por": [
+      {
+        "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+        "aba": "Config",
+        "celula": "C22",
+        "intervalo_nomeado": "cfg_aprovado"
+      },
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Config",
+        "celula": "C21",
+        "intervalo_nomeado": "cfg_aprovado"
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Config",
+        "celula": "C22",
+        "intervalo_nomeado": "cfg_aprovado"
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Config",
+        "celula": "C18",
+        "intervalo_nomeado": "cfg_aprovado"
+      }
+    ],
+    "documento_arquivo.revisao": [
+      {
+        "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+        "aba": "Config",
+        "celula": "C23",
+        "intervalo_nomeado": "cfg_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Config",
+        "celula": "C22",
+        "intervalo_nomeado": "cfg_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Config",
+        "celula": "C23",
+        "intervalo_nomeado": "cfg_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Config",
+        "celula": "C19",
+        "intervalo_nomeado": "cfg_revisao"
+      }
+    ],
+    "documento_arquivo.data_revisao": [
+      {
+        "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
+        "aba": "Config",
+        "celula": "C24",
+        "intervalo_nomeado": "cfg_data_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Config",
+        "celula": "C23",
+        "intervalo_nomeado": "cfg_data_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Config",
+        "celula": "C24",
+        "intervalo_nomeado": "cfg_data_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Config",
+        "celula": "C20",
+        "intervalo_nomeado": "cfg_data_revisao"
+      }
+    ],
     "emissao.origem_dados": [
       {
         "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
-        "aba": "Início",
-        "celula": "C20",
+        "aba": "Config",
+        "celula": "C25",
         "intervalo_nomeado": "pcmd_origem"
       },
       {
         "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
-        "aba": "Início",
-        "celula": "C18",
+        "aba": "Config",
+        "celula": "C24",
         "intervalo_nomeado": "pcmd_origem"
       },
       {
         "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
-        "aba": "Início",
-        "celula": "C20",
+        "aba": "Config",
+        "celula": "C25",
         "intervalo_nomeado": "pcmd_origem"
       },
       {
         "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
-        "aba": "Início",
-        "celula": "C15",
+        "aba": "Config",
+        "celula": "C21",
         "intervalo_nomeado": "pcmd_origem"
       }
     ],
     "emissao.data": [
       {
         "arquivo": "planilhas/PCMD-01-Controle-Documental.xlsx",
-        "aba": "Início",
-        "celula": "C21",
+        "aba": "Config",
+        "celula": "C26",
         "intervalo_nomeado": "pcmd_emissao"
       },
       {
         "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
-        "aba": "Início",
-        "celula": "C19",
+        "aba": "Config",
+        "celula": "C25",
         "intervalo_nomeado": "pcmd_emissao"
       },
       {
         "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
-        "aba": "Início",
-        "celula": "C21",
+        "aba": "Config",
+        "celula": "C26",
         "intervalo_nomeado": "pcmd_emissao"
       },
       {
         "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
-        "aba": "Início",
-        "celula": "C16",
+        "aba": "Config",
+        "celula": "C22",
         "intervalo_nomeado": "pcmd_emissao"
       }
     ],
@@ -5521,6 +6456,136 @@
         "coluna": "C",
         "cabecalho_linha": 6,
         "intervalo_dados": "C7:C36",
+        "intervalo_nomeado": null
+      }
+    ],
+    "arquivo.revisao": [
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Revisões",
+        "coluna": "A",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "A7:A36",
+        "intervalo_nomeado": "rv_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Revisões",
+        "coluna": "A",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "A7:A36",
+        "intervalo_nomeado": "rv_revisao"
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Revisões",
+        "coluna": "A",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "A7:A36",
+        "intervalo_nomeado": "rv_revisao"
+      }
+    ],
+    "arquivo.data": [
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Revisões",
+        "coluna": "B",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "B7:B36",
+        "intervalo_nomeado": "rv_data"
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Revisões",
+        "coluna": "B",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "B7:B36",
+        "intervalo_nomeado": "rv_data"
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Revisões",
+        "coluna": "B",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "B7:B36",
+        "intervalo_nomeado": "rv_data"
+      }
+    ],
+    "arquivo.descricao": [
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Revisões",
+        "coluna": "C",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "C7:C36",
+        "intervalo_nomeado": null
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Revisões",
+        "coluna": "C",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "C7:C36",
+        "intervalo_nomeado": null
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Revisões",
+        "coluna": "C",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "C7:C36",
+        "intervalo_nomeado": null
+      }
+    ],
+    "arquivo.revisado_por": [
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Revisões",
+        "coluna": "D",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "D7:D36",
+        "intervalo_nomeado": null
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Revisões",
+        "coluna": "D",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "D7:D36",
+        "intervalo_nomeado": null
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Revisões",
+        "coluna": "D",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "D7:D36",
+        "intervalo_nomeado": null
+      }
+    ],
+    "arquivo.aprovado_por": [
+      {
+        "arquivo": "planilhas/PCMD-02-Ativos-Criticidade.xlsx",
+        "aba": "Revisões",
+        "coluna": "E",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "E7:E36",
+        "intervalo_nomeado": null
+      },
+      {
+        "arquivo": "planilhas/PCMD-03-04-Plano-Cronograma.xlsx",
+        "aba": "Revisões",
+        "coluna": "E",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "E7:E36",
+        "intervalo_nomeado": null
+      },
+      {
+        "arquivo": "planilhas/PCMD-05-Ficha-Falha.xlsx",
+        "aba": "Revisões",
+        "coluna": "E",
+        "cabecalho_linha": 6,
+        "intervalo_dados": "E7:E36",
         "intervalo_nomeado": null
       }
     ],
@@ -6280,53 +7345,19 @@
         "intervalo_nomeado": null
       }
     ],
-    "docx:organizacao.nome": [
-      {
-        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
-        "locais": [
-          "cabeçalho",
-          "célula de tabela (identificação)",
-          "parágrafo"
-        ]
-      },
-      {
-        "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
-        "locais": [
-          "cabeçalho",
-          "célula de tabela (identificação)",
-          "parágrafo"
-        ]
-      }
-    ],
     "docx:documento.revisao": [
       {
         "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
         "locais": [
-          "célula de tabela (identificação)",
+          "cabeçalho",
           "rodapé"
         ]
       },
       {
         "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
         "locais": [
-          "célula de tabela (identificação)",
+          "cabeçalho",
           "rodapé"
-        ]
-      }
-    ],
-    "docx:organizacao.referencial": [
-      {
-        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
-        "locais": [
-          "célula de tabela (identificação)",
-          "parágrafo"
-        ]
-      },
-      {
-        "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
-        "locais": [
-          "célula de tabela (identificação)",
-          "parágrafo"
         ]
       }
     ],
@@ -6334,13 +7365,13 @@
       {
         "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
         "locais": [
-          "célula de tabela (identificação)"
+          "cabeçalho"
         ]
       },
       {
         "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
         "locais": [
-          "célula de tabela (identificação)"
+          "cabeçalho"
         ]
       }
     ],
@@ -6348,15 +7379,15 @@
       {
         "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
         "locais": [
-          "célula de tabela",
-          "célula de tabela (identificação)"
+          "cabeçalho",
+          "célula de tabela"
         ]
       },
       {
         "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
         "locais": [
-          "célula de tabela",
-          "célula de tabela (identificação)"
+          "cabeçalho",
+          "célula de tabela"
         ]
       }
     ],
@@ -6364,34 +7395,93 @@
       {
         "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
         "locais": [
-          "célula de tabela",
-          "célula de tabela (identificação)"
+          "cabeçalho",
+          "célula de tabela"
         ]
       },
       {
         "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
         "locais": [
-          "célula de tabela",
-          "célula de tabela (identificação)"
+          "cabeçalho",
+          "célula de tabela"
         ]
       }
     ],
-    "docx:documento.proxima_revisao": [
+    "docx:organizacao.nome": [
       {
         "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
         "locais": [
-          "célula de tabela (identificação)",
+          "cabeçalho",
           "parágrafo"
         ]
       },
       {
         "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
         "locais": [
-          "célula de tabela (identificação)"
+          "cabeçalho",
+          "parágrafo"
+        ]
+      }
+    ],
+    "docx:organizacao.referencial": [
+      {
+        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
+        "locais": [
+          "parágrafo"
+        ]
+      },
+      {
+        "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
+        "locais": [
+          "parágrafo"
+        ]
+      }
+    ],
+    "docx:criticidade.limite_a": [
+      {
+        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
+        "locais": [
+          "célula de tabela"
+        ]
+      }
+    ],
+    "docx:criticidade.limite_b": [
+      {
+        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
+        "locais": [
+          "célula de tabela"
+        ]
+      }
+    ],
+    "docx:metas.disponibilidade": [
+      {
+        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
+        "locais": [
+          "célula de tabela"
+        ]
+      },
+      {
+        "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
+        "locais": [
+          "célula de tabela"
         ]
       }
     ],
     "docx:documento.situacao": [
+      {
+        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
+        "locais": [
+          "célula de tabela (identificação)"
+        ]
+      },
+      {
+        "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
+        "locais": [
+          "célula de tabela (identificação)"
+        ]
+      }
+    ],
+    "docx:documento.proxima_revisao": [
       {
         "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
         "locais": [
@@ -6430,36 +7520,6 @@
         "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
         "locais": [
           "célula de tabela (identificação)"
-        ]
-      }
-    ],
-    "docx:criticidade.limite_a": [
-      {
-        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
-        "locais": [
-          "célula de tabela"
-        ]
-      }
-    ],
-    "docx:criticidade.limite_b": [
-      {
-        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
-        "locais": [
-          "célula de tabela"
-        ]
-      }
-    ],
-    "docx:metas.disponibilidade": [
-      {
-        "arquivo": "manuais/PCMD-W1-Manual-Gestao-Ativos.docx",
-        "locais": [
-          "célula de tabela"
-        ]
-      },
-      {
-        "arquivo": "manuais/PCMD-W2-Manual-Estrategia-Manutencao.docx",
-        "locais": [
-          "célula de tabela"
         ]
       }
     ],

@@ -315,8 +315,10 @@ def cenario_texto_capacidade():
     obtidos = [valor(wbv, X, "execucao.observacao", 7 + k) for k in range(len(perigosos))]
     check(g3, "textos iniciados por =, +, - e @ continuam texto após recálculo no LibreOffice", obtidos == perigosos, obtidos)
     g7 = "7 · Segurança e capacidade"
-    alerta = next((c.value for c in wbav[A.nome][4] if isinstance(c.value, str) and c.value.startswith(("ATENÇÃO", "Linhas"))), None)
-    check(g7, "dado abaixo da capacidade de Ativos gera alerta ATENÇÃO (não falha em silêncio)", str(alerta).startswith("ATENÇÃO"), alerta)
+    linha = next((r for r in reversed(list(wbav["Config"].iter_rows())) if r[0].value == A.nome), None)  # a última é a das Conferências
+    alerta = linha[3].value if linha else None
+    check(g7, "dado abaixo da capacidade de Ativos gera alerta ATENÇÃO nas Conferências da aba Config (não falha em silêncio)",
+          str(alerta).startswith("ATENÇÃO"), alerta)
     c = wbv["Cronograma"].cell(E.CRONO["conf_cab"] + 3, 3).value
     check(g7, "dado abaixo da capacidade de Ocorrências gera alerta no PCMD-04 Cronograma", str(c).startswith("ATENÇÃO"), c)
 
@@ -472,7 +474,7 @@ def verificar_docx():
         campos = set(re.findall(r'w:instr="\s*([A-Z]+)', xml)) | set(re.findall(r"<w:instrText[^>]*>\s*([A-Z]+)", xml))
         check(g, f"{caminho.name}: apenas campos PAGE e NUMPAGES (sem LINK/INCLUDE)", campos <= {"PAGE", "NUMPAGES"}, campos)
         estilos = {p.style.name for p in doc.paragraphs}
-        check(g, f"{caminho.name}: usa estilos reais de título (Title, Heading 1, Heading 2)", {"Title", "Heading 1", "Heading 2"} <= estilos)
+        check(g, f"{caminho.name}: usa estilos reais de título (Heading 1, Heading 2)", {"Heading 1", "Heading 2"} <= estilos)
         secs = doc.sections
         orient = {str(s.orientation) for s in secs}
         rodape_ok = AVISO in "\n".join(p.text for p in secs[0].footer.paragraphs) and all(s.footer.is_linked_to_previous for s in secs[1:])
@@ -485,7 +487,7 @@ def verificar_docx():
             check(g, f"{caminho.name}: nenhum marcador restante no exemplo", "{{" not in xml)
             check(g, f"{caminho.name}: aprovação não declarada", "aprovação não registrada" in xml)
     tem_logo = all("word/media/" in "".join(zipfile.ZipFile(c).namelist()) for c in DOCX.values())
-    check(g, "logo original (public/icones/icone-512.png) no cabeçalho dos quatro DOCX", tem_logo)
+    check(g, "logo do modelo padrão PCM Direto no cabeçalho dos quatro DOCX", tem_logo)
 
 
 # ------------------------------------------------------------------ PDF (9)
