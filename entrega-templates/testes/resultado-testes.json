@@ -1,0 +1,1664 @@
+{
+  "executado_em": "2026-10-24T06:51:10",
+  "libreoffice": "LibreOffice 24.2.7.2 420(Build:2)",
+  "total": 276,
+  "falhas": 0,
+  "resultados": [
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1 · Abertura",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: aberto pelo LibreOffice headless (RepairPackage desligado)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: nenhuma fórmula proibida (198 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: intervalos nomeados válidos (16)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: nenhuma fórmula proibida (198 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: intervalos nomeados válidos (16)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma fórmula proibida (1858 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: intervalos nomeados válidos (18)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma fórmula proibida (1858 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: intervalos nomeados válidos (18)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma fórmula proibida (101104 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: intervalos nomeados válidos (37)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma fórmula proibida (101104 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: intervalos nomeados válidos (37)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: nenhuma fórmula proibida (2011 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: intervalos nomeados válidos (10)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: nenhuma fórmula proibida (2011 fórmulas)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: sem fórmula de matriz dinâmica/CSE",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: nomes de abas válidos (≤31, sem []:*?/\\)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: intervalos nomeados válidos (10)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: validações sem referência direta a outra aba",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: rodapé com aviso completo e ≤255 caracteres em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: cabeçalho com título em texto simples (sem código colado) e sem linha de aviso na área da planilha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: nenhuma fórmula aponta para outro arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: recálculo completo ao abrir (fullCalcOnLoad)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura XLSX",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.xlsx: A4 e área de impressão em todas as abas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: abre no python-docx",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: apenas campos PAGE e NUMPAGES (sem LINK/INCLUDE)",
+      "resultado": "PASSOU",
+      "detalhe": "{'PAGE', 'NUMPAGES'}"
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: usa estilos reais de título (Heading 1, Heading 2)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: aviso no rodapé da 1ª seção e demais seções vinculadas (2 seções, orientações ['LANDSCAPE (1)', 'PORTRAIT (0)'])",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: tabelas com linha de cabeçalho repetida (15 de 16; a grade de identificação não tem cabeçalho)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: abre no python-docx",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: apenas campos PAGE e NUMPAGES (sem LINK/INCLUDE)",
+      "resultado": "PASSOU",
+      "detalhe": "{'PAGE', 'NUMPAGES'}"
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: usa estilos reais de título (Heading 1, Heading 2)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: aviso no rodapé da 1ª seção e demais seções vinculadas (2 seções, orientações ['LANDSCAPE (1)', 'PORTRAIT (0)'])",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: tabelas com linha de cabeçalho repetida (12 de 13; a grade de identificação não tem cabeçalho)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: abre no python-docx",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: apenas campos PAGE e NUMPAGES (sem LINK/INCLUDE)",
+      "resultado": "PASSOU",
+      "detalhe": "{'PAGE', 'NUMPAGES'}"
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: usa estilos reais de título (Heading 1, Heading 2)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: aviso no rodapé da 1ª seção e demais seções vinculadas (2 seções, orientações ['LANDSCAPE (1)', 'PORTRAIT (0)'])",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: tabelas com linha de cabeçalho repetida (15 de 16; a grade de identificação não tem cabeçalho)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: nenhum marcador restante no exemplo",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.docx: aprovação não declarada",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: ZIP íntegro (testzip)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: sem macro (vbaProject.bin)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: sem vínculos externos (externalLinks)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: sem conexões de dados",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: nenhuma relação TargetMode=External",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "2 · Estrutura DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: tipo de conteúdo sem macroEnabled",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: abre no python-docx",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: apenas campos PAGE e NUMPAGES (sem LINK/INCLUDE)",
+      "resultado": "PASSOU",
+      "detalhe": "{'PAGE', 'NUMPAGES'}"
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: usa estilos reais de título (Heading 1, Heading 2)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: aviso no rodapé da 1ª seção e demais seções vinculadas (2 seções, orientações ['LANDSCAPE (1)', 'PORTRAIT (0)'])",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: tabelas com linha de cabeçalho repetida (12 de 13; a grade de identificação não tem cabeçalho)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: nenhum marcador restante no exemplo",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.docx: aprovação não declarada",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "1/9 · DOCX",
+      "verificacao": "logo do modelo padrão PCM Direto no cabeçalho dos quatro DOCX",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "3 · Tipos de dados",
+      "verificacao": "datas são datas reais do Excel com formato dd/mm/aaaa (Execuções e Ocorrências)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "3 · Tipos de dados",
+      "verificacao": "horas são números decimais (Plano Mestre)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "3 · Tipos de dados",
+      "verificacao": "horas de parada: 1,5 / vazio / 0 preservados (vazio não virou zero)",
+      "resultado": "PASSOU",
+      "detalhe": "[1.5, None, 0]"
+    },
+    {
+      "grupo": "3 · Tipos de dados",
+      "verificacao": "textos perigosos do exemplo gravados como texto, não como fórmula",
+      "resultado": "PASSOU",
+      "detalhe": "['=SOMA(A1:A2) texto de teste, não é fórmula', '+ observação fictícia iniciada por sinal', '- observação fictícia iniciada por hífen', '@ observação fictícia iniciada por arroba']"
+    },
+    {
+      "grupo": "3 · Tipos de dados",
+      "verificacao": "IDs técnicos intactos (execuções e ativos iguais aos dados de origem)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "12 meses: previstas, concluídas, % e horas iguais a resumoMensal() do app",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "fora do ano igual ao app (previstas)",
+      "resultado": "PASSOU",
+      "detalhe": "{'Antes do ano': 133, 'Depois do ano': 0}"
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "sem vínculo no ano igual ao app",
+      "resultado": "PASSOU",
+      "detalhe": "[1, 0, 1]"
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "Total do ano (previstas) igual à soma dos meses do app",
+      "resultado": "PASSOU",
+      "detalhe": "(628, 628)"
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "criticidade do exemplo igual a criticidadeAtivo() do app",
+      "resultado": "PASSOU",
+      "detalhe": "({'eq-demo-001': (11, 'B'), 'eq-demo-002': (6, 'C'), 'eq-demo-003': (None, 'Pendente'), 'eq-demo-004': (7, 'A')}, {'eq-demo-001': (11, 'B'), 'eq-demo-002': (6, 'C'), 'eq-demo-003': (None, 'Pendente'), 'eq-demo-004': (7, 'A')})"
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "nenhum erro de fórmula (#VALOR!, #N/D, Err:) nos quatro exemplos recalculados",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "8 · Recálculo do exemplo comparado com a lógica do app",
+      "verificacao": "plano do exemplo sem ERRO de segurança",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [1, 1, 1, 1, 1] → C",
+      "resultado": "PASSOU",
+      "detalhe": "classe=C pontuação=5"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [1, 2, 2, 2, 2] → B",
+      "resultado": "PASSOU",
+      "detalhe": "classe=B pontuação=9"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [2, 2, 2, 3, 3] → A",
+      "resultado": "PASSOU",
+      "detalhe": "classe=A pontuação=12"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [3, 1, 1, 1, 1] → A",
+      "resultado": "PASSOU",
+      "detalhe": "classe=A pontuação=7"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [2, 2, None, 2, 2] → Pendente",
+      "resultado": "PASSOU",
+      "detalhe": "classe=Pendente pontuação=None"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [4, 1, 1, 1, 1] → Pendente",
+      "resultado": "PASSOU",
+      "detalhe": "classe=Pendente pontuação=None"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [2, 2, 2, 2, 2] → B",
+      "resultado": "PASSOU",
+      "detalhe": "classe=B pontuação=10"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limites 12/9: notas [2.5, 2, 2, 2, 2] → Pendente",
+      "resultado": "PASSOU",
+      "detalhe": "classe=Pendente pontuação=None"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "nota 4 sinalizada como inválida na orientação",
+      "resultado": "PASSOU",
+      "detalhe": "Pendente: nota inválida (use inteiro de 1 a 3)"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "linha vazia não mostra classe",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "limite B ≥ A (12/12) → todas Pendente e aviso em Critérios",
+      "resultado": "PASSOU",
+      "detalhe": "(['Pendente', 'Pendente', 'Pendente', 'Pendente', 'Pendente', 'Pendente', 'Pendente', 'Pendente'], 'ERRO: Inválidos; use inteiros com 5 ≤ B < A ≤ 15 (classes ficam Pendente)')"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "alterar limites válidos (A=10, B=8) recalcula as classes",
+      "resultado": "PASSOU",
+      "detalhe": "{'a1': 'C', 'a2': 'B', 'a3': 'A', 'a4': 'A', 'a7': 'A'}"
+    },
+    {
+      "grupo": "4 · Criticidade (LibreOffice recalculado)",
+      "verificacao": "validação de dados da nota: inteiro de 1 a 3 com mensagem de erro (recusa 4 ao digitar)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "duas previstas e uma concluída → 50%",
+      "resultado": "PASSOU",
+      "detalhe": "(2, 1, 0.5, 2)"
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "mês sem previsão (março) mostra 'Sem previsão'",
+      "resultado": "PASSOU",
+      "detalhe": "(0, 0, 'Sem previsão', 0)"
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "duplicar a execução da ocorrência concluída continua 50%",
+      "resultado": "PASSOU",
+      "detalhe": "(2, 1, 0.5, 2)"
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "cancelar todas as execuções vinculadas → 0%",
+      "resultado": "PASSOU",
+      "detalhe": "(2, 0, 0, 2)"
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "canceladas continuam no histórico e aparecem no quadro separado",
+      "resultado": "PASSOU",
+      "detalhe": "[0, 0, 2]"
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "legado sem vínculo não aumenta o percentual e aparece separado",
+      "resultado": "PASSOU",
+      "detalhe": "((2, 1, 0.5, 2), [1, 0, 0])"
+    },
+    {
+      "grupo": "5 · Ocorrências e percentual (LibreOffice recalculado)",
+      "verificacao": "executar em outro mês conta no mês previsto (jan 1/2, fev 0/5)",
+      "resultado": "PASSOU",
+      "detalhe": "((2, 1, 0.5, 2), (5, 0, 0, 1.25))"
+    },
+    {
+      "grupo": "6 · Ano, diária, histórico e vazios",
+      "verificacao": "passagem de ano: previsões de 2025 e 2027 ficam fora do ano (1 antes, 1 depois)",
+      "resultado": "PASSOU",
+      "detalhe": "{'Antes do ano': 1, 'Depois do ano': 1}"
+    },
+    {
+      "grupo": "6 · Ano, diária, histórico e vazios",
+      "verificacao": "diária: 5 dias úteis = 5 ocorrências e 1,25 h (sem multiplicar por 5 de novo)",
+      "resultado": "PASSOU",
+      "detalhe": "(5, 0, 0, 1.25)"
+    },
+    {
+      "grupo": "6 · Ano, diária, histórico e vazios",
+      "verificacao": "ativo/tarefa removidos do plano: histórico preservado com TAG e aviso",
+      "resultado": "PASSOU",
+      "detalhe": "Fora do plano: histórico preservado"
+    },
+    {
+      "grupo": "6 · Ano, diária, histórico e vazios",
+      "verificacao": "horas de parada vazias ≠ zero (Não informado × Informado 0)",
+      "resultado": "PASSOU",
+      "detalhe": "('Não informado', None, 'Informado', 0)"
+    },
+    {
+      "grupo": "6 · Ano, diária, histórico e vazios",
+      "verificacao": "ausência de meta mostra 'A definir' (nenhuma meta inventada)",
+      "resultado": "PASSOU",
+      "detalhe": "('A definir', 'A definir')"
+    },
+    {
+      "grupo": "7 · Segurança e capacidade",
+      "verificacao": "segurança com intervalo ampliado (Mensal→Trimestral) → ERRO visível",
+      "resultado": "PASSOU",
+      "detalhe": "ERRO: intervalo ampliado em tarefa de segurança (referência Mensal)"
+    },
+    {
+      "grupo": "7 · Segurança e capacidade",
+      "verificacao": "segurança com frequência aumentada (Mensal→Semanal) → OK",
+      "resultado": "PASSOU",
+      "detalhe": "OK: segurança mantida"
+    },
+    {
+      "grupo": "7 · Segurança e capacidade",
+      "verificacao": "segurança retirada do plano (Ativa = Não) → ERRO visível",
+      "resultado": "PASSOU",
+      "detalhe": "ERRO: tarefa de segurança retirada do plano"
+    },
+    {
+      "grupo": "7 · Segurança e capacidade",
+      "verificacao": "referência técnica do plano protegida (aba protegida, colunas REFERÊNCIA bloqueadas, sem senha)",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "3 · Tipos de dados",
+      "verificacao": "textos iniciados por =, +, - e @ continuam texto após recálculo no LibreOffice",
+      "resultado": "PASSOU",
+      "detalhe": "['=1+1', '+55 texto', '-texto', '@texto', '=SOMA(A1:A2)']"
+    },
+    {
+      "grupo": "7 · Segurança e capacidade",
+      "verificacao": "dado abaixo da capacidade de Ativos gera alerta ATENÇÃO nas Conferências da aba Config (não falha em silêncio)",
+      "resultado": "PASSOU",
+      "detalhe": "ATENÇÃO: há dados além da linha 306; estenda fórmulas e nomes"
+    },
+    {
+      "grupo": "7 · Segurança e capacidade",
+      "verificacao": "dado abaixo da capacidade de Ocorrências gera alerta no PCMD-04 Cronograma",
+      "resultado": "PASSOU",
+      "detalhe": "ATENÇÃO: há linhas fora das fórmulas"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-01-Controle-Documental: modelo e exemplo com a mesma estrutura (abas, nomes, cabeçalhos, validações)",
+      "resultado": "PASSOU",
+      "detalhe": "['abas', 'nomes', 'cab', 'dv']"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-01-Controle-Documental: mesmas fórmulas nas mesmas células (198)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-02-Ativos-Criticidade: modelo e exemplo com a mesma estrutura (abas, nomes, cabeçalhos, validações)",
+      "resultado": "PASSOU",
+      "detalhe": "['abas', 'nomes', 'cab', 'dv']"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-02-Ativos-Criticidade: mesmas fórmulas nas mesmas células (1858)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-03-04-Plano-Cronograma: modelo e exemplo com a mesma estrutura (abas, nomes, cabeçalhos, validações)",
+      "resultado": "PASSOU",
+      "detalhe": "['abas', 'nomes', 'cab', 'dv']"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-03-04-Plano-Cronograma: mesmas fórmulas nas mesmas células (101098)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-05-Ficha-Falha: modelo e exemplo com a mesma estrutura (abas, nomes, cabeçalhos, validações)",
+      "resultado": "PASSOU",
+      "detalhe": "['abas', 'nomes', 'cab', 'dv']"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-05-Ficha-Falha: mesmas fórmulas nas mesmas células (2011)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "CONTRATO-CAMPOS.json é JSON válido, versão 1",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "contrato descreve os quatro arquivos XLSX",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "contrato cobre todas as colunas de todas as tabelas XLSX (rótulo e posição conferidos)",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "contrato lista todos os intervalos nomeados de cada arquivo",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "cada campo do contrato tem identificador, rótulo, tipo, obrigatoriedade, formato, origem, destino, vazio, validação, papel e privacidade",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: marcadores do arquivo = marcadores do contrato (39)",
+      "resultado": "PASSOU",
+      "detalhe": "set()"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: nenhum marcador dividido entre trechos de texto",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.docx: marcadores em parágrafo, célula, cabeçalho e rodapé documentados",
+      "resultado": "PASSOU",
+      "detalhe": "['cabeçalho', 'célula de tabela', 'célula de tabela (identificação)', 'parágrafo', 'rodapé']"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: marcadores do arquivo = marcadores do contrato (45)",
+      "resultado": "PASSOU",
+      "detalhe": "set()"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: nenhum marcador dividido entre trechos de texto",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "10 · Contrato e estrutura",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.docx: marcadores em parágrafo, célula, cabeçalho e rodapé documentados",
+      "resultado": "PASSOU",
+      "detalhe": "['cabeçalho', 'célula de tabela', 'célula de tabela (identificação)', 'parágrafo', 'rodapé']"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-01-Controle-Documental.pdf: aviso completo em todas as 7 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-01-Controle-Documental-Exemplo.pdf: aviso completo em todas as 7 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-02-Ativos-Criticidade.pdf: aviso completo em todas as 9 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-02-Ativos-Criticidade.pdf: cabeçalho da tabela repetido em todas as 4 páginas de Ativos",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.pdf: aviso completo em todas as 7 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-02-Ativos-Criticidade-Exemplo.pdf: cabeçalho da tabela repetido em todas as 2 páginas de Ativos",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: aviso completo em todas as 14 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 4 páginas de Plano Mestre",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 1 páginas de Ocorrências",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma.pdf: cabeçalho da tabela repetido em todas as 4 páginas de Execuções",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: aviso completo em todas as 57 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 6 páginas de Plano Mestre",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 44 páginas de Ocorrências",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-03-04-Plano-Cronograma-Exemplo.pdf: cabeçalho da tabela repetido em todas as 2 páginas de Execuções",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-05-Ficha-Falha.pdf: aviso completo em todas as 3 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-05-Ficha-Falha.pdf: cabeçalho da tabela repetido em todas as 1 páginas de Ficha de Falha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.pdf: aviso completo em todas as 3 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-05-Ficha-Falha-Exemplo.pdf: cabeçalho da tabela repetido em todas as 1 páginas de Ficha de Falha",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.pdf: aviso completo em todas as 5 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos.pdf: marcadores visíveis no corpo, no cabeçalho e no rodapé impressos",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.pdf: aviso completo em todas as 5 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao.pdf: marcadores visíveis no corpo, no cabeçalho e no rodapé impressos",
+      "resultado": "PASSOU",
+      "detalhe": ""
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-W1-Manual-Gestao-Ativos-Exemplo.pdf: aviso completo em todas as 5 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    },
+    {
+      "grupo": "9 · Impressão (PDF do LibreOffice)",
+      "verificacao": "PCMD-W2-Manual-Estrategia-Manutencao-Exemplo.pdf: aviso completo em todas as 8 páginas",
+      "resultado": "PASSOU",
+      "detalhe": "[]"
+    }
+  ]
+}
