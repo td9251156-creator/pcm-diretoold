@@ -5,6 +5,6 @@
   "description": "Ferramenta isolada para conferir o PCM Direto no navegador.",
   "license": "MIT",
   "dependencies": {
-    "playwright": "1.64.1"
+    "playwright": "1.65.0"
   }
 }
