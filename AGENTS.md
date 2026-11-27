@@ -1,3 +1,7 @@
+# Política de segurança vigente — repositório antigo
+
+Este repositório é legado. Não execute agentes automáticos, IA por API, OpenCode ou Claude Code. Não consuma créditos, leia ou envie credenciais, dados pessoais ou backups. Somente revisão humana ou tarefa explícita com Codex/ChatGPT, sem integração ou publicação automática. A revisão semanal e os testes comuns não usam IA. As regras históricas abaixo não autorizam execução autônoma. Não exclua o repositório sem confirmação específica.
+
 # Instruções para agentes do PCM Direto
 
 O PCM Direto gera plano de manutenção, cronograma, planilha e documento em português.
